@@ -10,6 +10,11 @@
 
     <!--Description-->
     
+        <meta name="description" content="数据库信息储存工具你知道有哪些？磁盘、软盘、U盘
+随着计算机软、硬件的高速发展，在20实际60年代，数据库技术应运而生；并在70年代得到迅速发展和广泛引用。
+数据  Data数据库 Database ：数据库管理系统 DBMS ：位于用户操作系统之间的一层数据管理软件
+DBMS用途：科学地组织和存储">
+    
 
     <!--Author-->
     
@@ -135,17 +140,14 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">你好</h1>
-        
     </div>
 </header>
 
         <section class="main">
             
-                
 <div class="post">
 
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
             <a href="/2020/01/17/数据库基本操作1.13/">
                 Untitled
@@ -160,9 +162,13 @@
         </div>
     </div>
 
-    
-        <div class="content">
-            <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h4 id="信息储存工具你知道有哪些？"><a href="#信息储存工具你知道有哪些？" class="headerlink" title="信息储存工具你知道有哪些？"></a>信息储存工具你知道有哪些？</h4><p>磁盘、软盘、U盘</p>
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h4 id="信息储存工具你知道有哪些？"><a href="#信息储存工具你知道有哪些？" class="headerlink" title="信息储存工具你知道有哪些？"></a>信息储存工具你知道有哪些？</h4><p>磁盘、软盘、U盘</p>
 <p>随着计算机软、硬件的高速发展，在20实际60年代，数据库技术应运而生；并在70年代得到迅速发展和广泛引用。</p>
 <h5 id="数据-Data"><a href="#数据-Data" class="headerlink" title="数据  Data"></a>数据  Data</h5><h5 id="数据库-Database-："><a href="#数据库-Database-：" class="headerlink" title="数据库 Database ："></a>数据库 Database ：</h5><h5 id="数据库管理系统-DBMS-："><a href="#数据库管理系统-DBMS-：" class="headerlink" title="数据库管理系统 DBMS ："></a>数据库管理系统 DBMS ：</h5><p>位于用户操作系统之间的一层数据管理软件</p>
 <h5 id="DBMS用途："><a href="#DBMS用途：" class="headerlink" title="DBMS用途："></a>DBMS用途：</h5><p>科学地组织和存储数据、高效地获取和维护数据</p>
@@ -269,180 +275,20 @@
 <p>datetime所能存储的时间范围为：’1000-01-01 00:00:00.000000’ 到 ‘9999-12-31 23:59:59.999999’。</p>
 <h4 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h4><h4 id="MySQL忘记密码怎么办"><a href="#MySQL忘记密码怎么办" class="headerlink" title="MySQL忘记密码怎么办"></a>MySQL忘记密码怎么办</h4><p> <a href="https://www.cnblogs.com/zhoubaojian/articles/7866292.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhoubaojian/articles/7866292.html</a> </p>
 
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/01/17/EIGRP/">
-                Untitled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-01-17</span>
-            
-            
-            
-        </div>
     </div>
 
     
-        <div class="content">
-            <h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
-<p>AD：下一跳到目标</p>
-<p>AF:  本地到目标</p>
-<p>后继者：最低FD称为最优</p>
-<p>可行后继者：AD必须小于后继的FD最优</p>
-<p>metric值的计算方v值：</p>
-<p>metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10）</p>
-<p>V*S FD(后继者) &gt; FS FD （可行性后继者）      取整</p>
-<p>检验 EIGRP 配置</p>
-<p>sh ip route eigrp 查看完整eigrp信息</p>
-<p>sh ip eigrp neighbors 查看邻居表</p>
-<p>sh ip eigrp topology   查看拓扑表</p>
-<p>原理</p>
-<p>  组播地址224.0.0.10，首先hello包建立邻居表，然后根据可靠传输协议建立拓扑表，贼根据拓扑表中的每条路径中的FD，AD，选择最优路径，建立路由表</p>
-<h2 id="rip配置"><a href="#rip配置" class="headerlink" title="rip配置"></a>rip配置</h2><p>R2(config)#router eigrp 1</p>
-<p>R2(config-router)#network 192.168.10.0 0.0.0.255</p>
-<p>R2(config-router)#network 192.168.40.0 0.0.0.255</p>
-<p>R2(config-router)#int f0/0</p>
-<p>R2(config-if)#ip add 192.168.10.1 255.255.255.0</p>
-<p>R2(config-if)#no shutdown</p>
-<p>R2(config-if)#int s1/0</p>
-<p>R2(config-if)#ip add 192.168.40.1 255.255.255.0</p>
-<p>R2(config-if)#no shutdown</p>
-<p>R3(config)#router eigrp 1</p>
-<p>R3(config-router)#network 192.168.10.0 0.0.0.255</p>
-<p>R3(config-router)#network 192.168.20.0 0.0.0.255</p>
-<p>R3(config-router)#int f0/0</p>
-<p>R3(config-if)#ip add 192.168.10.2 255.255.255.0</p>
-<p>R3(config-if)#no shutdown</p>
-<p>R3(config-if)#int f0/1</p>
-<p>R3(config-if)#ip add 192.168.20.2 255.255.255.0</p>
-<p>R3(config-if)#no shutdown</p>
-<p>R4(config)#router eigrp 1</p>
-<p>R4(config-router)#network 192.168.20.0 0.0.0.255</p>
-<p>R4(config-router)#network 192.168.30.0 0.0.0.255</p>
-<p>R4(config-router)#int f0/1</p>
-<p>R4(config-if)#ip add 192.168.20.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config-if)#int f0/0</p>
-<p>R4(config-if)#ip add 192.168.30.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config)#router eigrp 1</p>
-<p>R4(config-router)#network 172.16.1.0 0.0.0.255</p>
-<p>R4(config)#int loopback 1</p>
-<p>R4(config-if)#ip add 172.16.1.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config)#int loopback 2</p>
-<p>R4(config-if)#ip add 172.16.1.2 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R1(config)#router eigrp 1</p>
-<p>R1(config-router)#network 192.168.30.0 0.0.0.255</p>
-<p>R1(config-router)#network 192.168.40.0 0.0.0.255</p>
-<p>R1(config-router)#int f0/0</p>
-<p>R1(config-if)#ip add 192.168.30.2 255.255.255.0</p>
-<p>R1(config-if)#no shutdown</p>
-<p>R1(config-if)#int s1/0</p>
-<p>R1(config-if)#ip add 192.168.40.2 255.255.255.0</p>
-<p>R1(config-if)#no shutdown</p>
-<h2 id="实验一、EIGRP-负载均衡"><a href="#实验一、EIGRP-负载均衡" class="headerlink" title="实验一、EIGRP 负载均衡"></a>实验一、EIGRP 负载均衡</h2><p>R2(config)#router eigrp 1 建立eigrp为1的规则集</p>
-<p>R2(config-router)#variance 7   V 计算V值</p>
-<h2 id="实验二、EIGRP-MD5身份验证"><a href="#实验二、EIGRP-MD5身份验证" class="headerlink" title="实验二、EIGRP MD5身份验证"></a>实验二、EIGRP MD5身份验证</h2><p>R2(config)#key chain uu 钥匙名称</p>
-<p>R2(config-keychain)#key 3 钥匙ID</p>
-<p>R2(config-keychain-key)#key-string 12345 钥匙密码</p>
-<p>R2(config)#int f0/0</p>
-<p>R2(config-if)#ip authentication mode eigrp 3 md5 加密方式</p>
-<p>R2(config-if)#ip authentication key-chain eigrp 3 uu </p>
-<h2 id="实验三、-EIGRP-路由汇总"><a href="#实验三、-EIGRP-路由汇总" class="headerlink" title="实验三、 EIGRP 路由汇总"></a>实验三、 EIGRP 路由汇总</h2><p>ip summary-address eigrp 100 172.16.0.0 255.255.0.0</p>
-<p>配置被动接口：passive-interface Loo</p>
-<p>passive-interface不接收不发送，passive是只接收不发送</p>
 
-        </div>
+    
+
+    <!-- Comments -->
     
 
 </div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2019/12/03/hello-world/">
-                Untitled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-12-03</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <hr>
-<h2 id="title-你好呀！！！！！！！"><a href="#title-你好呀！！！！！！！" class="headerlink" title="title:你好呀！！！！！！！"></a>title:你好呀！！！！！！！</h2><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2019/09/07/CVE-2019-0708/">
-                漏洞复现
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-09-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
-        </div>
-        <a href="/2019/09/07/CVE-2019-0708/" class="read-more">Read More</a>
-    
-
-</div>
-            
         </section>
+
     </div>
 </div>
-
-
-
-
 
 
 </div>
