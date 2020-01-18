@@ -10,13 +10,39 @@
 
     <!--Description-->
     
-        <meta name="description" content="高级距离矢量路由协议 EIGRPeigrp维护表：邻居表、拓扑表、路由表
+        <meta name="description" content="EIGRP
+高级距离矢量路由协议 EIGRPeigrp维护表：邻居表、拓扑表、路由表
 AD：下一跳到目标
 AF:  本地到目标
 后继者：最低FD称为最优
 可行后继者：AD必须小于后继的FD最优
 metric值的计算方v值：
-metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10">
+metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10）
+V*S FD(后继者) &amp;gt; FS FD （可行性后继者）      取整
+检验 EIGRP 配置
+sh ip route eigrp 查看完整eigrp信息
+sh ip eigrp neighbors 查看邻居表
+sh ip eigrp topology   查看拓扑表
+原理
+  组播地址224.0.0.10，首先hello包建立邻居表，然后根据可靠传输协议建立拓扑表，贼根据拓扑表中的每条路径中的FD，AD，选择最优路径，建立路由表
+rip配置R2(config)#router eigrp 1
+R2(config-router)#network 192.168.10.0 0.0.0.255
+R2(config-router)#network 192.168.40.0 0.0.0.255
+R2(config-router)#int f0/0
+R2(config-if)#ip add 192.168.10.1 255.255.255.0
+R2(config-if)#no shutdown
+R2(config-if)#int s1/0
+R2(config-if)#ip add 192.168.40.1 255.255.255.0
+R2(config-if)#no shutdown
+R3(config)#router eigrp 1
+R3(config-router)#network 192.168.10.0 0.0.0.255
+R3(config-router)#network 192.168.20.0 0.0.0.255
+R3(config-router)#int f0/0
+R3(config-if)#ip add 192.168.10.2 255.255.255.0
+R3(config-if)#no shutdown
+R3(config-if)#int f0/1
+R3(config-if)#ip add 192.168.20.2 255.255.255.0
+R3(config-if)#no shutdown">
     
 
     <!--Author-->
@@ -171,7 +197,9 @@ metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之�
         
 
         <!-- Post Content -->
-        <h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
+        <hr>
+<h2 id="EIGRP"><a href="#EIGRP" class="headerlink" title="EIGRP"></a>EIGRP</h2><hr>
+<h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
 <p>AD：下一跳到目标</p>
 <p>AF:  本地到目标</p>
 <p>后继者：最低FD称为最优</p>
@@ -203,6 +231,8 @@ metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之�
 <p>R3(config-if)#int f0/1</p>
 <p>R3(config-if)#ip add 192.168.20.2 255.255.255.0</p>
 <p>R3(config-if)#no shutdown</p>
+<a id="more"></a>
+
 <p>R4(config)#router eigrp 1</p>
 <p>R4(config-router)#network 192.168.20.0 0.0.0.255</p>
 <p>R4(config-router)#network 192.168.30.0 0.0.0.255</p>

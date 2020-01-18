@@ -296,7 +296,9 @@
 
     
         <div class="content">
-            <h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
+            <hr>
+<h2 id="EIGRP"><a href="#EIGRP" class="headerlink" title="EIGRP"></a>EIGRP</h2><hr>
+<h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
 <p>AD：下一跳到目标</p>
 <p>AF:  本地到目标</p>
 <p>后继者：最低FD称为最优</p>
@@ -328,45 +330,8 @@
 <p>R3(config-if)#int f0/1</p>
 <p>R3(config-if)#ip add 192.168.20.2 255.255.255.0</p>
 <p>R3(config-if)#no shutdown</p>
-<p>R4(config)#router eigrp 1</p>
-<p>R4(config-router)#network 192.168.20.0 0.0.0.255</p>
-<p>R4(config-router)#network 192.168.30.0 0.0.0.255</p>
-<p>R4(config-router)#int f0/1</p>
-<p>R4(config-if)#ip add 192.168.20.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config-if)#int f0/0</p>
-<p>R4(config-if)#ip add 192.168.30.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config)#router eigrp 1</p>
-<p>R4(config-router)#network 172.16.1.0 0.0.0.255</p>
-<p>R4(config)#int loopback 1</p>
-<p>R4(config-if)#ip add 172.16.1.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config)#int loopback 2</p>
-<p>R4(config-if)#ip add 172.16.1.2 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R1(config)#router eigrp 1</p>
-<p>R1(config-router)#network 192.168.30.0 0.0.0.255</p>
-<p>R1(config-router)#network 192.168.40.0 0.0.0.255</p>
-<p>R1(config-router)#int f0/0</p>
-<p>R1(config-if)#ip add 192.168.30.2 255.255.255.0</p>
-<p>R1(config-if)#no shutdown</p>
-<p>R1(config-if)#int s1/0</p>
-<p>R1(config-if)#ip add 192.168.40.2 255.255.255.0</p>
-<p>R1(config-if)#no shutdown</p>
-<h2 id="实验一、EIGRP-负载均衡"><a href="#实验一、EIGRP-负载均衡" class="headerlink" title="实验一、EIGRP 负载均衡"></a>实验一、EIGRP 负载均衡</h2><p>R2(config)#router eigrp 1 建立eigrp为1的规则集</p>
-<p>R2(config-router)#variance 7   V 计算V值</p>
-<h2 id="实验二、EIGRP-MD5身份验证"><a href="#实验二、EIGRP-MD5身份验证" class="headerlink" title="实验二、EIGRP MD5身份验证"></a>实验二、EIGRP MD5身份验证</h2><p>R2(config)#key chain uu 钥匙名称</p>
-<p>R2(config-keychain)#key 3 钥匙ID</p>
-<p>R2(config-keychain-key)#key-string 12345 钥匙密码</p>
-<p>R2(config)#int f0/0</p>
-<p>R2(config-if)#ip authentication mode eigrp 3 md5 加密方式</p>
-<p>R2(config-if)#ip authentication key-chain eigrp 3 uu </p>
-<h2 id="实验三、-EIGRP-路由汇总"><a href="#实验三、-EIGRP-路由汇总" class="headerlink" title="实验三、 EIGRP 路由汇总"></a>实验三、 EIGRP 路由汇总</h2><p>ip summary-address eigrp 100 172.16.0.0 255.255.0.0</p>
-<p>配置被动接口：passive-interface Loo</p>
-<p>passive-interface不接收不发送，passive是只接收不发送</p>
-
         </div>
+        <a href="/2020/01/17/EIGRP/" class="read-more">Read More</a>
     
 
 </div>
