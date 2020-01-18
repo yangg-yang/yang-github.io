@@ -235,34 +235,10 @@ R3(config-if)#no shutdown">
 <p>R3(config-if)#no shutdown</p>
 <a id="more"></a>
 
-<p>R4(config)#router eigrp 1</p>
-<p>R4(config-router)#network 192.168.20.0 0.0.0.255</p>
-<p>R4(config-router)#network 192.168.30.0 0.0.0.255</p>
-<p>R4(config-router)#int f0/1</p>
-<p>R4(config-if)#ip add 192.168.20.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config-if)#int f0/0</p>
-<p>R4(config-if)#ip add 192.168.30.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config)#router eigrp 1</p>
-<p>R4(config-router)#network 172.16.1.0 0.0.0.255</p>
-<p>R4(config)#int loopback 1</p>
-<p>R4(config-if)#ip add 172.16.1.1 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R4(config)#int loopback 2</p>
-<p>R4(config-if)#ip add 172.16.1.2 255.255.255.0</p>
-<p>R4(config-if)#no shutdown</p>
-<p>R1(config)#router eigrp 1</p>
-<p>R1(config-router)#network 192.168.30.0 0.0.0.255</p>
-<p>R1(config-router)#network 192.168.40.0 0.0.0.255</p>
-<p>R1(config-router)#int f0/0</p>
-<p>R1(config-if)#ip add 192.168.30.2 255.255.255.0</p>
-<p>R1(config-if)#no shutdown</p>
-<p>R1(config-if)#int s1/0</p>
-<p>R1(config-if)#ip add 192.168.40.2 255.255.255.0</p>
-<p>R1(config-if)#no shutdown</p>
-<h2 id="实验一、EIGRP-负载均衡"><a href="#实验一、EIGRP-负载均衡" class="headerlink" title="实验一、EIGRP 负载均衡"></a>实验一、EIGRP 负载均衡</h2><p>R2(config)#router eigrp 1 建立eigrp为1的规则集</p>
-<p>R2(config-router)#variance 7   V 计算V值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">R4(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 192.168.20.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 192.168.30.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config-router)#int f0/1</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 192.168.20.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config-if)#int f0/0</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 192.168.30.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 172.16.1.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config)#int loopback 1</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 172.16.1.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config)#int loopback 2</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 172.16.1.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">R1(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R1(config-router)#network 192.168.30.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R1(config-router)#network 192.168.40.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R1(config-router)#int f0/0</span><br><span class="line"></span><br><span class="line">R1(config-if)#ip add 192.168.30.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R1(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R1(config-if)#int s1/0</span><br><span class="line"></span><br><span class="line">R1(config-if)#ip add 192.168.40.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R1(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 实验一、EIGRP 负载均衡</span><br><span class="line"></span><br><span class="line">R2(config)#router eigrp 1 建立eigrp为1的规则集</span><br><span class="line"></span><br><span class="line">R2(config-router)#variance 7   V 计算V值</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="实验二、EIGRP-MD5身份验证"><a href="#实验二、EIGRP-MD5身份验证" class="headerlink" title="实验二、EIGRP MD5身份验证"></a>实验二、EIGRP MD5身份验证</h2><p>R2(config)#key chain uu 钥匙名称</p>
 <p>R2(config-keychain)#key 3 钥匙ID</p>
 <p>R2(config-keychain-key)#key-string 12345 钥匙密码</p>
