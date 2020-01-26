@@ -10,9 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="title: 你好呀！！！！！！！date: 2019-09-07 11:51:44modified:  2019-09-07 11:51:44
-title:
-Welcome to Hexo! This is your very first post. Check documentation for">
+        <meta name="description" content="CVE _2019-1-3">
     
 
     <!--Author-->
@@ -22,7 +20,7 @@ Welcome to Hexo! This is your very first post. Check documentation for">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="你好">
+        <meta property="og:title" content="firewalld防火墙">
     
 
     <!--Open Graph Description-->
@@ -33,7 +31,7 @@ Welcome to Hexo! This is your very first post. Check documentation for">
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -44,7 +42,7 @@ Welcome to Hexo! This is your very first post. Check documentation for">
 
     <!-- Title -->
     
-    <title>你好</title>
+    <title>firewalld防火墙 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -148,13 +146,13 @@ Welcome to Hexo! This is your very first post. Check documentation for">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2019/12/03/hello-world/">
-                Untitled
+            <a href="/2020/01/03/EIGRP/">
+                firewalld防火墙
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-03</span>
+                <span class="date">2020-01-03</span>
             
             
             
@@ -165,28 +163,80 @@ Welcome to Hexo! This is your very first post. Check documentation for">
 
         <!-- Gallery -->
         
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
 
         <!-- Post Content -->
-        <p>title: 你好呀！！！！！！！<br>date: 2019-09-07 11:51:44<br>modified:  2019-09-07 11:51:44</p>
-<p>title:</p>
-<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="CVE-2019-1-3"><a href="#CVE-2019-1-3" class="headerlink" title="CVE _2019-1-3"></a>CVE _2019-1-3</h3><a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
+<p>AD：下一跳到目标</p>
+<p>AF:  本地到目标</p>
+<p>后继者：最低FD称为最优</p>
+<p>可行后继者：AD必须小于后继的FD最优</p>
+<p>metric值的计算方v值：</p>
+<p>metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10）</p>
+<p>V*S FD(后继者) &gt; FS FD （可行性后继者）      取整</p>
+<p>检验 EIGRP 配置</p>
+<p>sh ip route eigrp 查看完整eigrp信息</p>
+<p>sh ip eigrp neighbors 查看邻居表</p>
+<p>sh ip eigrp topology   查看拓扑表</p>
+<p>原理</p>
+<p>  组播地址224.0.0.10，首先hello包建立邻居表，然后根据可靠传输协议建立拓扑表，贼根据拓扑表中的每条路径中的FD，AD，选择最优路径，建立路由表</p>
+<h2 id="rip配置"><a href="#rip配置" class="headerlink" title="rip配置"></a>rip配置</h2><p>R2(config)#router eigrp 1</p>
+<p>R2(config-router)#network 192.168.10.0 0.0.0.255</p>
+<p>R2(config-router)#network 192.168.40.0 0.0.0.255</p>
+<p>R2(config-router)#int f0/0</p>
+<p>R2(config-if)#ip add 192.168.10.1 255.255.255.0</p>
+<p>R2(config-if)#no shutdown</p>
+<p>R2(config-if)#int s1/0</p>
+<p>R2(config-if)#ip add 192.168.40.1 255.255.255.0</p>
+<p>R2(config-if)#no shutdown</p>
+<p>R3(config)#router eigrp 1</p>
+<p>R3(config-router)#network 192.168.10.0 0.0.0.255</p>
+<p>R3(config-router)#network 192.168.20.0 0.0.0.255</p>
+<p>R3(config-router)#int f0/0</p>
+<p>R3(config-if)#ip add 192.168.10.2 255.255.255.0</p>
+<p>R3(config-if)#no shutdown</p>
+<p>R3(config-if)#int f0/1</p>
+<p>R3(config-if)#ip add 192.168.20.2 255.255.255.0</p>
+<p>R3(config-if)#no shutdown</p>
+<!--more-->
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">R4(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 192.168.20.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 192.168.30.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config-router)#int f0/1</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 192.168.20.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config-if)#int f0/0</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 192.168.30.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 172.16.1.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config)#int loopback 1</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 172.16.1.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config)#int loopback 2</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 172.16.1.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">R1(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R1(config-router)#network 192.168.30.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R1(config-router)#network 192.168.40.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R1(config-router)#int f0/0</span><br><span class="line"></span><br><span class="line">R1(config-if)#ip add 192.168.30.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R1(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R1(config-if)#int s1/0</span><br><span class="line"></span><br><span class="line">R1(config-if)#ip add 192.168.40.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R1(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 实验一、EIGRP 负载均衡</span><br><span class="line"></span><br><span class="line">R2(config)#router eigrp 1 建立eigrp为1的规则集</span><br><span class="line"></span><br><span class="line">R2(config-router)#variance 7   V 计算V值</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+<h2 id="实验二、EIGRP-MD5身份验证"><a href="#实验二、EIGRP-MD5身份验证" class="headerlink" title="实验二、EIGRP MD5身份验证"></a>实验二、EIGRP MD5身份验证</h2><p>R2(config)#key chain uu 钥匙名称</p>
+<p>R2(config-keychain)#key 3 钥匙ID</p>
+<p>R2(config-keychain-key)#key-string 12345 钥匙密码</p>
+<p>R2(config)#int f0/0</p>
+<p>R2(config-if)#ip authentication mode eigrp 3 md5 加密方式</p>
+<p>R2(config-if)#ip authentication key-chain eigrp 3 uu </p>
+<h2 id="实验三、-EIGRP-路由汇总"><a href="#实验三、-EIGRP-路由汇总" class="headerlink" title="实验三、 EIGRP 路由汇总"></a>实验三、 EIGRP 路由汇总</h2><p>ip summary-address eigrp 100 172.16.0.0 255.255.0.0</p>
+<p>配置被动接口：passive-interface Loo</p>
+<p>passive-interface不接收不发送，passive是只接收不发送</p>
 
     </div>
 
     
 
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-3/">#CVE-2019-1-3</a>
+        </div>
     
 
     <!-- Comments -->
