@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="CVE _2019-1-3">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="firewalld防火墙">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>firewalld防火墙 - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/03/firewalld防火墙/">
+                firewalld防火墙
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-03</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <h3 id="CVE-2019-1-3"><a href="#CVE-2019-1-3" class="headerlink" title="CVE _2019-1-3"></a>CVE _2019-1-3</h3><a id="more"></a>
+
+<h1 id="firewalld防火墙"><a href="#firewalld防火墙" class="headerlink" title="firewalld防火墙"></a>firewalld防火墙</h1><p>firewalld防火墙是CentOS7版本系统默认的防火墙管理工具，取代了之前的iptables防火墙，与iptables防火墙一样也属于典型的包过滤防火墙或称之为网络层防火墙，firewalld和iptables都是用来管理防火墙的工具（属于用户态）来定义防火墙的各种规则功能，内部结构都指向netfilter这一强大的网络过滤子系统（属于内核态）以实现包过滤防火墙功能。firewalld防火墙最大的优点在于支持动态更新以及加入了防火墙的“Zone”概念，firewalld防火墙支持IPV4和IPV6地址。可以通过字符管理工具firewall-cmd和图形化管理工具firewall-config进行管理。</p>
+<h2 id="一、区域的概念"><a href="#一、区域的概念" class="headerlink" title="一、区域的概念"></a>一、区域的概念</h2><p>firewalld防火墙为了简化管理，将所有网络流量分为多个区域（zone）。然后要所数据包的源IP地址或传入的网络接口条件等将流量传入相应区域。每个区域都定义了自己打开或关闭的端口服务列表。其中默认区域为public区域，trusted区域默认允许所有流量通过，是一个特殊的区域。</p>
+<table>
+<thead>
+<tr>
+<th>区域名称</th>
+<th>默认配置说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Trusted</td>
+<td>允许所有的传入流量</td>
+</tr>
+<tr>
+<td>Home</td>
+<td>允许与ssh、mdns、ipp-client、samba-client或dhcpv6-client预定义服务匹配的传入流量，其余均拒绝</td>
+</tr>
+<tr>
+<td>Internal</td>
+<td>默认值时与home区域相同</td>
+</tr>
+<tr>
+<td>Work</td>
+<td>允许与ssh、ipp-client或dhcpv6-client预定义服务匹配的传入流量，其余均拒绝</td>
+</tr>
+<tr>
+<td>Public</td>
+<td>允许与ssh或dhcpv6-client预定义服务匹配的传入流量，其余均拒绝。是新添加网络接口的默认区域。</td>
+</tr>
+<tr>
+<td>External</td>
+<td>允许与ssh预定义服务匹配的传入流量，其余均拒绝。默认将经过此区域转发的IPv4地址传出流量进行地址伪装。</td>
+</tr>
+<tr>
+<td>Dmz</td>
+<td>允许与ssh预定义服务匹配的传入流量，其余均拒绝。</td>
+</tr>
+<tr>
+<td>Block</td>
+<td>拒绝所有传入流量</td>
+</tr>
+<tr>
+<td>Drop</td>
+<td>丢弃所有传入流量</td>
+</tr>
+</tbody></table>
+<p>用户可以根据具体环境选择使用区域。管理员也可以对这些区域进行自定义，使其具有不同的设置规则。</p>
+<p>在流量经过防火墙时，firewalld防火墙会对传入的每个数据包进行检查，如果此数据包的源地址关联到特定的区域，则会应用该区域的规则对此数据包进行处理，如果该源地址没有关联到任何区域，则将使用传入网络接口所在的区域规则进行处理。如果流量与不允许的端口、协议或者服务匹配，则防火墙拒绝传入流量。</p>
+<h2 id="二、字符管理工具"><a href="#二、字符管理工具" class="headerlink" title="二、字符管理工具"></a>二、字符管理工具</h2><p>firewall-cmd是firewalld防火墙自带的字符管理工具，可以用来设置firewalld防火墙的各种规则，需要注意的是firewalld防火墙规则分为两种状态，一种是runtime(正在运行生效的状态），在runtime状态添加新的防火墙规则，这些规则会立即生效，但是重新加载防火墙配置或者重启系统后这些规则将会失效；一种是permanent（永久生效的状态），在permanent状态添加新的防火墙规则，这些规则不会马上生效，需要重新加载防火墙配置或者重启系统后生效。</p>
+<p>在使用firewall-cmd命令管理防火墙时，需要添加为永久生效的规则需要在配置规则时添加–permanent选项（否则所有命令都是作用于runtime，运行时配置）,如果让永久生效规则立即覆盖当前规则生效使用，还需要使用firewall-cmd –reload命令重新加载防火墙配置。常用firewall-cmd命令如下：</p>
+<table>
+<thead>
+<tr>
+<th>firewall-cmd命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–get-default-zone</td>
+<td>查看当前默认区域</td>
+</tr>
+<tr>
+<td>–get–active-zones</td>
+<td>列出当前正在使用的区域及其所对应的网卡接口</td>
+</tr>
+<tr>
+<td>–get-zones</td>
+<td>列出所有可用的区域</td>
+</tr>
+<tr>
+<td>–set-default-zone=<zone></zone></td>
+<td>设置默认区域（注意此命令会同时修改运行时配置和永久配置）</td>
+</tr>
+<tr>
+<td>–add-source=<cidr>[–zone=<zone>]</zone></cidr></td>
+<td>将来自IP地址或网段的所有流量路由到指定区域，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–remove-source=<cidr>[–zone=&lt;ZONE]</cidr></td>
+<td>从指定区域中删除来自IP地址或网段的所有路由流量规则，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–add-interface=<interface>[–zone=&lt;ZONE]</interface></td>
+<td>将来自该接口的所有流量都路由到指定区域。没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–change-interface=<interface>[–zone=&lt;ZONE]</interface></td>
+<td>将接口与指定区域做关联，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–list-all[–zone=&lt;ZONE]</td>
+<td>列出指定区域已配置接口、源、服务、端口等信息，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–add-service=<service>[–zone=&lt;ZONE]</service></td>
+<td>允许到该服务的流量通过指定区域，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–remove-service=<service>[–zone=&lt;ZONE]</service></td>
+<td>从指定区域的允许列表中删除该服务，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–add-port=&lt;PORT/PROTOCOL&gt;[–zone=&lt;ZONE]</td>
+<td>允许到该端口的流量通过指定区域，没有指定区域时使用默认区域。</td>
+</tr>
+<tr>
+<td>–remove-port=&lt;PORT/PROTOCOL&gt;[–zone=&lt;ZONE]</td>
+<td>从指定区域的允许列表中删除该端口，没有指定区域时使用默认区域。</td>
+</tr>
+</tbody></table>
+<h3 id="1、区域管理"><a href="#1、区域管理" class="headerlink" title="1、区域管理"></a>1、区域管理</h3><p>  firewall-cmd –help | wc -l</p>
+<p>（1）查看默认区域</p>
+<p># firewall-cmd –get-default-zone </p>
+<p>（2）列出当前正在使用的区域及其所对应的网卡接口</p>
+<p># firewall-cmd –get-active-zones </p>
+<p>（3）列出所有可用的区域</p>
+<p>   # firewall-cmd –get-zones</p>
+<p>（4）设置默认区域</p>
+<p>   # firewall-cmd –set-default-zone=block </p>
+<h3 id="2、服务管理"><a href="#2、服务管理" class="headerlink" title="2、服务管理"></a>2、服务管理</h3><p>（1）查看预定义服务</p>
+<p># firewall-cmd –get-services </p>
+<p>（2）添加http服务到public区域</p>
+<p># firewall-cmd –add-service=http –zone=public –permanent</p>
+<p># systemctl restart firewalld</p>
+<p>（3）查看public区域已配置的规则</p>
+<p># firewall-cmd –list-all –zone=public</p>
+<p>（4）移除public区域的http服务，不使用–zone指定区域时使用默认区域</p>
+<p># firewall-cmd –remove-service=http –permanent –zone=public </p>
+<p># systemctl restart firewalld</p>
+<p>（5）将多个服务添加到某一个区域，不添加–permanent选项表示是即时生效的临时设置</p>
+<p># firewall-cmd –add-service=http –add-service=https </p>
+<p>  # systemctl restart firewalld</p>
+<h3 id="3、端口管理"><a href="#3、端口管理" class="headerlink" title="3、端口管理"></a>3、端口管理</h3><p>（1）允许TCP的3306端口到public区域</p>
+<p>   # firewall-cmd –add-port=3306/tcp</p>
+<p>（2）从public区域将TCP的3306端口移除</p>
+<p>   # firewall-cmd –remove-port=3306/tcp</p>
+<p>（3）允许某一范围的端口，如允许UDP的2048-2050端口到public区域</p>
+<p>   # firewall-cmd –add-port=2048-2050/udp –zone=public</p>
+<p>（4）使用–list-ports查看加入的端口操作是否成功</p>
+<p># firewall-cmd –list-ports</p>
+<h3 id="4、伪装IP"><a href="#4、伪装IP" class="headerlink" title="4、伪装IP"></a>4、伪装IP</h3><p>（1）什么是地址伪装？</p>
+<p>通过地址伪装，NAT设备将经过设备的包转发到指定的接收方，同时将通过的数据包<br>源地址更改为其NAT设备自己的接口地址。当返回的数据包到达时，会将目的地址修改<br>为原始主机的地址并做路由。地址伪装可以实现局域网多个地址共享单一公网地址上网。类似于NAT技术中的端口多路复用（PAT）。IP地址伪装仅支持ipv4，不支持ipv6。</p>
+<p>（2）相关命令</p>
+<p>firewall-cmd –query-masquerade # 检查是否允许伪装IP</p>
+<p>firewall-cmd –permanent –add-masquerade # 允许防火墙伪装IP</p>
+<p>firewall-cmd –permanent –remove-masquerade# 禁止防火墙伪装IP</p>
+<h3 id="5、端口转发"><a href="#5、端口转发" class="headerlink" title="5、端口转发"></a>5、端口转发</h3><p>当我们想把某个端口隐藏起来的时候，就可以在防火墙上阻止那个端口访问，然后再开一个不规则的端口，之后配置防火墙的端口转发，将流量转发过去。</p>
+<p># firewall-cmd –permanent –add-masquerade</p>
+<p># firewall-cmd –add-forward-port=port=8080:proto=tcp:toport=80</p>
+<p># firewall-cmd –add-port=8080/tcp</p>
+<p># firewall-cmd –remove-service=http</p>
+<hr>
+<p><strong><em>端口转发还可以做流量分发，一个防火墙拖着好多台运行着不同服务的机器，然后用防火墙将不同端口的流量转发至不同机器。</em></strong></p>
+<hr>
+<h3 id="6、多区域的应用"><a href="#6、多区域的应用" class="headerlink" title="6、多区域的应用"></a>6、多区域的应用</h3><p>   <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1578012033717.jpg" alt="img"></p>
+<p>（1）一个接口只能对应一个区域，将接口与指定区域关联</p>
+<p># firewall-cmd –change-interface=ens75 –zone=drop </p>
+<p>（2）根据不同的访问来源网段，设定至不同的区域规则</p>
+<p>  # firewall-cmd –add-source=192.168.75.0/24 –zone=public</p>
+<p># firewall-cmd –add-source=192.168.85.0/24 –zone=drop</p>
+<p># firewall-cmd –get-active-zones </p>
+<p>（3）建议配置方案</p>
+<p>  将所有接口划分到对应的区域，</p>
+<p>根据网段配置至不同的区域，</p>
+<p>不同的区域配置不同的规则。</p>
+<p>（4）检查防火墙设置</p>
+<p>#firewall-cmd –get-active-zones </p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1578012033719.jpg" alt="img"> </p>
+<p># firewall-cmd –list-all –zone=drop </p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps3-1578012033720.jpg" alt="img"> </p>
+<h2 id="三、firewalld富规则"><a href="#三、firewalld富规则" class="headerlink" title="三、firewalld富规则"></a>三、firewalld富规则</h2><p><a href="https://blog.csdn.net/weixin_44907813/article/details/100514240" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44907813/article/details/100514240</a></p>
+<h2 id="四、图形管理工具"><a href="#四、图形管理工具" class="headerlink" title="四、图形管理工具"></a>四、图形管理工具</h2><p># firewall-config </p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-3/">#CVE-2019-1-3</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/17/EIGRP/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/firewalld防火墙/">firewalld防火墙</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/03/hello-world/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/09/07/CVE-2019-0708/">漏洞复现</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
