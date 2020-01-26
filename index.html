@@ -162,9 +162,138 @@
 
     
         <div class="content">
-            <p>titled: shell脚本编程规范与变量<br>date: 2020-1-6 20:18:52<br>modified: 2020-1-6 20:18:52<br>tag:<br> - 系统安全<br> - CVE-2019-1-6<br>photos:<br> -<img src="https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png" alt><br>-–<br>### CVE _2019-1-6 </p>
+            <p>title: 漏洞复现<br>date: 2019-09-07 11:51:44<br>modified:  2019-09-07 11:51:44</p>
+<p>titled: shell脚本编程规范与变量<br>date: 2020-1-6 20:18:52<br>modified: 2020-1-6 20:18:52<br>tag:<br> - 系统安全<br> - CVE-2019-1-6<br>photos:<br> -<img src="https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png" alt><br>-–<br>### CVE _2019-1-6 </p>
         </div>
         <a href="/2020/01/23/shell脚本编程规范与变量/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/01/17/EIGRP/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-17</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <hr>
+<p>​—<br>title:动态路由协议</p>
+<h2 id="​—"><a href="#​—" class="headerlink" title="​—"></a>​—</h2><hr>
+<h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
+<p>AD：下一跳到目标</p>
+<p>AF:  本地到目标</p>
+<p>后继者：最低FD称为最优</p>
+<p>可行后继者：AD必须小于后继的FD最优</p>
+<p>metric值的计算方v值：</p>
+<p>metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10）</p>
+<p>V*S FD(后继者) &gt; FS FD （可行性后继者）      取整</p>
+<p>检验 EIGRP 配置</p>
+<p>sh ip route eigrp 查看完整eigrp信息</p>
+<p>sh ip eigrp neighbors 查看邻居表</p>
+<p>sh ip eigrp topology   查看拓扑表</p>
+<p>原理</p>
+<p>  组播地址224.0.0.10，首先hello包建立邻居表，然后根据可靠传输协议建立拓扑表，贼根据拓扑表中的每条路径中的FD，AD，选择最优路径，建立路由表</p>
+<h2 id="rip配置"><a href="#rip配置" class="headerlink" title="rip配置"></a>rip配置</h2><p>R2(config)#router eigrp 1</p>
+<p>R2(config-router)#network 192.168.10.0 0.0.0.255</p>
+<p>R2(config-router)#network 192.168.40.0 0.0.0.255</p>
+<p>R2(config-router)#int f0/0</p>
+<p>R2(config-if)#ip add 192.168.10.1 255.255.255.0</p>
+<p>R2(config-if)#no shutdown</p>
+<p>R2(config-if)#int s1/0</p>
+<p>R2(config-if)#ip add 192.168.40.1 255.255.255.0</p>
+<p>R2(config-if)#no shutdown</p>
+<p>R3(config)#router eigrp 1</p>
+<p>R3(config-router)#network 192.168.10.0 0.0.0.255</p>
+<p>R3(config-router)#network 192.168.20.0 0.0.0.255</p>
+<p>R3(config-router)#int f0/0</p>
+<p>R3(config-if)#ip add 192.168.10.2 255.255.255.0</p>
+<p>R3(config-if)#no shutdown</p>
+<p>R3(config-if)#int f0/1</p>
+<p>R3(config-if)#ip add 192.168.20.2 255.255.255.0</p>
+<p>R3(config-if)#no shutdown</p>
+        </div>
+        <a href="/2020/01/17/EIGRP/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2019/12/03/hello-world/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-12-03</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <hr>
+<h2 id="title-你好呀！！！！！！！"><a href="#title-你好呀！！！！！！！" class="headerlink" title="title:你好呀！！！！！！！"></a>title:你好呀！！！！！！！</h2><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2019/09/07/CVE-2019-0708/">
+                漏洞复现
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-09-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
+        </div>
+        <a href="/2019/09/07/CVE-2019-0708/" class="read-more">Read More</a>
     
 
 </div>
@@ -199,6 +328,18 @@
             
             <li>
                 <a class="footer-post" href="/2020/01/23/shell脚本编程规范与变量/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/17/EIGRP/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/03/hello-world/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/09/07/CVE-2019-0708/">漏洞复现</a>
             </li>
             
         </ul>
