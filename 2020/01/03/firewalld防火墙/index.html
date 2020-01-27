@@ -331,11 +331,8 @@
 <p># firewall-cmd –add-forward-port=port=8080:proto=tcp:toport=80</p>
 <p># firewall-cmd –add-port=8080/tcp</p>
 <p># firewall-cmd –remove-service=http</p>
-<hr>
-<p><strong><em>端口转发还可以做流量分发，一个防火墙拖着好多台运行着不同服务的机器，然后用防火墙将不同端口的流量转发至不同机器。</em></strong></p>
-<hr>
-<h3 id="6、多区域的应用"><a href="#6、多区域的应用" class="headerlink" title="6、多区域的应用"></a>6、多区域的应用</h3><p>   <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1578012033717.jpg" alt="img"></p>
-<p>（1）一个接口只能对应一个区域，将接口与指定区域关联</p>
+<p><strong>端口转发还可以做流量分发，一个防火墙拖着好多台运行着不同服务的机器，然后用防火墙将不同端口的流量转发至不同机器。</strong></p>
+<h3 id="6、多区域的应用"><a href="#6、多区域的应用" class="headerlink" title="6、多区域的应用"></a>6、多区域的应用</h3><p>（1）一个接口只能对应一个区域，将接口与指定区域关联</p>
 <p># firewall-cmd –change-interface=ens75 –zone=drop </p>
 <p>（2）根据不同的访问来源网段，设定至不同的区域规则</p>
 <p>  # firewall-cmd –add-source=192.168.75.0/24 –zone=public</p>
@@ -347,11 +344,8 @@
 <p>不同的区域配置不同的规则。</p>
 <p>（4）检查防火墙设置</p>
 <p>#firewall-cmd –get-active-zones </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1578012033719.jpg" alt="img"> </p>
 <p># firewall-cmd –list-all –zone=drop </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps3-1578012033720.jpg" alt="img"> </p>
 <h2 id="三、firewalld富规则"><a href="#三、firewalld富规则" class="headerlink" title="三、firewalld富规则"></a>三、firewalld富规则</h2><p><a href="https://blog.csdn.net/weixin_44907813/article/details/100514240" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44907813/article/details/100514240</a></p>
-<h2 id="四、图形管理工具"><a href="#四、图形管理工具" class="headerlink" title="四、图形管理工具"></a>四、图形管理工具</h2><p># firewall-config </p>
 
     </div>
 
@@ -394,7 +388,7 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/03/EIGRP/">firewall</a>
+                <a class="footer-post" href="/2020/01/03/EIGRP/">高级距离矢量路由协议 EIGRP</a>
             </li>
             
             <li>
@@ -402,11 +396,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/03/hello-world/">Untitled</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019/09/07/CVE-2019-0708/">漏洞复现</a>
+                <a class="footer-post" href="/2019/09/07/漏洞复现/">漏洞复现</a>
             </li>
             
         </ul>

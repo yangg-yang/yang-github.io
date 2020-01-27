@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="firewall">
+        <meta property="og:title" content="高级距离矢量路由协议 EIGRP">
     
 
     <!--Open Graph Description-->
@@ -42,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>firewall - 你好</title>
+    <title>高级距离矢量路由协议 EIGRP - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -147,7 +147,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2020/01/03/EIGRP/">
-                firewall
+                高级距离矢量路由协议 EIGRP
             </a>
         </h1>
         <div class="post-info">
@@ -180,51 +180,92 @@
         <!-- Post Content -->
         <h3 id="CVE-2019-1-3"><a href="#CVE-2019-1-3" class="headerlink" title="CVE _2019-1-3"></a>CVE _2019-1-3</h3><a id="more"></a>
 
-<h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><p>eigrp维护表：邻居表、拓扑表、路由表</p>
+<h1 id="高级距离矢量路由协议-EIGRP"><a href="#高级距离矢量路由协议-EIGRP" class="headerlink" title="高级距离矢量路由协议 EIGRP"></a><strong>高级距离矢量路由协议</strong> EIGRP</h1><h4 id="一、EIGRP-特点"><a href="#一、EIGRP-特点" class="headerlink" title="一、EIGRP 特点"></a>一、EIGRP 特点</h4><p>高级距离矢量。<br>网络设计灵活。<br>快速收敛+<br>用组播地址和单播地址代替广播地址。<br>100%无环路的无类路由。<br>支持VLSM和不连续的子网+<br>配置简单。<br>在Internet 网络中的任意点手动汇总<br>逐步更新(触发更新)。<br>支持多种网络层协议。<br>在开销相等和不相等的路径.上实现负载均衡。</p>
+<h4 id="二、EIGRP的关键技术"><a href="#二、EIGRP的关键技术" class="headerlink" title="二、EIGRP的关键技术"></a><strong>二、EIGRP的关键技术</strong></h4><p>邻居发现/恢复机制</p>
+<p>–在邻居间使用HELLO报文</p>
+<p>可靠的传输协议(RTP)</p>
+<p>–确保EIGRP报文可靠,有序地传送到所有邻居</p>
+<p>DUAL(扩散更新算法)</p>
+<p>–为去往每个目标选择最小开销,无环路的路径</p>
+<p>协议无关模块(PDMs)</p>
+<p>–EIGRP支持为IP,Apple Talk,IPX等协议计算路由</p>
+<h4 id="三、邻居发现-恢复"><a href="#三、邻居发现-恢复" class="headerlink" title="三、邻居发现/ 恢复"></a><strong>三、邻居发现/ 恢复</strong></h4><p>EIGRP的路由器，主动建立与其邻居的关系。</p>
+<p>建立邻接使用Hello报文发送每5或60秒。</p>
+<p>如果邻居错过了连续3个Hello报文的路由将被视为无效。</p>
+<p>默认值=15秒或180秒</p>
+<h4 id="四、EIGRP表"><a href="#四、EIGRP表" class="headerlink" title="四、EIGRP表"></a>四、EIGRP表</h4><p>邻居表、拓扑表、路由表</p>
+<h4 id="五、AD-和-FD"><a href="#五、AD-和-FD" class="headerlink" title="五、AD 和 FD"></a>五、AD 和 FD</h4><p>通告距离(AD)：也称为报告距离, 下一跳路由器到目的地的度量值.</p>
+<p>可行距离(FD)：是本地路由器到达目的地的度量值.</p>
+<h4 id="六、后继者和可行后继"><a href="#六、后继者和可行后继" class="headerlink" title="六、后继者和可行后继"></a>六、后继者和可行后继</h4><p><strong>后继者 （ successor ）</strong></p>
+<p>后继者是一个相邻路由器具有最低成本的路径到目的地（最低FD），是保证不会循环的 一部分。</p>
+<p>后继路由用于转发数据包。</p>
+<p>如果它们具有相同的FD,可以存在多条相同路径。</p>
+<p><strong>可行后继(Feasible successor )</strong></p>
+<p>一个可行后继是离目的地很近的邻居,但不是最低开销的。</p>
+<p>一个可行后继确保一个无环拓扑,因为它的<strong>AD必须小于后继的FD</strong>。</p>
+<p>可行后继和后继在同一时间进行选择,但它只保存在拓扑表作为备份路径。</p>
+<p>拓扑表中可以保存多个可行后继为一个目的地。</p>
+<h4 id="七、EIGRP-Packets"><a href="#七、EIGRP-Packets" class="headerlink" title="七、EIGRP Packets"></a>七、EIGRP Packets</h4><table>
+<thead>
+<tr>
+<th>Packet Type</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hello</td>
+<td>用来发现网络中其他运行EIGRP的路由器.</td>
+</tr>
+<tr>
+<td>Acknowledgement</td>
+<td>用来确认任何接收到的EIGRP报文.</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>用来传达己知目的网段的路由信息</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>用来从邻居获得特别的路由信息</td>
+</tr>
+<tr>
+<td>Reply</td>
+<td>用来回应请求.</td>
+</tr>
+</tbody></table>
+<h4 id="八、EIGRP-度量值计算"><a href="#八、EIGRP-度量值计算" class="headerlink" title="八、EIGRP 度量值计算"></a>八、EIGRP 度量值计算</h4><p>EIGRP使用一个复合度量，可根据以下指标：<br>          带宽    使用最小的带宽（BW），<br>          可靠性    是衡量一个链接将失败的可能性.<br>          延迟    延迟是衡量一个包需要穿越路由的时间.<br>          负载    反映了多少流量是使用链接<br>          MTU<br>          默认情况下使用，只有带宽和延迟.<br>注：这往往是不正确地指出，EIGRP的还可以使用路径中最小的MTU。事实上，MTU是包含在EIGRP路由更新，但实际上并没有使用metric计算。</p>
+<p>eigrp维护表：邻居表、拓扑表、路由表</p>
 <p>AD：下一跳到目标</p>
 <p>AF:  本地到目标</p>
 <p>后继者：最低FD称为最优</p>
 <p>可行后继者：AD必须小于后继的FD最优</p>
-<p>metric值的计算方v值：</p>
-<p>metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10）</p>
-<p>V*S FD(后继者) &gt; FS FD （可行性后继者）      取整</p>
+<h5 id="metric值的计算方v值："><a href="#metric值的计算方v值：" class="headerlink" title="metric值的计算方v值："></a>metric值的计算方v值：</h5><p>metric值=256（10^7/BW（最小带宽）+dly（所有路由接口延迟）之和/10）</p>
+<h5 id="EIGRP负载均衡"><a href="#EIGRP负载均衡" class="headerlink" title="EIGRP负载均衡"></a>EIGRP负载均衡</h5><p>V*SFD(后继者) &gt; FSFD （可行性后继者）      取整</p>
+<h3 id="九、EIGRP-MD5身份验证"><a href="#九、EIGRP-MD5身份验证" class="headerlink" title="九、EIGRP MD5身份验证"></a>九、EIGRP MD5身份验证</h3><p><strong>EIGRP支持MD5身份验证</strong><br>路由对每个它发送的EIGRP数据包进行自我标识<br>路由器验证接收到的每个路由更新数据包的来源<br>每个参与的邻居都必须配置相同的密钥</p>
 <p>检验 EIGRP 配置</p>
 <p>sh ip route eigrp 查看完整eigrp信息</p>
 <p>sh ip eigrp neighbors 查看邻居表</p>
 <p>sh ip eigrp topology   查看拓扑表</p>
 <p>原理</p>
 <p>  组播地址224.0.0.10，首先hello包建立邻居表，然后根据可靠传输协议建立拓扑表，贼根据拓扑表中的每条路径中的FD，AD，选择最优路径，建立路由表</p>
-<h2 id="rip配置"><a href="#rip配置" class="headerlink" title="rip配置"></a>rip配置</h2><p>R2(config)#router eigrp 1</p>
+<h2 id="eigrp配置宣告网络"><a href="#eigrp配置宣告网络" class="headerlink" title="eigrp配置宣告网络"></a>eigrp配置宣告网络</h2><p>R2(config)#router eigrp 1</p>
 <p>R2(config-router)#network 192.168.10.0 0.0.0.255</p>
 <p>R2(config-router)#network 192.168.40.0 0.0.0.255</p>
-<p>R2(config-router)#int f0/0</p>
-<p>R2(config-if)#ip add 192.168.10.1 255.255.255.0</p>
-<p>R2(config-if)#no shutdown</p>
-<p>R2(config-if)#int s1/0</p>
-<p>R2(config-if)#ip add 192.168.40.1 255.255.255.0</p>
-<p>R2(config-if)#no shutdown</p>
-<p>R3(config)#router eigrp 1</p>
-<p>R3(config-router)#network 192.168.10.0 0.0.0.255</p>
-<p>R3(config-router)#network 192.168.20.0 0.0.0.255</p>
-<p>R3(config-router)#int f0/0</p>
-<p>R3(config-if)#ip add 192.168.10.2 255.255.255.0</p>
-<p>R3(config-if)#no shutdown</p>
-<p>R3(config-if)#int f0/1</p>
-<p>R3(config-if)#ip add 192.168.20.2 255.255.255.0</p>
-<p>R3(config-if)#no shutdown</p>
-<!--more-->
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">R4(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 192.168.20.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 192.168.30.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config-router)#int f0/1</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 192.168.20.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config-if)#int f0/0</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 192.168.30.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R4(config-router)#network 172.16.1.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R4(config)#int loopback 1</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 172.16.1.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R4(config)#int loopback 2</span><br><span class="line"></span><br><span class="line">R4(config-if)#ip add 172.16.1.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R4(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">R1(config)#router eigrp 1</span><br><span class="line"></span><br><span class="line">R1(config-router)#network 192.168.30.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R1(config-router)#network 192.168.40.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">R1(config-router)#int f0/0</span><br><span class="line"></span><br><span class="line">R1(config-if)#ip add 192.168.30.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R1(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line">R1(config-if)#int s1/0</span><br><span class="line"></span><br><span class="line">R1(config-if)#ip add 192.168.40.2 255.255.255.0</span><br><span class="line"></span><br><span class="line">R1(config-if)#no shutdown</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 实验一、EIGRP 负载均衡</span><br><span class="line"></span><br><span class="line">R2(config)#router eigrp 1 建立eigrp为1的规则集</span><br><span class="line"></span><br><span class="line">R2(config-router)#variance 7   V 计算V值</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="实验二、EIGRP-MD5身份验证"><a href="#实验二、EIGRP-MD5身份验证" class="headerlink" title="实验二、EIGRP MD5身份验证"></a>实验二、EIGRP MD5身份验证</h2><p>R2(config)#key chain uu 钥匙名称</p>
+<h3 id="实验一、EIGRP-负载均衡"><a href="#实验一、EIGRP-负载均衡" class="headerlink" title="实验一、EIGRP 负载均衡"></a>实验一、EIGRP 负载均衡</h3><p>R2(config)#router eigrp 1 建立eigrp为1的规则集</p>
+<p>R2(config-router)#variance 7   V 计算V值</p>
+<h3 id="实验二、EIGRP-MD5身份验证"><a href="#实验二、EIGRP-MD5身份验证" class="headerlink" title="实验二、EIGRP MD5身份验证"></a>实验二、EIGRP MD5身份验证</h3><h5 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h5><p>1.创建密钥链，它是一组可能的密钥（密码）</p>
+<p>2.对每个密钥分配密钥ID</p>
+<p>3.标识密钥</p>
+<p>4.（可选）指定密钥的有效期</p>
+<p>5.在接口上启用MD5身份验证</p>
+<p>6.指定接口使用的密钥链</p>
+<p>R2(config)#key chain uu 钥匙名称</p>
 <p>R2(config-keychain)#key 3 钥匙ID</p>
 <p>R2(config-keychain-key)#key-string 12345 钥匙密码</p>
 <p>R2(config)#int f0/0</p>
 <p>R2(config-if)#ip authentication mode eigrp 3 md5 加密方式</p>
 <p>R2(config-if)#ip authentication key-chain eigrp 3 uu </p>
-<h2 id="实验三、-EIGRP-路由汇总"><a href="#实验三、-EIGRP-路由汇总" class="headerlink" title="实验三、 EIGRP 路由汇总"></a>实验三、 EIGRP 路由汇总</h2><p>ip summary-address eigrp 100 172.16.0.0 255.255.0.0</p>
+<h3 id="实验三、-EIGRP-路由汇总"><a href="#实验三、-EIGRP-路由汇总" class="headerlink" title="实验三、 EIGRP 路由汇总"></a>实验三、 EIGRP 路由汇总</h3><p>ip summary-address eigrp 100 172.16.0.0 255.255.0.0</p>
 <p>配置被动接口：passive-interface Loo</p>
 <p>passive-interface不接收不发送，passive是只接收不发送</p>
 
@@ -269,7 +310,7 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/03/EIGRP/">firewall</a>
+                <a class="footer-post" href="/2020/01/03/EIGRP/">高级距离矢量路由协议 EIGRP</a>
             </li>
             
             <li>
@@ -277,11 +318,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/03/hello-world/">Untitled</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019/09/07/CVE-2019-0708/">漏洞复现</a>
+                <a class="footer-post" href="/2019/09/07/漏洞复现/">漏洞复现</a>
             </li>
             
         </ul>
