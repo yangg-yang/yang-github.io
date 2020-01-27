@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="CVE _2019-1-3">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="数据库操作">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>数据库操作 - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/03/数据库操作/">
+                数据库操作
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-03</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <h3 id="CVE-2019-1-3"><a href="#CVE-2019-1-3" class="headerlink" title="CVE _2019-1-3"></a>CVE _2019-1-3</h3><a id="more"></a>
+
+<p>###自动递增（auto_increment）</p>
+<p>1、auto_increment是数据列的一种属性，只适用于数字类型</p>
+<p>2、auto_increment对应数据列必须具备not  null</p>
+<p>3、一个表只能有一个字段使用auto_increment</p>
+<p>4、将字段设置成auto_increment之后，是需要将其设置成主键/或者主键的一部分</p>
+<p>5、用户添加数据时，该字段的值可不用添加<br>6、可在建表时可用auto_increment =n选项来指定一个自增的初始值</p>
+<p>7、可用alter table 表名 auto_increment =n命令来重设自增的起始值，默认的起始值、步长均是1</p>
+<h3 id="另类的insert"><a href="#另类的insert" class="headerlink" title="另类的insert"></a>另类的insert</h3><p>1、一条语句插入多条数据值<br>语法：insert  into  表名(字段列表)  values(值列表1),(值列表2),…</p>
+<p>2、insert…select…（须先创建目标表）<br>语法：insert  into 表名[(字段列表)]  select  字段列表  from  表名;<br>注意：两处字段列表数量须一致，且数据类型能兼容<br>将源表中的数据导入到目标表中（根据字段列表导入相应的数据）</p>
+<p>3、create…select…（插入数据前自动根据源表所选字段构建目标表）<br>语法：create  table  表名  select  字段列表  from  表名;<br>将源表中的数据导入到目标表中</p>
+<h3 id="数据表的更改"><a href="#数据表的更改" class="headerlink" title="数据表的更改"></a>数据表的更改</h3><p>1、修改列类型<br>ALTER TABLE表名MODIFY列名列类型[FIRST|AFTER列名];</p>
+<p>2、增加列<br>ALTER TABLE表名ADD列名列类型[FIRST| AFTER列名];</p>
+<p>3、删除列<br>ALTER TABLE表名DROP列名;</p>
+<p>4、列改名<br>ALTER TABLE表名CHANGE旧列名新列名列类型[FIRST|AFTER列名];</p>
+<p>5、更改表名<br>ALTER TABLE表名RENAME新表名;<br>RENAME TABLE表名TO新表名;</p>
+<h3 id="删除语句"><a href="#删除语句" class="headerlink" title="删除语句"></a><strong>删除语句</strong></h3><p>使用delete语句删除表中的记录（数据），可以删除指定的行或同时删除所有的行。<br>语法：delete  from  表名  [where  条件表达式];</p>
+<p>语法：truncate table 表名;</p>
+<p><strong>delete与truncate的区别</strong><br>1、delete会记录日志，意味着删除后的数据还可以恢复，但是效率低。</p>
+<p>2、truncate不会记录日志，删除后的数据不能恢复，但是效率高；truncate不能用于有外键约束引用的表。</p>
+<p>truncate应用场景：如果是开发一个应用程序，开始可能使用的是测试数据，当应用开发成功后，需要将真正的数据导入到数据表中，为了使自增主键从1开始，使用truncate操作数据表比较方便。</p>
+<p>注意：在表中的操作绝大部分都是记录在案的（日志），数据库实质是通过文件来存储（数据文件、日志文件）</p>
+<p>如果删除数据涉及外键引用则须注意：当主表的记录被从表参照时，主表的记录将不允许删除，如果要删除数据，需要先删除从表中依赖该记录的数据， 然后才可以删除主表的数据。（设置级联操作除外）</p>
+<p><strong>示例</strong></p>
+<p>#删除教师年龄超过60的数据信息</p>
+<p>delete from teachers where tAge &gt; 60;</p>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a><strong>约束</strong></h3><p>1、数据完整性：是指存储在数据库中的数据的一致性和正确性。</p>
+<p>如表中数据出现以下情况，则违反了数据完整性：</p>
+<p>​        教师性别输入了不是“男”或“女”的数据；</p>
+<p>​        在同一学校，课程编号出现重复；</p>
+<p>​         课程信息表中的教师编号在教师信息表中不存在；</p>
+<p>2、约束（constraint）是通过限制列中的数据、行中的数据和表之间数据来保证数据完整性的非常有效的方法。</p>
+<table>
+<thead>
+<tr>
+<th><strong>完整性类型</strong></th>
+<th><strong>约</strong> <strong>束</strong> <strong>类</strong> <strong>型</strong></th>
+<th><strong>描</strong>  <strong>述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>域完整性  （针对表中字段进行约束）</td>
+<td>not null(非空)</td>
+<td>指定某列不为空</td>
+</tr>
+<tr>
+<td>default(缺省)</td>
+<td>指定某一个列中的默认数值</td>
+<td></td>
+</tr>
+<tr>
+<td>实体完整性  （针对表中记录/数据进行约束）</td>
+<td>primary key(主键)</td>
+<td>每一行的惟一标识符，确保用户不能输入  冗余值和确保创建索引，提高性能，不允  许空值</td>
+</tr>
+<tr>
+<td>unique(唯一)</td>
+<td>防止出现冗余值，并且确保创建索引，提  高性能；允许空值，但字段中的数据值不能出现重复</td>
+<td></td>
+</tr>
+<tr>
+<td>引用完整性  （针对表与表之间的约束）</td>
+<td>foreign key(外键)</td>
+<td>定义一列或者几列，其值与本表或者另外  一个表的主键/唯一键值匹配</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong></p>
+<h4 id="创建表时创建约束"><a href="#创建表时创建约束" class="headerlink" title="创建表时创建约束"></a>创建表时创建约束</h4><p>–创建教师信息表</p>
+<p>create table Teachers(</p>
+<p>​       tNo CHAR(4)  <strong>primary key</strong>,#主键约束</p>
+<p>​       tName varchar(10) <strong>not null</strong>,#非空约束</p>
+<p>​       tGender CHAR(1) not null,</p>
+<p>​       tAge tinyint unsigned not null</p>
+<p>);</p>
+<p>–创建课程信息表</p>
+<p>create table Courses1(</p>
+<p>  cNo CHAR(5) not null,</p>
+<p>  cName varchar(20) not null <strong>unique</strong>,</p>
+<p>  #约定课程名称不能重复，但是当前这个表已经有主键啦，那么我们只能设置该字段为<strong>唯一键</strong></p>
+<p>  tID CHAR(4),</p>
+<p>  cCredit tinyint unsigned not null,</p>
+<p>  cDescription varchar(100) <strong>default</strong> ‘暂无描述’,#缺省约束 默认,</p>
+<p>  primary key(cNo),</p>
+<p>  constraint fk_tID_tNo foreign key (tID) references Teachers(tNo)</p>
+<p>);</p>
+<p>  #<strong>primary key</strong>(cNo,cName)– 复合主键/联合主键/组合主键</p>
+<p>  #tID在有数据的情况下，它是来源于Teachers表中的tNo</p>
+<p>  #说明：reference后边的表是主表，对应的字段要么是主键，要么是唯一键</p>
+<p>  #设置reference的表是从表</p>
+<h4 id="表存在后创建约束—实质是对表结构进行修改"><a href="#表存在后创建约束—实质是对表结构进行修改" class="headerlink" title="表存在后创建约束—实质是对表结构进行修改"></a>表存在后创建约束—实质是对表结构进行修改</h4><p>create  table  A (<br>    a   char(4),<br>    aa  varchar(10) not null<br>);<br>create  table  B(<br>    b   char(5) not null,<br>bb  varchar(20) not null,<br>ba  char(4)<br>);</p>
+<p>#为表A的字段a构建主键<br>alter  table  A<br>      add  constraint  pk_a  primary key(a);        pk_a是主键约束名称</p>
+<p>#为表A的字段aa构建唯一键<br>alter  table  A<br>      add  constraint  un_aa  unique(aa);           un_aa是唯一键约束名称</p>
+<p>#为表B的字段ba构建外键（引用于表A的字段a）<br>alter  table  B<br>      add constraint  fk_ba_a  foreign key(ba) references  A(a);       fk_ba_a是外键名称</p>
+<h4 id="删除表中主键、外键、唯一键"><a href="#删除表中主键、外键、唯一键" class="headerlink" title="删除表中主键、外键、唯一键"></a>删除表中主键、外键、唯一键</h4><p>#删除表A的主键</p>
+<p>alter table A drop  primary key</p>
+<p>#删除表A字段aa的唯一键（un_aa）</p>
+<p>alter table A  drop index  un_aa;</p>
+<p>#删除表B字段ba的外键（fk_ba_a）</p>
+<p>alter table B  dropforeign keyfk_ba_a;</p>
+<p><strong>DQL:select</strong><br>select语句组成<br>select子句<br>from子句<br>where子句</p>
+<p>order by子句<br>limit子句<br>group by子句（having子句）<br>join技术</p>
+<h3 id="1、检索表中所有数据信息"><a href="#1、检索表中所有数据信息" class="headerlink" title="1、检索表中所有数据信息"></a>1、检索表中所有数据信息</h3><p>select * from 表名;   *表示所有字段</p>
+<h3 id="2、检索表中部分字段信息"><a href="#2、检索表中部分字段信息" class="headerlink" title="2、检索表中部分字段信息"></a>2、检索表中部分字段信息</h3><p>select 字段1,字段2…… from 表名;</p>
+<h3 id="3、列重命名"><a href="#3、列重命名" class="headerlink" title="3、列重命名"></a>3、列重命名</h3><p>select 字段 [as] 别名 from 表名；<br>select cname as ‘课程名称’ form courese；<br>或 select cname ‘课程名称’ form courese；</p>
+<h3 id="4、排序（order-by）"><a href="#4、排序（order-by）" class="headerlink" title="4、排序（order by）"></a>4、排序（order by）</h3><p>select 字段列表 form 表名<br>order by 字段1 asc|desc [,字段2 [asc]|desc,……]<br><strong>说明：</strong><br>A 排序方式包含asc（升序，由小到大，默认值）、desc（降序，由大到小）<br>B 可根据多个字段排序，但是每个字段有其自身排序方式，<br>  如果出现多个字段排序，后者实在前者出现重复值的情况下有意义<br>C order by子句出现在where子句的后边（如果有where子句的话）<br>D 聚合函数可以作为数据排序，如order by count(字段) desc</p>
+<p>select * form elogs order by elscore desc;</p>
+<p>select * form courses order by cname;因为编码问题可能达不到想要的结果</p>
+<p>因为当前数据库语言设置为uft8，使用中文字段排序须要进行编码更改<br>select * form courses order by convert(cname using gbk);</p>
+<h3 id="5、取多少条数据（limit）"><a href="#5、取多少条数据（limit）" class="headerlink" title="5、取多少条数据（limit）"></a>5、取多少条数据（limit）</h3><p>– select 字段列表 form 表名 limit [m,]n;<br>注意：<br>1、limit关键字后可以只有一个数字n，表示前n条数据（此时m=0）<br>2、limit关键字后右两个数m,n是，表示m+1行开始读取n条数据（常用于分页数据读取）</p>
+<p><strong>示例</strong></p>
+<p>– 查询学生信息表中前五条数据<br>select * from students limit 2;<br>select * from students limit 0,2;– (默认位置是从0开始，0,2取2条数据)<br>select * from students limit 2,1;– (从前一条数据+1开始取。2,1取1条数据)</p>
+<p>检索年龄最小的前五位男老师的信息<br>select * from teachers where tGender=’男’ order by tAge limit 5;</p>
+<p><strong>查找年龄最大的老师（年龄最大不止一个）</strong></p>
+<p><strong>思路：</strong><br>1、找到教师信息表中年龄最大的年龄值<br>2、在教师表中找到与年龄最大值相同年龄的教师信息</p>
+<p>方法一：select * from teachers where  tAge=(select tAge from teachers order by  tAge desc limit 1);</p>
+<p>方法二：select * from teachers where  tAge=(select max(tAge) from teachers                 – max字段名：获取该字段数据中的最大值<br>);</p>
+<p><strong>重点提醒</strong>：聚合函数不能直接出现在where子句中<br>select * from teachers where  tAge=max(tAge);– 错误的</p>
+<h3 id="6、聚合函数"><a href="#6、聚合函数" class="headerlink" title="6、聚合函数"></a>6、聚合函数</h3><p>max(字段名)：返回指定字段的最大值<br>min(字段名)：返回指定字段的最小值<br>avg(字段名)：返回指定字段的平均值，只能针对数值型<br>sum(字段名)：返回指定字段的和值，只能针对数值型<br>count();返回结果集的信息条数<br>count(*)<br>count(1)<br>count(主键字段)<br>count(非主键字段)</p>
+<p><strong>注意：</strong><br>1、max(字段)、min(字段)、avg(字段)、sum(字段)、count(主键字段)<br>   在统计时排除字段值中的null值<br>2、count(*)、count(1)、count(主键字段)返回表中所有符合条件的信息条目<br>3、avg(字段)、sum(字段)在统计字符字段时，返回值为0<br>4、聚合函数不能直接嵌套     </p>
+<p><strong>示例</strong></p>
+<p>– 统计选修记录信息表中，记录信息的数量及考试成绩平均分<br>select count(*),count(1),count(elNo),count(elScore),avg(elScore),from elogs;<br>select avg(cName),sum(cName),max(cName),min(cName) from courses;</p>
+<p>select elNo,count(*) from elogs;– 目前没有太多意义</p>
+<h3 id="7、取消重复值（distinct）"><a href="#7、取消重复值（distinct）" class="headerlink" title="7、取消重复值（distinct）"></a>7、取消重复值（distinct）</h3><p><strong>结果集中重复的数据只会出现一次</strong><br>select distinct tAge from teachers;<br>select count(distinct cID) from elogs;</p>
+<p><strong>如果distinct后边出现多个字段时，表示针对多个字段组合值中的重复值进行取消</strong><br>select distinct tAge,tNo from teachers;</p>
+<p>示例成绩中，课程编号为2的前十名同学学号及成绩信息<br>select sid,elScore from elogs cid=’2’<br>  order by elScore desc limit 10;</p>
+<p>– 统计课程编号为00002的考试有多少同学未参考（考试成绩为空为未参考）<br>方法一：select count(*) from elogs where cID=00002 and elScore is null;</p>
+<p>方法二：select count(*)-count(elscore) from elogs where cid=’00002’;</p>
+<p>– 查看课程编号为00002，考试成绩为60,70,80,90,100的学生学号<br>select sid from elogs where elScore in (60,70,80,90,100)<br>and cid=’00002’;</p>
+<p>– 查询参与选修的同学学号有哪些<br>select distinct sid from elogs;</p>
+<p>– 查询参与选修的学生姓名<br>select sName from students where sNo in (select sid from elogs);</p>
+<p>select sName from students where exists(<br>select  sid from elogs  where sid=sno<br>);</p>
+<h3 id="8、子查询"><a href="#8、子查询" class="headerlink" title="8、子查询"></a>8、子查询</h3><p>子查询是指一个查询语句嵌套在另一个查询语句内部的查询<br>子查询（内层）结果作为外层SQL操作的过滤条件<br>子查询可以添加到select、update、delete语句中<br>子查询可进行多次嵌套<br><strong>子查询类型：</strong><br>        带比较运算符的子查询<br>        带in关键字的子查询<br>        带exists关键字的子查询<br>        带any/some关键字的子查询<br>        带all关键字的子查询</p>
+<p><strong>外部数据大于内部数据，使用in</strong><br><strong>内部数据大于外部数据，使用exists</strong></p>
+<h4 id="in子查询："><a href="#in子查询：" class="headerlink" title="in子查询："></a>in子查询：</h4><p>select  字段列表   from   表A  where  表A.字段 in(<br>   select  表B.字段  from  表B<br>);</p>
+<h4 id="exists子查询："><a href="#exists子查询：" class="headerlink" title="exists子查询："></a>exists子查询：</h4><p>select  字段列表   from   表A  where  exists(<br>   select  主键字段  from  表B  where  表B.字段=表A.字段<br>);<br><strong>注意：</strong><br>1、表A.字段与表B.字段有主外关联为佳<br>2、exists子查询中内部语句的where条件表达式是两表对应字段</p>
+<p>exists根据子句返回是否有结果（有数据返回，则exists返回真；否则返回假），以确定其前面的select语句是否需要执行<br>select * from  Students where exists(select * from elogs);</p>
+<p>select * from  Students where  exists(select * from elogs where cid=’1’);</p>
+<h3 id="9、合并结果集union"><a href="#9、合并结果集union" class="headerlink" title="9、合并结果集union"></a>9、合并结果集union</h3><p>向下合并 默认将结果中的重复值取消，如果不想取消则在union后边增加all<br> select tName from teachers<br> union all<br> select cName from courses;</p>
+<h3 id="10、连接技术"><a href="#10、连接技术" class="headerlink" title="10、连接技术"></a>10、连接技术</h3><h4 id="内连接：inner-join"><a href="#内连接：inner-join" class="headerlink" title="内连接：inner join"></a>内连接：inner join</h4><p>select 字段列表 from 表A inner join 表B on 表A.主键字段=表B.外键字段 [where 条件表达式]</p>
+<p>select 字段列表 from 表A，表B where 表A.主键字段=表B.外键字段 [and 其他条件表达式]</p>
+<h4 id="外连接：outer-join"><a href="#外连接：outer-join" class="headerlink" title="外连接：outer join"></a>外连接：outer join</h4><p>做外链接：left outer join/left join<br>select 字段列表 from 表A left join 表B on<br>   表A.主键字段=表B.外键字段 [where 条件表达式]</p>
+<p>内连接<br>select * from courses as a inner join elogs as b on a.<code>cNo</code>=b.<code>cID</code> where cName=’C语言’;</p>
+<p>说明：呈现多表中能匹配的数据（有条件表达式存在则再筛选）</p>
+<p>左外连接<br>select * from elogs as b left join courses as a on a.<code>cNo</code>=b.<code>cID</code>  where cName=’C语言’;</p>
+<p>​    说明：以左表（left join左边的表）为基表呈现数据，右表中无对应匹配的数据则以null呈现（有条件表达式存在则再筛选）</p>
+<p>– 右外连接<br>select * from courses as a right join elogs as b on a.<code>cNo</code>=b.<code>cID</code> </p>
+<p>​    说明：以右表（right join右边的表）为基表呈现数据，左表中无对应匹配的数据则以null呈现（有条件表达式存在则再筛选）</p>
+<p>#查询老张老师所授课程名称<br>select cName from courses where tID=(<br>select tNo from teachers where  tName=’老张’<br>);</p>
+<p>select cName from courses inner join teachers on tNo=tid where  tName=’老张’;</p>
+<p><strong>示例</strong></p>
+<p>– 检索姓名为张三的学生选修课程《C语言》的考试成绩<br>select elScore from elogs as A inner join students as B on A.sID=B.sNo<br>inner join courses as C on A.cID=C.cNo where sName=’张三’ and cName=’C语言’;</p>
+<h3 id="11、分组查询"><a href="#11、分组查询" class="headerlink" title="11、分组查询"></a>11、分组查询</h3><p>语法：select 字段列表 form 表名 [where 条件表达式] group by 分组字段列表<br>        [having 条件表达式也可是聚合函数] [order by 字段列表]</p>
+<p><strong>示例</strong></p>
+<p>– 统计在选修记录信息记录表中，已登记同学每人选修课程门数<br>select count(*) from elogs group by sID;</p>
+<p>–查询已登记的每位学生姓名及其选修课程数目</p>
+<p>select (select sName from Students where sNo=sID),count(*) from ELogs group by sID;</p>
+<p>​        应用group_concat()函数将指定字段（课程编号）以列表形式呈现在结果集内（就是所选课程的编号）</p>
+<p>select sName,count(*),group_concat(cID) from ELogs inner join Students on sNo=sID  group by sID;</p>
+<p>–查询已登记的张姓同学的姓名及其选修课程数目  </p>
+<p>建议使用where进行数据的先行筛选再分组</p>
+<p>select sName,count(*),group_concat(cName) from ELogs inner join Students on sNo=sID</p>
+<p> inner join Courses on cNO=cID  where sName like ‘张%’ group by sID;</p>
+<p> select sName,count(*),group_concat(cName) from ELogs inner join Students on sNo=sID</p>
+<p> inner join Courses on cNO=cID  group by sID having sName like ‘张%’;</p>
+<p> – 查询已登记的张姓同学的姓名及其选修课程数目，且选修课程门数必须大于三门才能呈现。<br>select sName,count(<em>)<br>from students inner join elogs on sNo=sID<br>where sName like ‘张%’ group by sID having count(</em>)&gt;2;</p>
+<p>select sName,count(<em>),group_concat(cName)<br>from students inner join elogs on sNo=sID<br>inner join courses on cNo=cID<br>where sName like ‘张%’ group by cNo having count(</em>)&gt;2;</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>where子句在SQL语句中是可选项;如果选择该项，则将限定SQL操作必须满足的查询条件。</p>
+<table>
+<thead>
+<tr>
+<th>比较运算符符号</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;， !=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>between–and…</td>
+<td>在两值之间</td>
+</tr>
+<tr>
+<td>not between… and..</td>
+<td>不在两值之间</td>
+</tr>
+<tr>
+<td>in</td>
+<td>在集合中</td>
+</tr>
+<tr>
+<td>not in</td>
+<td>不在集合中</td>
+</tr>
+<tr>
+<td>like</td>
+<td>模式匹配</td>
+</tr>
+<tr>
+<td>not like</td>
+<td>模式不配</td>
+</tr>
+<tr>
+<td>is null</td>
+<td>为空</td>
+</tr>
+<tr>
+<td>is not null</td>
+<td>不为空</td>
+</tr>
+</tbody></table>
+<p>优先级从上到下</p>
+<table>
+<thead>
+<tr>
+<th>not或！</th>
+<th>逻辑非，条件取反</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>and</td>
+<td>逻辑与，多个条件同时成立</td>
+</tr>
+<tr>
+<td>or</td>
+<td>逻辑或，多个条件一个满足即成立</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%</td>
+<td>代表0个或多个任意字符</td>
+</tr>
+<tr>
+<td>_(下划线)</td>
+<td>代表一个任意字符，常用来限制表达式的字符长度</td>
+</tr>
+</tbody></table>
+<p>语法：desc 表名;查看指定表结构</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-3/">#CVE-2019-1-3</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/EIGRP/">高级距离矢量路由协议 EIGRP</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/LNMP环境搭建/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/web服务/">Web服务</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/firewalld防火墙/">firewalld防火墙</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="数据库的基本操作">
+        <meta property="og:title" content="数据库基本操作">
     
 
     <!--Open Graph Description-->
@@ -42,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>数据库的基本操作 - 你好</title>
+    <title>数据库基本操作 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -147,7 +147,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2020/01/03/数据库基本操作/">
-                数据库的基本操作
+                数据库基本操作
             </a>
         </h1>
         <div class="post-info">
@@ -168,8 +168,8 @@
     
         
             <div class="picture-container">
-                <a href="#" data-featherlight="/-![]()">
-                    <img src="/-![]()" class="img-thumbnail" />
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
                 </a>
             </div>
         
@@ -180,8 +180,8 @@
         <!-- Post Content -->
         <h3 id="CVE-2019-1-3"><a href="#CVE-2019-1-3" class="headerlink" title="CVE _2019-1-3"></a>CVE _2019-1-3</h3><a id="more"></a>
 
-
-<h1 id="信息储存工具有"><a href="#信息储存工具有" class="headerlink" title="信息储存工具有"></a>信息储存工具有</h1><p>磁盘、软盘、U盘</p>
+<h5 id="数据库用途"><a href="#数据库用途" class="headerlink" title="数据库用途"></a>数据库用途</h5><p><strong>常用信息储存工具</strong></p>
+<p>磁盘、软盘、U盘</p>
 <p>随着计算机软、硬件的高速发展，在20实际60年代，数据库技术应运而生；并在70年代得到迅速发展和广泛引用。</p>
 <p><strong>数据  Data、数据库 Database 、数据库系统   DBS、数据库管理系统 DBMS</strong> </p>
 <p>位于用户操作系统之间的一层数据管理软件</p>
@@ -202,8 +202,7 @@
 <p>DML（数据库操纵语言）:insert-插入、update-更新、delete-删除</p>
 <p>DQL（数据库查询语言）：select-查询</p>
 <p>DCL（数据库控制语言针对用户）：grant-授权、revoke-回收</p>
-<h4 id="MySQL命令"><a href="#MySQL命令" class="headerlink" title="MySQL命令"></a>MySQL命令</h4><p><strong>1、服务及连接操作</strong></p>
-<p>show databases:所有数据库</p>
+<h4 id="MySQL命令"><a href="#MySQL命令" class="headerlink" title="MySQL命令"></a>MySQL命令</h4><h5 id="1、服务及连接操作"><a href="#1、服务及连接操作" class="headerlink" title="1、服务及连接操作"></a><strong>1、服务及连接操作</strong></h5><p>show databases:所有数据库</p>
 <p>mysql -u root -p 登录数据库</p>
 <p>net   start mysql56  启动服务</p>
 <p>net stop 服务名     关闭指定服务</p>
@@ -212,9 +211,13 @@
 <p>​          user     password    host      port</p>
 <p>默认用户名为：root，用户名为mysql数据库user表中user、host字段的组合，如果host字段值为%，则不需要书写，其他则如<a href="mailto:test@172.168.0.4" target="_blank" rel="noopener">test@172.168.0.4</a></p>
 <p>一般使用到-p就可以了</p>
-<h5 id="2、查看数据库"><a href="#2、查看数据库" class="headerlink" title="2、查看数据库"></a>2、查看数据库</h5><p>show tables;</p>
+<h5 id="2、查看数据库"><a href="#2、查看数据库" class="headerlink" title="2、查看数据库"></a>2、查看数据库</h5><p>use 数据库名;   使用数据库（表示后期操作都针对该数据库进行）</p>
+<p>show databases;   查看所有数据库</p>
+<p>show tables;查看表</p>
 <p>select * from user\G；行显示数据</p>
 <p>select user,host,password  from user;先进入查找的目录，再是需要查询的数据库名</p>
+<p>net start 服务名       启动指定服务</p>
+<p>net stop 服务名       关闭指定服务</p>
 <p>status;  状态信息</p>
 <p>检索表中部分数据信息<br>select 字段1,字段2…… from 表名;    *表示所有字段</p>
 <h5 id="3、授限"><a href="#3、授限" class="headerlink" title="3、授限"></a>3、授限</h5><p>grant  授权  on  范围   to  用户 [ with grant option]</p>
@@ -224,65 +227,61 @@
 <p><a href="mailto:ceshi@192.168.0.2" target="_blank" rel="noopener">ceshi@192.168.0.2</a> </p>
 <p><a href="mailto:ceshi@192.168.1" target="_blank" rel="noopener">ceshi@192.168.1</a>.%</p>
 <p>默认用户为：root ，用户名为mysql数据库user表中user,host字段的组合，如果host字段值为%</p>
-<p>show tables; 查看指定数据库下边所有数据表</p>
-<p>show  databases ; 查看所有数据库</p>
-<p>use 数据库名;  使用数据库（表示后期操作都针对该数据库进行）</p>
 <p><strong>创建用户2</strong></p>
 <p>grant  授权  on  范围   to  用户 identified by ‘密码’;</p>
-<p>grant all on mysql.* to a identified by ‘1234’</p>
+<p>grant all on mysql.* to a identified by ‘1234’  </p>
 <p>show grants for ceshi;</p>
 <p>grant select(host) on  mysql.user  to c:</p>
-<p>show grants for c;</p>
-<p>服务器级别</p>
-<p>数据库（具体的某一个数据库)</p>
+<p>show grants for c;   </p>
+<p><strong>服务器级别：</strong></p>
+<p>数据库（具体权利的某一个数据库)</p>
 <p>列</p>
 <p>表()</p>
-<p>use infomation_sch</p>
+<p>use infomation_sch   </p>
 <p>desc tables：查看这个表的定义</p>
 <h5 id="5、回收"><a href="#5、回收" class="headerlink" title="5、回收"></a>5、回收</h5><p>revoke 权限  on  范围  to  用户  </p>
-<h5 id="6、刷新全新机制"><a href="#6、刷新全新机制" class="headerlink" title="6、刷新全新机制"></a>6、刷新全新机制</h5><p>flush privileges;</p>
+<h5 id="6、刷新全新机制"><a href="#6、刷新全新机制" class="headerlink" title="6、刷新全新机制"></a>6、刷新全新机制</h5><p>flush privileges;     查看数据库中支持的权限 </p>
+<p>show grants for 用户名;    查看用户当前权限</p>
 <h5 id="7、更改密码"><a href="#7、更改密码" class="headerlink" title="7、更改密码"></a>7、更改密码</h5><p>A、更改指定用户密码</p>
 <p>set password for c=password(‘123’)</p>
 <p>B、更改自己的登录密码</p>
 <p>set  password=password(‘111’);</p>
 <h5 id="8、删除用户"><a href="#8、删除用户" class="headerlink" title="8、删除用户"></a>8、删除用户</h5><p>drop user 用户名；</p>
+<p>说明：</p>
+<p>A、<a href="mailto:ceshi@192.168.1.2" target="_blank" rel="noopener">ceshi@192.168.1.2</a>表示“ceshi”用户可通过IP为“192.168.1.2”的地址访问指定数据库服务器</p>
+<p>B、<a href="mailto:ceshi@192.168.1" target="_blank" rel="noopener">ceshi@192.168.1</a>.%表示“ceshi”用户可通过IP为“192.168.1.0”至“192.168.1.255”之间的地址访问指定数据库服务器</p>
+<p> C、create user c identified by ‘111’;</p>
+<p>上边语句创建用户c对应的host地址为“%”</p>
 <h3 id="MySQL建库和建表"><a href="#MySQL建库和建表" class="headerlink" title="MySQL建库和建表"></a>MySQL建库和建表</h3><p>两个模式：严格模式和非严格模式</p>
 <p>mysql当前及以前的数据库存储引擎</p>
 <p>myisam—myus</p>
 <p>innodb —–ib</p>
 <p>MYI:索引文件</p>
 <p>MYD：data 数据文件</p>
-<p>创建数据库：</p>
-<p>create database  数据库名 </p>
+<h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>create database  数据库名 </p>
 <p>建表语法：create  table 表名(字段名，字段类型（长度），。。。)；</p>
 <p>字段类型后可空格<strong>zerofill</strong>不足位数前面补充0</p>
-<p><strong>‘’</strong>空字符串有内容 null 空没有内容</p>
+<p><strong>‘’</strong>空字符串有内容   null 空没有内容</p>
 <h4 id="操作："><a href="#操作：" class="headerlink" title="操作："></a>操作：</h4><p>1、创建数据库schollDB</p>
 <p>2、创建教室信息表Techers</p>
 <p>​     包含：教师编号、如：00001,0002…..</p>
-<p>​                  教师姓名 name</p>
-<p>​                    教师出生日期 time</p>
-<p>​                   教师性别 gender</p>
-<p>​                    教师教龄 age</p>
-<p>​                    教师住址 address</p>
-<p>​                   教师住址及所在的邮政编码 postal </p>
+<p>​     教师姓名 name、教师出生日期 time、 教师性别 gender、 教师教龄 age、教师住址 address、教师住址及所在的邮政编码 postal </p>
 <p>创建数据库语法：create databse  数据库名</p>
 <p>编号自动递增create  table 表名(字段名，字段类型（长度）AUTO_INCREMENT PRIMARY KEY(必需要是关键字才行)，。。。)；</p>
 <p>MySQL数据类型：</p>
 <p>1、数值型 </p>
-<p>​     1.1整型（tinyint、smallint、mediumint、int、bigint）</p>
-<p>​     1.2浮点(float、double )</p>
-<p>​     1.3定点型(decimal)</p>
-<p>​       </p>
+<p>​      整型（tinyint、smallint、mediumint、int、bigint）</p>
+<p>​      浮点(float、double )</p>
+<p>​      定点型(decimal)      </p>
 <p>2、字符型</p>
-<p>​    char 、varchar、blob、text、enum、set</p>
+<p>​     char 、varchar、blob、text、enum、set</p>
 <p>3、日期和时间类型</p>
-<p> date 、time、datetime、timestamp、year</p>
+<p>​     date 、time、datetime、timestamp、year</p>
 <h4 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h4><p>多行注释 /**/</p>
 <p>单行注释#</p>
 <p>–  单行注释</p>
-<h4 id="插入语句语法"><a href="#插入语句语法" class="headerlink" title="插入语句语法"></a>插入语句语法</h4><p>insert into   表名[（字段1，字段2，。。。）]values (值1，值2,。。。);</p>
-<p>注意：</p>
+<h4 id="插入语句语法"><a href="#插入语句语法" class="headerlink" title="插入语句语法"></a>插入语句语法</h4><p>insert into   表名[（字段1，字段2，。。。）] values (值1，值2,。。。);</p>
+<p><strong>注意：</strong></p>
 <p>1、如果针对表中所有添加数据，可省略字段列表</p>
 <p>2、字段列表不是表中所有字段时，非空无默认值字段必须出现</p>
 <p>3、值列表须与字段列表一一对应（数量，数据类型）</p>
@@ -290,18 +289,16 @@
 <p>5、对于字段列表中有默认值字段，值可使用default替代用户未指定情况</p>
 <p>强调：针对字符、日期和时间类型，数据值使用英文单引号括起来</p>
 <h4 id="更新语句语法"><a href="#更新语句语法" class="headerlink" title="更新语句语法"></a>更新语句语法</h4><p>update 表名 set 字段1=值1  字段2=值2  [where 条件表达式]</p>
-<h5 id="任务1：将所有老师的教龄-tWokAge-加1"><a href="#任务1：将所有老师的教龄-tWokAge-加1" class="headerlink" title="任务1：将所有老师的教龄(tWokAge)加1"></a>任务1：将所有老师的教龄(tWokAge)加1</h5><h5 id="任务2：将张三老师的教龄（tWorkAge）加1"><a href="#任务2：将张三老师的教龄（tWorkAge）加1" class="headerlink" title="任务2：将张三老师的教龄（tWorkAge）加1"></a>任务2：将张三老师的教龄（tWorkAge）加1</h5><h5 id="任务3：将所有老师的教龄-tworkAge-加1切备注清空"><a href="#任务3：将所有老师的教龄-tworkAge-加1切备注清空" class="headerlink" title="任务3：将所有老师的教龄(tworkAge)加1切备注清空"></a>任务3：将所有老师的教龄(tworkAge)加1切备注清空</h5><p>update 表名 set 字段1=字段1+1  where 条件</p>
+<p>注意：在update语句中，如果没有出现where子句，则表示针对表中所有数据进行更新操作；如果表中出现where子句，则必须先根据条件表达式筛选数据，再行更新操作</p>
 <h4 id="MySQL如不能存储中文，应如何处理"><a href="#MySQL如不能存储中文，应如何处理" class="headerlink" title="MySQL如不能存储中文，应如何处理"></a>MySQL如不能存储中文，应如何处理</h4><p> 找到mysql数据库的安装目录下的my-default.ini文件，修改default-character-set=utf8</p>
-<h3 id="课外任务："><a href="#课外任务：" class="headerlink" title="课外任务："></a>课外任务：</h3><p><strong>1、char 与varchar的区别</strong> </p>
-<p> char长度是固定的 varchar长度是可变化的3个字节</p>
-<p> <strong>2、 datetime与timestamp的区别</strong></p>
-<p>a）DATETIME的默认值为null；TIMESTAMP的字段默认不为空（not null）,默认值为当前时间（CURRENT_TIMESTAMP），如果不做特殊处理，并且update语句中没有指定该列的更新值，则默认更新为当前时间。<br>这个区别就解释了为什么平时我们都不用可以管这个字段就能自动更新了，因为多数时候用的是timestamp；而此处用的是datetime，不会有自动更新当前时间的机制，所以需要在上层手动更新该字段</p>
+<h4 id="char-与varchar的区别"><a href="#char-与varchar的区别" class="headerlink" title="char 与varchar的区别"></a><strong>char 与varchar的区别</strong></h4><p> char长度是固定的 varchar长度是可变化的3个字节</p>
+<h4 id="2、-datetime与timestamp的区别"><a href="#2、-datetime与timestamp的区别" class="headerlink" title="2、 datetime与timestamp的区别"></a><strong>2、 datetime与timestamp的区别</strong></h4><p>a）DATETIME的默认值为null；TIMESTAMP的字段默认不为空（not null）,默认值为当前时间（CURRENT_TIMESTAMP），如果不做特殊处理，并且update语句中没有指定该列的更新值，则默认更新为当前时间。</p>
 <p>b）DATETIME使用8字节的存储空间，TIMESTAMP的存储空间为4字节。因此，TIMESTAMP比DATETIME的空间利用率更高。</p>
 <p>c）两者的存储方式不一样 ，对于TIMESTAMP，它把客户端插入的时间从当前时区转化为UTC（世界标准时间）进行存储。查询时，将其又转化为客户端当前时区进行返回。而对于DATETIME，不做任何改变，基本上是原样输入和输出。</p>
 <p>d）两者所能存储的时间范围不一样 </p>
 <p>timestamp所能存储的时间范围为：’1970-01-01 00:00:01.000000’ 到 ‘2038-01-19 03:14:07.999999’；</p>
 <p>datetime所能存储的时间范围为：’1000-01-01 00:00:00.000000’ 到 ‘9999-12-31 23:59:59.999999’。</p>
-<h4 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h4><h4 id="MySQL忘记密码怎么办"><a href="#MySQL忘记密码怎么办" class="headerlink" title="MySQL忘记密码怎么办"></a>MySQL忘记密码怎么办</h4><p>修改本地mysql目录中的my.ini文件<br>添加 skip-grant-tables</p>
+<h4 id="MySQL忘记密码怎么办"><a href="#MySQL忘记密码怎么办" class="headerlink" title="MySQL忘记密码怎么办"></a>MySQL忘记密码怎么办</h4><p>修改本地mysql目录中的my.ini文件<br>添加 skip-grant-tables</p>
 <p>重启mysql<br>net start mysql56</p>
 <p>然后登录<br>mysql -u root -p<br>这里不用输入密码</p>
 <p>登录进入后可以更改密码<br>update user set authentication_string = password(‘密码’)where user=’root’;</p>
@@ -350,19 +347,19 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/03/EIGRP/">firewall</a>
+                <a class="footer-post" href="/2020/01/03/EIGRP/">高级距离矢量路由协议 EIGRP</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/LNMP环境搭建/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/03/web服务/">Web服务</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2020/01/03/firewalld防火墙/">firewalld防火墙</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/01/03/数据库基本操作/">数据库的基本操作</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019/12/03/hello-world/">Untitled</a>
             </li>
             
         </ul>
