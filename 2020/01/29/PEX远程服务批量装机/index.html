@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="PXE远程服务器（192.168.1.1）所需准备：
+
+安装源（系统盘文件）；
+TFTP服务；
+DHCP服务；
+Linux内核；
+能够向客户机裸机发送PXE引导程序；
+启动菜单及无人应答文件等。
+
+客户端要求：
+
+客户端的网卡支持PXE协议，且主板支持网络引导（现在多数都支持）；
+设置BIOS允许从">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="LNMP环境搭建">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>LNMP环境搭建 - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/29/PEX远程服务批量装机/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-29</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <a id="more"></a>
+
+
+<p>PXE远程服务器（192.168.1.1）所需准备：</p>
+<ol>
+<li>安装源（系统盘文件）；</li>
+<li>TFTP服务；</li>
+<li>DHCP服务；</li>
+<li>Linux内核；</li>
+<li>能够向客户机裸机发送PXE引导程序；</li>
+<li>启动菜单及无人应答文件等。</li>
+</ol>
+<p>客户端要求：</p>
+<ol>
+<li>客户端的网卡支持PXE协议，且主板支持网络引导（现在多数都支持）；</li>
+<li>设置BIOS允许从Network或LAN启动；</li>
+</ol>
+<p>一、搭建PXE远程安装服务器：</p>
+<p><strong>1、配置YUM仓库，并安装ftp服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mount /dev/cdrom /media</span><br><span class="line">[root@localhost ~]# cd /etc/yum.repos.d/</span><br><span class="line">[root@localhost yum.repos.d]# rm -rf *</span><br><span class="line">[root@localhost yum.repos.d]# vim a.repo</span><br><span class="line"></span><br><span class="line">[yum]</span><br><span class="line">baseurl=file:///media</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[root@localhost yum.repos.d]# yum -y install vsftpd*</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、准备centos7安装源并启动ftp服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost yum.repos.d]# mkdir /var/ftp/centos7</span><br><span class="line">[root@localhost yum.repos.d]# cp -rf /media/* /var/ftp/centos7/</span><br><span class="line">[root@localhost yum.repos.d]# systemctl start vsftpd             #启动ftp服务</span><br><span class="line">[root@localhost yum.repos.d]# systemctl enable vsftpd              #设置为开机自启</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、安装并启动TFTP服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost yum.repos.d]# yum -y install tftp-server</span><br><span class="line">[root@localhost yum.repos.d]# vim /etc/xinetd.d/tftp             #编辑TFTP配置文件</span><br><span class="line"></span><br><span class="line">                                     ...............................</span><br><span class="line">service tftp</span><br><span class="line">&#123;</span><br><span class="line">        socket_type             = dgram</span><br><span class="line">        protocol                = udp</span><br><span class="line">        wait                    = yes</span><br><span class="line">        user                    = root</span><br><span class="line">        server                  = /usr/sbin/in.tftpd</span><br><span class="line">        server_args             = -s /var/lib/tftpboot</span><br><span class="line">        disable                 = no               #将此处默认的yes改为no即可</span><br><span class="line">        per_source              = 11</span><br><span class="line">        cps                     = 100 2</span><br><span class="line">        flags                   = IPv4</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@localhost yum.repos.d]# systemctl start tftp                #启动TFTP服务</span><br><span class="line">[root@localhost yum.repos.d]# systemctl enable tftp</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、准备Linux内核、初始化镜像文件（在系统盘中）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd /media/images/pxeboot/</span><br><span class="line">[root@localhost pxeboot]# cp vmlinuz initrd.img /var/lib/tftpboot/</span><br></pre></td></tr></table></figure>
+
+<p><strong>5、准备PXE引导程序：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# yum -y install syslinux    #安装引导程序</span><br><span class="line">[root@localhost pxeboot]# cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/</span><br></pre></td></tr></table></figure>
+
+<p><strong>6、配置启动菜单（典型的和无人值守安装的启动菜单根据实际需求二选一配置即可）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# mkdir /var/lib/tftpboot/pxelinux.cfg</span><br></pre></td></tr></table></figure>
+
+<p><strong>①、典型的启动菜单，无法实现无人值守安装：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# vim /var/lib/tftpboot/pxelinux.cfg/default            </span><br><span class="line"></span><br><span class="line">default auto</span><br><span class="line">prompt 1</span><br><span class="line">label auto</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append initrd=initrd.img method=ftp://192.168.1.1/centos7</span><br><span class="line">label linux text</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append text initrd=initrd.img method=ftp://192.168.1.1/centos7</span><br><span class="line">label linux rescue</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append rescue initrd=initrd.img method=ftp://192.168.1.1/centos7</span><br></pre></td></tr></table></figure>
+
+<p><strong>②、无人值守安装的启动菜单：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# vim /var/lib/tftpboot/pxelinux.cfg/default </span><br><span class="line"></span><br><span class="line">default auto</span><br><span class="line">prompt 0</span><br><span class="line">label auto</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append initrd=initrd.img method=ftp://192.168.1.1/centos7 ks=ftp://192.168.1.1/ks.cfg</span><br></pre></td></tr></table></figure>
+
+<p>**在上面两种启动菜单，我这里配置的是无人值守安装，若选择典型的启动菜单，那么接下来的操作有很多就是不必要的了，只要安装上DHCP服务器即可部署系统了。</p>
+<p>**</p>
+<p><strong>7、安装并启用DHCP服务器（DHCP服务安装后有一个模板文件，若不熟悉，可以参考： <a href="https://blog.51cto.com/14154700/2353971）：" target="_blank" rel="noopener">https://blog.51cto.com/14154700/2353971）：</a></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# yum -y install dhcp</span><br><span class="line">[root@localhost pxeboot]# vim /etc/dhcp/dhcpd.conf</span><br><span class="line">                              ...........................</span><br><span class="line"></span><br><span class="line">subnet 192.168.1.0 netmask 255.255.255.0 &#123;</span><br><span class="line">  range 192.168.1.1 192.168.1.200;</span><br><span class="line">  option domain-name-servers 8.8.8.8;</span><br><span class="line">  option domain-name &quot;internal.example.org&quot;;</span><br><span class="line">  option routers 192.168.1.254;</span><br><span class="line">  option broadcast-address 192.168.1.255;</span><br><span class="line">  default-lease-time 21600;</span><br><span class="line">  max-lease-time 43200;</span><br><span class="line">  next-server 192.168.1.1;                 #指定TFTP服务器的地址</span><br><span class="line">  filename &quot;pxelinux.0&quot;;                     #指定PXE引导程序的文件名</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@localhost pxeboot]# systemctl start dhcpd</span><br><span class="line">[root@localhost pxeboot]# systemctl enable dhcpd</span><br></pre></td></tr></table></figure>
+
+<p><strong>8、准备安装应答文件：</strong><br>在centos 7 系统中如果安装了system-config-kickstart工具后，可通过图形化向导工具来配置安装应答文件。如果大佬对自动应答文件的配置比较熟悉，也可以直接编辑centos 7 安装后自动创建的应答文件（/root/anaconda-ks.cfg），根据需要适当修改后使用（我还是老老实实的使用图形化吧）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# yum -y install system-config-kickstart     #安装所需工具</span><br></pre></td></tr></table></figure>
+
+<p><strong>①、打开图形化程序：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/e57bdf38512d27d574cf4282d2706e61.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>②、配置安装应答参数：</strong><br><img src="https://s1.51cto.com/images/blog/201905/31/b6ed20650112b7f4e45796fe814a09cc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>③、由于ftp服务默认允许匿名访问，所以不用指定用户名和密码：</strong><br><img src="https://s1.51cto.com/images/blog/201905/31/97d00bad500c1d4e471650fb7c44c96a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>④、引导装载程序：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/719b2f70cbe1cda7008a82e31c96a1d4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>、分区信息（根据实际需求选择合适的硬盘分区方案）：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/f03e1157f3ff858fc695b3dbd723cf10.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>⑤、网络配置及防火墙：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/03c649f6b2d1d22785bcd1c6608e667d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"><br><img src="https://s1.51cto.com/images/blog/201905/31/c1d668d1ab3db33fd8384cf7f994ef92.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>⑥、安装后脚本：</strong></p>
+<p>若想在系统安装完成后，执行一些操作，可以参考以下（我这里写了一个配置yum仓库的脚本）：<br><img src="https://s1.51cto.com/images/blog/201906/01/79d046458e5f82a051626b74faf47ae3.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>⑦、保存应答文件：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/ba73fbea3fe703813c0b88a637fb9113.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"><img src="https://s1.51cto.com/images/blog/201905/31/5b2562499f025ac514b6258271b217b2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>保存后的应答文件：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim ks.cfg              #最后生成的应答文件如下</span><br><span class="line">（可直接复制此文件便可省略图形化配置的那些步骤，结合实际需求进行修改后使用即可）：</span><br><span class="line"></span><br><span class="line">#platform=x86, AMD64, 或 Intel EM64T</span><br><span class="line">#version=DEVEL</span><br><span class="line"># Install OS instead of upgrade</span><br><span class="line">install</span><br><span class="line"># Keyboard layouts</span><br><span class="line">keyboard &apos;us&apos;</span><br><span class="line"># Root password</span><br><span class="line">rootpw --iscrypted $1$bauETRq3$WOpze2jeKD9q3qgKK50xj0</span><br><span class="line"># Use network installation</span><br><span class="line">url --url=&quot;ftp://ftp:192.168.1.1/centos7&quot;</span><br><span class="line"># System language</span><br><span class="line">lang zh_CN</span><br><span class="line"># System authorization information</span><br><span class="line">auth  --useshadow  --passalgo=sha512</span><br><span class="line"># Use graphical install</span><br><span class="line">graphical</span><br><span class="line">firstboot --disable</span><br><span class="line"># SELinux configuration</span><br><span class="line">selinux --disabled</span><br><span class="line"></span><br><span class="line"># Firewall configuration</span><br><span class="line">firewall --disabled</span><br><span class="line"># Network information</span><br><span class="line">network  --bootproto=dhcp --device=ens33</span><br><span class="line"># Reboot after installation</span><br><span class="line">reboot</span><br><span class="line"># System timezone</span><br><span class="line">timezone Asia/Shanghai</span><br><span class="line"># System bootloader configuration</span><br><span class="line">bootloader --location=mbr</span><br><span class="line"># Partition clearing information</span><br><span class="line">clearpart --all</span><br><span class="line"># Disk partitioning information</span><br><span class="line">part /boot --fstype=&quot;xfs&quot; --size=500</span><br><span class="line">part /home --fstype=&quot;xfs&quot; --size=4096</span><br><span class="line">part swap --fstype=&quot;swap&quot; --size=2048</span><br><span class="line">part / --fstype=&quot;xfs&quot; --grow --size=1</span><br><span class="line"></span><br><span class="line">%post --interpreter=/bin/bash</span><br><span class="line">cd /etc/yum.repos.d</span><br><span class="line">rm -rf *</span><br><span class="line">echo -e &quot;[base]&quot; &gt; aa.repo</span><br><span class="line">echo -e &quot;baseurl=ftp://192.168.1.1/centos7&quot; &gt;&gt; aa.repo</span><br><span class="line">echo -e &quot;gpgcheck=0&quot; &gt;&gt; aa.repo</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+<p>不过上面的配置文件还差点东西，需要在配置文件末尾继续写入三行，以此来选择最小安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%packages</span><br><span class="line">@^minimal</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+<p>写好后，保存退出即可。</p>
+<p>8、将自动应答文件复制到指定目录（在之前的引导菜单指定的“ks=”项的路径）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cp /root/ks.cfg /var/ftp/</span><br></pre></td></tr></table></figure>
+
+<p>10、OK，客户机开机，验证效果（耐心等待完成即可）：<br><img src="https://s1.51cto.com/images/blog/201905/31/f099094833257597f419356a81ed3b41.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p>安装成功</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577968107455.png" alt="1577968107455"></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/30/STP生成树协议/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/30/路由重分与路径控制与VPNPPP/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/29/PEX远程服务批量装机/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/29/磁盘挂载与卷管理/">LNMP环境搭建</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

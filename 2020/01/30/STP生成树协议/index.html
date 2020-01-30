@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="SPT生成树协议一、交换机广播风暴的产生1、交换机工作原理
+根据MAC地址表转发数据帧，如果地址未知，则广播。
+2、广播风暴的产生
+当网络中存在物理环路，会产生广播风暴。
+二、STP协议介绍1、 STP生成树协议
+逻辑上断开环路，防止广播风暴的产生。
+当线路出现故障，断开的接口被激活，恢复通信，起备">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="LNMP环境搭建">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>LNMP环境搭建 - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/30/STP生成树协议/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <a id="more"></a>
+
+
+<h2 id="SPT生成树协议"><a href="#SPT生成树协议" class="headerlink" title="SPT生成树协议"></a>SPT生成树协议</h2><h3 id="一、交换机广播风暴的产生"><a href="#一、交换机广播风暴的产生" class="headerlink" title="一、交换机广播风暴的产生"></a>一、交换机广播风暴的产生</h3><p>1、交换机工作原理</p>
+<p>根据MAC地址表转发数据帧，如果地址未知，则广播。</p>
+<p>2、广播风暴的产生</p>
+<p>当网络中存在物理环路，会产生广播风暴。</p>
+<h3 id="二、STP协议介绍"><a href="#二、STP协议介绍" class="headerlink" title="二、STP协议介绍"></a>二、STP协议介绍</h3><p>1、 STP生成树协议</p>
+<p>逻辑上断开环路，防止广播风暴的产生。</p>
+<p>当线路出现故障，断开的接口被激活，恢复通信，起备份线路的作用。</p>
+<h4 id="2、STP的算法"><a href="#2、STP的算法" class="headerlink" title="2、STP的算法"></a>2、STP的算法</h4><p>  STP将一个环形网络生成无环拓朴的步骤：</p>
+<p>第一步：选择根网桥（Root Bridge）</p>
+<p>第二步：选择根端口（Root Ports）</p>
+<p>第三步：选择指端口（Designated Ports）</p>
+<p><strong>3、选择根网桥（Root Bridge）</strong></p>
+<h5 id="选择根网桥"><a href="#选择根网桥" class="headerlink" title="选择根网桥"></a><strong>选择根网桥</strong></h5><p>根据<strong>网桥**</strong>ID<strong>（</strong>BID<em>*）选择根网桥，谁小，谁就是根桥。如果优先级相同，谁的MAC地址小谁就是根桥。</em></p>
+<p>什么是网桥ID（BID）？</p>
+<p>每个网络只能有一个根桥，根桥具有最低的桥ID，根桥上的所有端口都是指派端口，选择根网桥的目的是为了给将生成的树形结构确定一个树根。</p>
+<h5 id="选择根端口"><a href="#选择根端口" class="headerlink" title="选择根端口"></a>选择根端口</h5><p><strong>（1**</strong>）如何选择根端口（Root Ports）？**</p>
+<p>在非根网桥上选择一个<strong>到根网桥最近的端口</strong>作为根端口 选择根端口的依据是：</p>
+<p>根路径成本（cost值）【从端口出发到根桥】最低</p>
+<p>直连网桥的网桥ID最小</p>
+<p><strong>（2）**</strong>什么是cost值？**</p>
+<p>根路径成本是网桥到根网桥的路径上所有链路的成本之和。</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image010.jpg" alt="img"></p>
+<p>根路径成本表</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image012.jpg" alt="img"></p>
+<p><strong>（3）什么是端口ID</strong></p>
+<p>  <img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image014.jpg" alt="img"></p>
+<p><strong>（4）选择根端口举例</strong></p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image016.jpg" alt="img">    <img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image018.jpg" alt="img"></p>
+<h5 id="选择指定端口"><a href="#选择指定端口" class="headerlink" title="选择指定端口"></a>选择指定端口</h5><p>  选择指定端口的依据是：</p>
+<p>在<strong>每个网段上，选择**</strong>1<strong>**个指定端口</strong>，根桥上的端口全是指定端口。</p>
+<p>非根桥上的指定端口：</p>
+<p>根路径成本【从非根桥到根桥】最低</p>
+<p>端口所在的网桥的ID值较小</p>
+<p>直连网桥的端口ID值较小</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image020.jpg" alt="img"></p>
+<h2 id="三、BPDU（桥协议数据单元）"><a href="#三、BPDU（桥协议数据单元）" class="headerlink" title="三、BPDU（桥协议数据单元）"></a>三、BPDU（桥协议数据单元）</h2><p>1、BPDU</p>
+<p>交换机怎么知道其他交换机的网桥ID？怎么知道哪个端口的根路径成本最小？</p>
+<p>是因为交换机之间使用BPDU来交换STP信息，BPDU（Bridge Protocol Data Unit）使用组播发送BPDU，组播地址为：01-80-c2-00-00-00。</p>
+<p>BPDU分为2种类型：</p>
+<p>配置BPDU － 用于生成树计算</p>
+<p>拓朴变更通告（TCN）BPDU － 用于通告网络拓朴的变化</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image022.jpg" alt="img"></p>
+<p><strong>2、**</strong>STP<strong><strong>使用BPDU</strong></strong>选择根网桥**</p>
+<p>（1） 交换机启动时，假定自己是根网桥，在向外发送的BPDU中，</p>
+<p>根网桥ID字段填写自己的网桥ID。</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image024.jpg" alt="img"></p>
+<p>（2）当接收到其他交换机发出的BPDU后，比较网桥ID，选择较小的添加到根网桥ID中。</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image026.jpg" alt="img"></p>
+<p><strong>3、**</strong>STP<strong><strong>使用BPDU</strong></strong>计算根路径成本**</p>
+<p><strong>（1）**</strong>根网桥发送根路径成本为0<strong>**的BPDU</strong></p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image028.jpg" alt="img"></p>
+<p><strong>（2）</strong> <strong>其他交换机接收到根网桥的BPDU**</strong>后，在根路径成本上添加接收接口的路径成本，然**</p>
+<p><strong>后转发。</strong></p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image030.jpg" alt="img"></p>
+<h2 id="四、生成树端口的状态"><a href="#四、生成树端口的状态" class="headerlink" title="四、生成树端口的状态"></a>四、生成树端口的状态</h2><p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image032.jpg" alt="img"></p>
+<p>生成树计时器</p>
+<p>  交换机开机需要等待30秒时间开始转发数据</p>
+<p>当某个正在使用的链路断掉，阻塞的端口需要50秒时间开始转发数据</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image034.jpg" alt="img"></p>
+<h2 id="五、PVST（按VLAN生成树）"><a href="#五、PVST（按VLAN生成树）" class="headerlink" title="五、PVST（按VLAN生成树）"></a>五、PVST（按VLAN生成树）</h2><p><strong>1**</strong>、什么是<strong>**PVST</strong></p>
+<p>PVST是Cisco私有的，为每个VLAN构造一棵生成树</p>
+<p><strong>2、**</strong>PVST<strong>**在实际中的应用</strong></p>
+<p>配置网络中比较稳定的交换机为根网桥</p>
+<p>利用PVST实现网络的负载分担</p>
+<h3 id="PVST的配置命令"><a href="#PVST的配置命令" class="headerlink" title="PVST的配置命令"></a>PVST的配置命令</h3><p>启用生成树：Switch(config)#spanning-tree vlan vlan-list</p>
+<p>设置根网桥：Switch(config)#spanning-tree vlan vlan-list root primary | </p>
+<p>​                        secondary       </p>
+<p>-设置为primary后，优先级变成24576</p>
+<p>-设置为secondary后， 优先级变成28672</p>
+<p>修改网桥的优先级：Switch(config)#spanning-tree vlan vlan-list priority Bridge-                     </p>
+<p>​                                      priority (修改网桥值)</p>
+<p>-优先级的值为4096的倍数</p>
+<p>修改端口成本：Switch(config-if)#spanning-tree vlan vlan-list cost cost</p>
+<p>修改端口优先级：Switch(config-if)#spanning-tree vlan vlan-list port-priority priority</p>
+<p>配置上行速链路：Switch(config)#spanning-tree uplinkfast</p>
+<p>配置端口速链路：Switch(config-if)#spanning-tree portfast</p>
+<p>查看生成树的配置：Switch#show spanning-tree</p>
+<p>查看某个VLAN的生成树详细信息：Switch#show spanning-tree vlan vlan-id detail</p>
+<h2 id="六、以太网端口聚合"><a href="#六、以太网端口聚合" class="headerlink" title="六、以太网端口聚合"></a>六、以太网端口聚合</h2><p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image038.jpg" alt="img"></p>
+<p>1、什么是端口聚合？</p>
+<p>链路聚合又称为端口聚合，端口捆绑，英文名porttrunking。是一种聚合多个物理接口 ( that ) 创建一个逻辑接口。你可以捆扎( bundle ) 八个单独的活动链接到一个信道端口，以提供更高的<strong>带宽</strong>和<strong>冗余</strong>。端口通道也负载平衡这些物理接口上的通信量。只要端口通道中的至少一个物理接口可操作，端口通道就可以保持运行。</p>
+<p>2、channel-group模式</p>
+<p>PAgP 是 Cisco私有，只能在 Cisco Switch 上设定，PAgP 有两个模式，分別是 Desirable 与 Auto当 PAgP 成功建立 EtherChannel 后，PAgP Message 会继续定时传送去维持 EtherChannel。</p>
+<p>Desirable Auto</p>
+<p>Desirable  √     √  主动发送PAgP报文</p>
+<p>Auto    √     x  被动发送PAgP报文</p>
+<p>On            手动设置，需要两边都设置</p>
+<p>LACP 是 IEEE Standard</p>
+<p>Active Passive</p>
+<p>Active    √     √  主动发送LACP报文</p>
+<p>Passive    √     x  主动接收LACP报文</p>
+<h4 id="channel-group"><a href="#channel-group" class="headerlink" title="channel-group"></a>channel-group</h4><p>（1）Cisco最多允许绑定8个端口；如果是百兆网络，总带宽可达1.6Gbit/s；如果是千兆网络，总带宽可达16Gbit/s。</p>
+<p>（2）EtherChannel不支持10M端口；</p>
+<p>（3）EtherChannel编号只在本地有效，链路两端的编号可以不一样；</p>
+<p>（4）EtherChannel默认使用PAgP协议；</p>
+<p>（5）EtherChannel默认情况下是基于源MAC地址的负载平衡；</p>
+<p>（6）一个EtherChannel内所有的端口都必须具有相同的端口速率和双工模式，LACP只能是全双工模式；</p>
+<p>（7）channel-group接口会自动继承最小物理接口，或最先配置的接口模式；</p>
+<p>（8）cisco的交换机不仅可以支持第二层EtherChannel,还可以支持第三层EtherChannel。</p>
+<h4 id="配置端口聚合"><a href="#配置端口聚合" class="headerlink" title="配置端口聚合"></a>配置端口聚合</h4><p>Switch(config)#int port-channel 1</p>
+<p>Switch(config-if)#switchport mode trunk</p>
+<p>Switch(config)#int range f0/1-2</p>
+<p>Switch(config-if-range)#channel-group 1 mode on</p>
+<h4 id="配置流量均衡"><a href="#配置流量均衡" class="headerlink" title="配置流量均衡"></a>配置流量均衡</h4><p>Switch(config)#int f0/1</p>
+<p>Switch(config-if)#spanning-tree vlan 10 port-priority 16</p>
+<p>Switch(config-if)#spanning-tree vlan 20 port-priority 32</p>
+<p>Switch(config)#int f0/2</p>
+<p>Switch(config-if)#spanning-tree vlan 10 port-priority 32</p>
+<p>Switch(config-if)#spanning-tree vlan 20 port-priority 16</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/30/STP生成树协议/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/30/路由重分与路径控制与VPNPPP/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/29/PEX远程服务批量装机/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/29/磁盘挂载与卷管理/">LNMP环境搭建</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

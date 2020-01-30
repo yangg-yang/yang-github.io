@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="路由重分布与路径控制一、**路由重分布概述**
+路由重分布为在同一个互连网络中高效地支持多种路由协议提供了可能，执行路由重分布的路由器被称为边界路由器，因为它们位于两个或多个自治系统的边界上。
+路由重分布时度量标准和管理距离是必须要考虑的，在进行重分布时必须转换协议标准，使得它们兼容。种子度量值（S">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="LNMP环境搭建">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>LNMP环境搭建 - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/30/路由重分与路径控制与VPNPPP/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <a id="more"></a>
+<h2 id="路由重分布与路径控制"><a href="#路由重分布与路径控制" class="headerlink" title="路由重分布与路径控制"></a>路由重分布与路径控制</h2><p><strong>一、**</strong>路由重分布概述**</p>
+<p>路由重分布为在同一个互连网络中高效地支持多种路由协议提供了可能，执行路由重分布的路由器被称为边界路由器，因为它们位于两个或多个自治系统的边界上。</p>
+<p>路由重分布时度量标准和管理距离是必须要考虑的，在进行重分布时必须转换协议标准，使得它们兼容。种子度量值（Seed Metric)是在路由生分布时定义的，它是一条通过外部重分布进来的路由的初始度量值。路由协议默认的种子度量值如下表：</p>
+<table>
+<thead>
+<tr>
+<th>路由重分布进和路由协议</th>
+<th>默认种子度量值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RIP</td>
+<td>无限大</td>
+</tr>
+<tr>
+<td>EIGRP</td>
+<td>无限大</td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>BGP为1，其也为20</td>
+</tr>
+<tr>
+<td>IS-IS</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BGP</td>
+<td>IGP的度量值</td>
+</tr>
+</tbody></table>
+<p>1.路由反馈：双向重分布有可能把从一个自治系统学到的路由信息发送回该自治系统。</p>
+<p>2.路由信息的兼容：不同路由协议的度量标准是不同的</p>
+<p>3.收敛时间不一致</p>
+<p><strong>二、**</strong>路径控制概述**</p>
+<p>为了保证网络的高效运行及在路由重分布的时候避免次优路由或者路由环路，有必要对路由更新进行控制，常用的方法有被动接口、默认路由、静态路由、路由映射表、分布列表、前缀列表、偏移列表、Cisco IOS IP服务等级协议（SLA）和策略路由。在进行路由控制时，可能是多种方法进行组合。</p>
+<h3 id="路由映射表（Route-Map）"><a href="#路由映射表（Route-Map）" class="headerlink" title="路由映射表（Route Map）"></a>路由映射表（Route Map）</h3><p>可以做复杂的访问控制列表，主要功能包括路由控制和策略路由等。定义转发规则eg：奇数走一边，偶数走一边</p>
+<p><strong>（1）定义路由映射表的格式如下：</strong></p>
+<p><strong>定义路由映射表：</strong>route-map 名字 [permit | deny] 编号(规则集)</p>
+<p><strong>条件匹配：</strong>macth（常用的匹配条件包括IP地址、接口、度量值、tag、路由类型以及数据包长度等）</p>
+<p>​    如果格式为：match ip address a b c   表示逻辑或，只要有一个条件满足即可</p>
+<p>​    如果格式为：match ip address a </p>
+<p>​                            match ip address b </p>
+<p>​                            match ip address c     表示逻辑与，必须同时满足所有条件</p>
+<p><strong>定义行为：set</strong>    </p>
+<table>
+<thead>
+<tr>
+<th><strong>Set**</strong>行为**</th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>set ip next  hop</td>
+<td>设定数据包的下一跳地址</td>
+</tr>
+<tr>
+<td>set interface</td>
+<td>设定数据包出接口</td>
+</tr>
+<tr>
+<td>set ip default  next hop</td>
+<td>设置默认的下一跳地址，用于当路由表里没有达到目的地址路由条目的时候</td>
+</tr>
+<tr>
+<td>set ip tos</td>
+<td>设定IP数据包的TOS值</td>
+</tr>
+<tr>
+<td>set ip  precedence</td>
+<td>设定IP数据包的优先级</td>
+</tr>
+<tr>
+<td>Set metric</td>
+<td>设置路由的度量值</td>
+</tr>
+<tr>
+<td>set tag</td>
+<td>设定路由的标记值</td>
+</tr>
+</tbody></table>
+<p><strong>（2）路由映射表有如下特征</strong></p>
+<p>A.<strong>一个route map末尾默认行为是“deny any”</strong></p>
+<p><strong>如执行策略路由时，没有匹配则正常转发</strong></p>
+<p>  <strong>如路由重分时，没有匹配则被过滤掉</strong></p>
+<p>B.一个route map可以包含多个route map陈述，<strong>从上到下被执行</strong>，如route map陈述中没有math，则匹配所有。</p>
+<p>C.序列号指定了条件执行的顺序，不写默认为10，不会自动递增</p>
+<p>D.route map中不写permit deny默认为permit</p>
+<p>E.在删除route map时，没写编号则删除整个route map</p>
+<p><strong>2、**</strong>策略路由**</p>
+<p>策略路由提供了一种根据网络管理者制定的策略来进行数据包转发的机制。基于策略的路由比传统路由能力更强，使用灵活，它使网络管理者不仅能够根据目的地址，而且能够根据协议类型、报文大小、应用或IP源地址来选择转发路径。策略由路由映射表来定义。</p>
+<h3 id="一、路由映射表与重分实验"><a href="#一、路由映射表与重分实验" class="headerlink" title="一、路由映射表与重分实验"></a>一、路由映射表与重分实验</h3><p><strong>实验目的：</strong></p>
+<p>​      种子度量值的配置</p>
+<p>​       路由重分布参数的含义</p>
+<p>​       静态路由重分布</p>
+<p>​       直连路由重分布</p>
+<p>​       RIP与EIGRP的重分布</p>
+<p>​       EIGRP和OSPF的重分布</p>
+<p>​       重分布路由的查看和调试</p>
+<p><strong>实验步骤：</strong></p>
+<p>1、配置路由协议 </p>
+<p>2、配置路由重分布与路由映射表</p>
+<p>  要求将172.16.0.0  0.0.254.0偶数重分至OSPF类型2，metric值为200</p>
+<p>  要求将172.16.0.1  0.0.254.0奇数重分至OSPF类型1，metric值为100</p>
+<h2 id="策略路由"><a href="#策略路由" class="headerlink" title="策略路由"></a>策略路由</h2><p>策略路由提供了一种根据网络管理者制定的策略来进行数据包转发的机制。基于策略的路由比传统路由能力更强，使用更灵活，它使用网络管理者不仅能够根据目的地址，而且能够根据协议类型、报文大小、应用或IP源地址来选择转发路径。策略由路由映射表来定义。</p>
+<h3 id="实验一、基于源IP地址的策略路由配置"><a href="#实验一、基于源IP地址的策略路由配置" class="headerlink" title="实验一、基于源IP地址的策略路由配置"></a>实验一、基于源IP地址的策略路由配置</h3><p><strong>实验目的：</strong></p>
+<p>1、用route-map定义路由策略。</p>
+<p>2、在接口下应用路由策略。</p>
+<p>3、基于源IP地址的策略路由的配置和调试。</p>
+<p><strong>实验拓朴：</strong></p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576509776381.png" alt="1576509776381"></p>
+<p><strong>实验步骤：</strong></p>
+<p>在路由器R1的f0/0接口应用IP策略路由CCNA，使得从主机PC2来的数据设置一跳地址为：172.16.12.2；从主机PC3来的数据设置下一跳地址为：172.16.21.2，所有其他的数据包正常转发，整个网络运行EIGRP路由协议。</p>
+<p><strong>配置ACL</strong></p>
+<p>R1(config)#access-list 1 permit 172.16.1.2</p>
+<p>R1(config)#access-list 2 permit 172.16.1.3</p>
+<h3 id="配置路由映射表"><a href="#配置路由映射表" class="headerlink" title="配置路由映射表"></a>配置路由映射表</h3><p>R1(config)#route-map CCNA permit 10</p>
+<p>R1(config-route-map)#match ip address 1 匹配为1的list表</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.12.2 下一跳</p>
+<p>R1(config-route-map)#exit</p>
+<p>R1(config)#route-map CCNA permit 20</p>
+<p>R1(config-route-map)#match ip address 2</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.21.2</p>
+<p><strong>应用策略路由</strong></p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip policy route-map CCNA</p>
+<p><strong>实验调试：</strong></p>
+<p>1、查看路由路径：PC2#traceroute 172.16.2.2</p>
+<p>2、在R1上显示调试信息：R1#debug ip policy；PC2：ping 172.16.2.2 </p>
+<p>3、显示在哪些接口上应用了策略路由：R1#sh ip policy</p>
+<h3 id="实验二、基于数据包长度的策略路由配置"><a href="#实验二、基于数据包长度的策略路由配置" class="headerlink" title="实验二、基于数据包长度的策略路由配置"></a>实验二、基于数据包长度的策略路由配置</h3><p><strong>实验目的：</strong></p>
+<p>1、用route-map定义路由策略。</p>
+<p>2、在接口下应用路由策略。</p>
+<p>3、基于数据包长度的策略路由的配置和调试。</p>
+<p><strong>实验拓朴：</strong></p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576509795205.png" alt="1576509795205"></p>
+<p><strong>实验步骤：</strong></p>
+<p>在R1的f0/0接口应用IP策略路由CCNP，使得对大小为“64-100”字节的数据包设置出接口为s1/0;数据包大小“101-100”字节的数据包设置出接口为“f0/1”,所有其他的数据包正常转发，整个网络运行EIGRP路由协议。</p>
+<p><strong>配置路由映射表</strong></p>
+<p>R1(config)#route-map CCNP permit 10</p>
+<p>R1(config-route-map)#match length 64 100</p>
+<p>R1(config-route-map)#set interface s1/0</p>
+<p>R1(config)#route-map CCNP permit 20</p>
+<p>R1(config-route-map)#match length 101 1000</p>
+<p>R1(config-route-map)#set interface f0/1</p>
+<p><strong>应用策略路由</strong></p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip policy route-map CCNP</p>
+<p>R1(config-if)#exit</p>
+<p>R1(config)#ip local policy route-map CCNP</p>
+<p><strong>实验调试：</strong></p>
+<p><strong>1.**</strong>在主机上执行扩展ping命令，在R1上显示调试信息。**</p>
+<p>PC2：ping 172.16.2.2 repeat 1 size 90</p>
+<p>PC2：ping 172.16.2.2 repeat 1 size 300</p>
+<p>PC2：ping 172.16.2.2 repeat 1 size 1200</p>
+<p>2、显示定义的所有路由策略及路由策略匹配的情况</p>
+<p>R1#sh ip route-map CCNP</p>
+<h3 id="实验三、基于应用的策略路由配置"><a href="#实验三、基于应用的策略路由配置" class="headerlink" title="实验三、基于应用的策略路由配置"></a>实验三、基于应用的策略路由配置</h3><p><strong>实验目的：</strong></p>
+<p>1、用route-map定义路由策略。</p>
+<p>2、在接口下应用路由策略。</p>
+<p>3、基于数据包长度的策略路由的配置和调试。</p>
+<p><strong>实验拓朴：</strong></p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510135852.png" alt="1576510135852"></p>
+<p><strong>实验步骤：</strong></p>
+<p>在R1的f0/0接口应用IP策略路由CCIE，使得对HTTP数据包设置一跳地址为：172.16.12.2，并且设置IP数据包优先级为”flash”,为telnet数据包设置下一跳地址为：172.16.21.2，并且设置IP数据包优先级为：critical，所有其他的数据包正常转发，整个路由协议运行EIGRP。</p>
+<p><strong>配置R2的http与telnet访问</strong></p>
+<p> R2(config)#ip http server</p>
+<p>R2(config)#line vty 0 4</p>
+<p>R2(config-line)#no login</p>
+<p>R2(config-line)#privilege level 15</p>
+<p><strong>配置扩展ACL</strong></p>
+<p>R1(config)#ip access-list extended HTTP</p>
+<p>R1(config-ext-nacl)#permit tcp any any eq 80</p>
+<p>R1(config-ext-nacl)#exit</p>
+<p>R1(config)#ip access-list extended TELNET</p>
+<p>R1(config-ext-nacl)#permit tcp any any eq 23</p>
+<p><strong>配置路由映射表</strong></p>
+<p>R1(config)#route-map CCIE permit 10</p>
+<p>R1(config-route-map)#match ip address HTTP</p>
+<p>R1(config-route-map)#set ip precedence flash</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.12.2</p>
+<p>R1(config)#route-map CCIE permit 20</p>
+<p>R1(config-route-map)#match ip address TELNET</p>
+<p>R1(config-route-map)#set ip precedence critical</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.21.2</p>
+<p><strong>应用路由映射表</strong></p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip policy route-map CCIE</p>
+<p>R1(config)#ip local policy route-map CCIE</p>
+<p>四、策略路由实验</p>
+<p>某学校网络拓朴图如右图，拥有电信、联通两条出口线路，内网分为宿舍区和教学区，分别属于lvan10和vlan20。通过策略路由配置实现以下要求：</p>
+<p>1、宿舍区访问互联网使用电信出口，教学区使用联通出口。</p>
+<p>2、任何一条链路故障，能够自动切换。</p>
+<p>3、宿舍区和教学区均使用路由器出口地址PAT。</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510406418.png" alt="1576510406418"></p>
+<p><strong>实验步骤：</strong></p>
+<p>1、配置外部网络协议为rip2</p>
+<p>2、配置内部网络协议为ospf</p>
+<p>3、配置ACL</p>
+<p>4、配置路由策略</p>
+<p>5、配置NAT</p>
+<p><strong>配置一：能实现宿舍区访问互联网使用电信出口，</strong></p>
+<p><strong>教学区使用联通出口。但不能实现自动切换</strong></p>
+<p>R1(config)#access-list 10 permit 192.168.10.0 0.0.0.255</p>
+<p>R1(config)#access-list 20 permit 192.168.20.0 0.0.0.255</p>
+<p>R1(config)#route-map dianxin permit 10</p>
+<p>R1(config-route-map)#match int s2/0</p>
+<p>R1(config)#route-map liantong permit 20</p>
+<p>R1(config-route-map)#match int s2/1</p>
+<p>R1(config)#ip nat inside source route-map dianxin int s2/0 overload</p>
+<p>R1(config)#ip nat inside source route-map liantong int s2/1 overload</p>
+<p>R1(config)#int s2/0</p>
+<p>R1(config-if)#ip nat outside</p>
+<p>R1(config)#int s2/1</p>
+<p>R1(config-if)#ip nat outside</p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip nat inside</p>
+<p>R1(config)#int f1/0</p>
+<p>R1(config-if)#ip nat inside</p>
+<p><strong>配置二：能实现宿舍区访问互联网使用电信出口，</strong></p>
+<p><strong>教学区使用联通出口。并能实现自动切换</strong></p>
+<p>R1(config)#access-list 10 permit 192.168.10.0 0.0.0.255</p>
+<p>R1(config)#access-list 20 permit 192.168.20.0 0.0.0.255</p>
+<p>R1(config)#route-map fenliu permit 10</p>
+<p>R1(config-route-map)#match ip add 10</p>
+<p>R1(config-route-map)#set ip next-hop 50.1.1.2 60.1.1.2</p>
+<p>R1(config)#route-map fenliu permit 20</p>
+<p>R1(config-route-map)#match ip add 20</p>
+<p>R1(config-route-map)#set ip next-hop 60.1.1.2 50.1.1.2</p>
+<p>R1(config)#int e1/0</p>
+<p>R1(config-if)#ip policy route-map fenliu</p>
+<p>R1(config)#int e1/1</p>
+<p>R1(config-if)#ip policy route-map fenliu</p>
+<h2 id="PPP与VPN"><a href="#PPP与VPN" class="headerlink" title="PPP与VPN"></a>PPP与VPN</h2><p>   一、PPP与HDLC</p>
+<p>   广域网链路封装有: HDLC、PPP、Frame-relay等。HDLC:思科私有，思科设备相连时使用。不提供认证。</p>
+<p>   PPP:支持不同设备连接、认证、多链路捆绑、回拨、压缩功能等。</p>
+<p>​              PAP-密码验证协议:利用2次握手的简单方法进行认证。</p>
+<p>​             CHAP-询问握手验证协议:利用三次握手周期地验证源端节点的身份。</p>
+<p>DCE:数据通信设备或者数据电路终端设备,DCE是孔头(俗称母头)   必配置时钟频率</p>
+<p>DTE:数据终端设备,DTE是针头(俗称公头)</p>
+<p>   Cisco的串口线模块wic- 1T, NM-4T, NM-4A/S，两头都是60针，两端分别标有DCE，DTE可以分别插入DB60接口上DCE这一端的设备雪提供时钟频率，DTE不需要，而当连接串口时，必须有一台设备提供时钟频率</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510894940.png" alt="1576510894940"></p>
+<p>   R2# show interfaces s0/3/1查看 端口信息</p>
+<p>   R2( config) # interface Serial0/3/0R2(config-if) #clock rate 128000</p>
+<p>   将端口封装为PPP</p>
+<p>   R1(config) #int s0/3/0 </p>
+<p>   R1(config-if)# encapsulation PPP</p>
+<p>  R2(config) #int s0/3/1 </p>
+<p>  R2(config-if) # encapsulation ppp</p>
+<h3 id="VPN隧道"><a href="#VPN隧道" class="headerlink" title="VPN隧道"></a>VPN隧道</h3><p>​    GRE隧道：不支持加密，支持组播和广播（路由协议）</p>
+<p>​    ISPEK:支持加密，不支持广播和GRE流量</p>
+<h4 id="GRE隧道实验"><a href="#GRE隧道实验" class="headerlink" title="GRE隧道实验"></a>GRE隧道实验</h4><p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510498532.png" alt="1576510498532"></p>
+<p> <img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576511042568.png" alt="1576511042568"></p>
+<h3 id="二、PAP双向认证"><a href="#二、PAP双向认证" class="headerlink" title="二、PAP双向认证"></a>二、PAP双向认证</h3><p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510894940.png" alt="1576510894940"></p>
+<p>   PAP单向认证（R1做认证方）</p>
+<p>   R 1(config) #username gxa password 123456</p>
+<p>   R1(config) #int s0/3/0</p>
+<p>   R 1(config-if)#ppp authentication pap</p>
+<p>   R2( config) #int s0/3/1</p>
+<p>   R2( config-if)#ppp pap sent- username gxa password 123456</p>
+<p>   PAP单向认证 ( R2做认证方)</p>
+<p>   R2(config) #username xnjd password 123456</p>
+<p>   R2( config-if)#ppp authentication papR 1(config) #int s0/3/0</p>
+<p>   R 1(config-if) #ppp pap sent-username xnjd password 123456</p>
+<h3 id="三、-chap单向认证"><a href="#三、-chap单向认证" class="headerlink" title="三、 chap单向认证"></a>三、 chap单向认证</h3><p>R1为服务器端，R2为客户端</p>
+<p>   R1配置</p>
+<p>   R 1(config) #username jsxjs password adminjsxjs</p>
+<p>  R 1(config)#interface s0/3/0</p>
+<p>   R 1(config-if)# encapsulation ppp</p>
+<p>   R1(config-if)# ppp authentication chap</p>
+<p>   R2配置:</p>
+<p>   R2(config)#interface s0/3/1</p>
+<p>   R2(config-if) # encapsulation ppp</p>
+<p>   R2(config-if)#ppp chap hostname jsxjs</p>
+<p>   R2(config-if) #ppp chap password adminjsxjs</p>
+<p>   CHAP双向认证:（双方的用户名和密码不一样，以示区别双向认证。也可设置一样的）</p>
+<p>  R1配置：</p>
+<p>​    R 1(config)#username jsxjs password adminjsxjs</p>
+<p>   R1(config)#interface s0/3/0</p>
+<p>   R 1(config-if)# encapsulation ppp</p>
+<p>   R1(config-if)#ppp authentication chap</p>
+<p>   R1(config-if)# ppp chap hostname jlzz</p>
+<p>   R 1(config-if)# ppp chap password adminjlzz</p>
+<p>R2配置：</p>
+<p>   R2(config)# username jlzz password adminjlzz</p>
+<p>   R2(config)#interface s0/3/1</p>
+<p>   R2(config-if)# encapsulation ppp</p>
+<p>   R2(config-if) #ppp authentication chap</p>
+<p>   R2(config-if)# ppp chap hostname jsxjs</p>
+<p>在CHAP认证中，可以在双方的用户名为对方设备的hostname并设置密码相同，这样就不需要早端口上使用命令ppp chap hostname 和ppp chap password.</p>
+<p>   R1(config) # username R2 password 123456</p>
+<p>   R 1(config) #int s0/3/0</p>
+<p>   R1(config-if)# encapsulation ppp</p>
+<p>   R 1(config-if)#ppp authentication chap</p>
+<p>   R2(config)#username R1 password 123456</p>
+<p>   R2(config)#int s0/3/1</p>
+<p>   R2(config-if)# encapsulation ppp</p>
+<p>   R2(config-if)#ppp authentication chap</p>
+<h3 id="四、ppp两种认证方式同时开启，"><a href="#四、ppp两种认证方式同时开启，" class="headerlink" title="四、ppp两种认证方式同时开启，"></a>四、ppp两种认证方式同时开启，</h3><p>只要有种认证诵过 ，链路就可以诵 。</p>
+<p>   R 1(config)#int s0/3/0</p>
+<p>   R1(config-if)#ppp authentication pap chap</p>
+<p>   R2(config)#int s0/3/1</p>
+<p>   R2(config-if)#ppp authentication pap chap</p>
+<p>   R 1(config)#int s0/3/0</p>
+<p>   R1(config-if)#ppp authentication chap pap</p>
+<p>   R2(config)#int s0/3/1</p>
+<p>   R2(config-if)#ppp authentication chap pap</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/30/STP生成树协议/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/30/路由重分与路径控制与VPNPPP/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/29/PEX远程服务批量装机/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/29/磁盘挂载与卷管理/">LNMP环境搭建</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

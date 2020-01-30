@@ -147,6 +147,831 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/01/30/STP生成树协议/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <a id="more"></a>
+
+
+<h2 id="SPT生成树协议"><a href="#SPT生成树协议" class="headerlink" title="SPT生成树协议"></a>SPT生成树协议</h2><h3 id="一、交换机广播风暴的产生"><a href="#一、交换机广播风暴的产生" class="headerlink" title="一、交换机广播风暴的产生"></a>一、交换机广播风暴的产生</h3><p>1、交换机工作原理</p>
+<p>根据MAC地址表转发数据帧，如果地址未知，则广播。</p>
+<p>2、广播风暴的产生</p>
+<p>当网络中存在物理环路，会产生广播风暴。</p>
+<h3 id="二、STP协议介绍"><a href="#二、STP协议介绍" class="headerlink" title="二、STP协议介绍"></a>二、STP协议介绍</h3><p>1、 STP生成树协议</p>
+<p>逻辑上断开环路，防止广播风暴的产生。</p>
+<p>当线路出现故障，断开的接口被激活，恢复通信，起备份线路的作用。</p>
+<h4 id="2、STP的算法"><a href="#2、STP的算法" class="headerlink" title="2、STP的算法"></a>2、STP的算法</h4><p>  STP将一个环形网络生成无环拓朴的步骤：</p>
+<p>第一步：选择根网桥（Root Bridge）</p>
+<p>第二步：选择根端口（Root Ports）</p>
+<p>第三步：选择指端口（Designated Ports）</p>
+<p><strong>3、选择根网桥（Root Bridge）</strong></p>
+<h5 id="选择根网桥"><a href="#选择根网桥" class="headerlink" title="选择根网桥"></a><strong>选择根网桥</strong></h5><p>根据<strong>网桥**</strong>ID<strong>（</strong>BID<em>*）选择根网桥，谁小，谁就是根桥。如果优先级相同，谁的MAC地址小谁就是根桥。</em></p>
+<p>什么是网桥ID（BID）？</p>
+<p>每个网络只能有一个根桥，根桥具有最低的桥ID，根桥上的所有端口都是指派端口，选择根网桥的目的是为了给将生成的树形结构确定一个树根。</p>
+<h5 id="选择根端口"><a href="#选择根端口" class="headerlink" title="选择根端口"></a>选择根端口</h5><p><strong>（1**</strong>）如何选择根端口（Root Ports）？**</p>
+<p>在非根网桥上选择一个<strong>到根网桥最近的端口</strong>作为根端口 选择根端口的依据是：</p>
+<p>根路径成本（cost值）【从端口出发到根桥】最低</p>
+<p>直连网桥的网桥ID最小</p>
+<p><strong>（2）**</strong>什么是cost值？**</p>
+<p>根路径成本是网桥到根网桥的路径上所有链路的成本之和。</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image010.jpg" alt="img"></p>
+<p>根路径成本表</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image012.jpg" alt="img"></p>
+<p><strong>（3）什么是端口ID</strong></p>
+<p>  <img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image014.jpg" alt="img"></p>
+<p><strong>（4）选择根端口举例</strong></p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image016.jpg" alt="img">    <img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image018.jpg" alt="img"></p>
+<h5 id="选择指定端口"><a href="#选择指定端口" class="headerlink" title="选择指定端口"></a>选择指定端口</h5><p>  选择指定端口的依据是：</p>
+<p>在<strong>每个网段上，选择**</strong>1<strong>**个指定端口</strong>，根桥上的端口全是指定端口。</p>
+<p>非根桥上的指定端口：</p>
+<p>根路径成本【从非根桥到根桥】最低</p>
+<p>端口所在的网桥的ID值较小</p>
+<p>直连网桥的端口ID值较小</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image020.jpg" alt="img"></p>
+<h2 id="三、BPDU（桥协议数据单元）"><a href="#三、BPDU（桥协议数据单元）" class="headerlink" title="三、BPDU（桥协议数据单元）"></a>三、BPDU（桥协议数据单元）</h2><p>1、BPDU</p>
+<p>交换机怎么知道其他交换机的网桥ID？怎么知道哪个端口的根路径成本最小？</p>
+<p>是因为交换机之间使用BPDU来交换STP信息，BPDU（Bridge Protocol Data Unit）使用组播发送BPDU，组播地址为：01-80-c2-00-00-00。</p>
+<p>BPDU分为2种类型：</p>
+<p>配置BPDU － 用于生成树计算</p>
+<p>拓朴变更通告（TCN）BPDU － 用于通告网络拓朴的变化</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image022.jpg" alt="img"></p>
+<p><strong>2、**</strong>STP<strong><strong>使用BPDU</strong></strong>选择根网桥**</p>
+<p>（1） 交换机启动时，假定自己是根网桥，在向外发送的BPDU中，</p>
+<p>根网桥ID字段填写自己的网桥ID。</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image024.jpg" alt="img"></p>
+<p>（2）当接收到其他交换机发出的BPDU后，比较网桥ID，选择较小的添加到根网桥ID中。</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image026.jpg" alt="img"></p>
+<p><strong>3、**</strong>STP<strong><strong>使用BPDU</strong></strong>计算根路径成本**</p>
+<p><strong>（1）**</strong>根网桥发送根路径成本为0<strong>**的BPDU</strong></p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image028.jpg" alt="img"></p>
+<p><strong>（2）</strong> <strong>其他交换机接收到根网桥的BPDU**</strong>后，在根路径成本上添加接收接口的路径成本，然**</p>
+<p><strong>后转发。</strong></p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image030.jpg" alt="img"></p>
+<h2 id="四、生成树端口的状态"><a href="#四、生成树端口的状态" class="headerlink" title="四、生成树端口的状态"></a>四、生成树端口的状态</h2><p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image032.jpg" alt="img"></p>
+<p>生成树计时器</p>
+<p>  交换机开机需要等待30秒时间开始转发数据</p>
+<p>当某个正在使用的链路断掉，阻塞的端口需要50秒时间开始转发数据</p>
+<p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image034.jpg" alt="img"></p>
+<h2 id="五、PVST（按VLAN生成树）"><a href="#五、PVST（按VLAN生成树）" class="headerlink" title="五、PVST（按VLAN生成树）"></a>五、PVST（按VLAN生成树）</h2><p><strong>1**</strong>、什么是<strong>**PVST</strong></p>
+<p>PVST是Cisco私有的，为每个VLAN构造一棵生成树</p>
+<p><strong>2、**</strong>PVST<strong>**在实际中的应用</strong></p>
+<p>配置网络中比较稳定的交换机为根网桥</p>
+<p>利用PVST实现网络的负载分担</p>
+<h3 id="PVST的配置命令"><a href="#PVST的配置命令" class="headerlink" title="PVST的配置命令"></a>PVST的配置命令</h3><p>启用生成树：Switch(config)#spanning-tree vlan vlan-list</p>
+<p>设置根网桥：Switch(config)#spanning-tree vlan vlan-list root primary | </p>
+<p>​                        secondary       </p>
+<p>-设置为primary后，优先级变成24576</p>
+<p>-设置为secondary后， 优先级变成28672</p>
+<p>修改网桥的优先级：Switch(config)#spanning-tree vlan vlan-list priority Bridge-                     </p>
+<p>​                                      priority (修改网桥值)</p>
+<p>-优先级的值为4096的倍数</p>
+<p>修改端口成本：Switch(config-if)#spanning-tree vlan vlan-list cost cost</p>
+<p>修改端口优先级：Switch(config-if)#spanning-tree vlan vlan-list port-priority priority</p>
+<p>配置上行速链路：Switch(config)#spanning-tree uplinkfast</p>
+<p>配置端口速链路：Switch(config-if)#spanning-tree portfast</p>
+<p>查看生成树的配置：Switch#show spanning-tree</p>
+<p>查看某个VLAN的生成树详细信息：Switch#show spanning-tree vlan vlan-id detail</p>
+<h2 id="六、以太网端口聚合"><a href="#六、以太网端口聚合" class="headerlink" title="六、以太网端口聚合"></a>六、以太网端口聚合</h2><p><img src="file:///C:%5CUsers%5CASUS%5CAppData%5CLocal%5CTemp%5Cmsohtmlclip1%5C01%5Cclip_image038.jpg" alt="img"></p>
+<p>1、什么是端口聚合？</p>
+<p>链路聚合又称为端口聚合，端口捆绑，英文名porttrunking。是一种聚合多个物理接口 ( that ) 创建一个逻辑接口。你可以捆扎( bundle ) 八个单独的活动链接到一个信道端口，以提供更高的<strong>带宽</strong>和<strong>冗余</strong>。端口通道也负载平衡这些物理接口上的通信量。只要端口通道中的至少一个物理接口可操作，端口通道就可以保持运行。</p>
+<p>2、channel-group模式</p>
+<p>PAgP 是 Cisco私有，只能在 Cisco Switch 上设定，PAgP 有两个模式，分別是 Desirable 与 Auto当 PAgP 成功建立 EtherChannel 后，PAgP Message 会继续定时传送去维持 EtherChannel。</p>
+<p>Desirable Auto</p>
+<p>Desirable  √     √  主动发送PAgP报文</p>
+<p>Auto    √     x  被动发送PAgP报文</p>
+<p>On            手动设置，需要两边都设置</p>
+<p>LACP 是 IEEE Standard</p>
+<p>Active Passive</p>
+<p>Active    √     √  主动发送LACP报文</p>
+<p>Passive    √     x  主动接收LACP报文</p>
+<h4 id="channel-group"><a href="#channel-group" class="headerlink" title="channel-group"></a>channel-group</h4><p>（1）Cisco最多允许绑定8个端口；如果是百兆网络，总带宽可达1.6Gbit/s；如果是千兆网络，总带宽可达16Gbit/s。</p>
+<p>（2）EtherChannel不支持10M端口；</p>
+<p>（3）EtherChannel编号只在本地有效，链路两端的编号可以不一样；</p>
+<p>（4）EtherChannel默认使用PAgP协议；</p>
+<p>（5）EtherChannel默认情况下是基于源MAC地址的负载平衡；</p>
+<p>（6）一个EtherChannel内所有的端口都必须具有相同的端口速率和双工模式，LACP只能是全双工模式；</p>
+<p>（7）channel-group接口会自动继承最小物理接口，或最先配置的接口模式；</p>
+<p>（8）cisco的交换机不仅可以支持第二层EtherChannel,还可以支持第三层EtherChannel。</p>
+<h4 id="配置端口聚合"><a href="#配置端口聚合" class="headerlink" title="配置端口聚合"></a>配置端口聚合</h4><p>Switch(config)#int port-channel 1</p>
+<p>Switch(config-if)#switchport mode trunk</p>
+<p>Switch(config)#int range f0/1-2</p>
+<p>Switch(config-if-range)#channel-group 1 mode on</p>
+<h4 id="配置流量均衡"><a href="#配置流量均衡" class="headerlink" title="配置流量均衡"></a>配置流量均衡</h4><p>Switch(config)#int f0/1</p>
+<p>Switch(config-if)#spanning-tree vlan 10 port-priority 16</p>
+<p>Switch(config-if)#spanning-tree vlan 20 port-priority 32</p>
+<p>Switch(config)#int f0/2</p>
+<p>Switch(config-if)#spanning-tree vlan 10 port-priority 32</p>
+<p>Switch(config-if)#spanning-tree vlan 20 port-priority 16</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/01/30/路由重分与路径控制与VPNPPP/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <a id="more"></a>
+<h2 id="路由重分布与路径控制"><a href="#路由重分布与路径控制" class="headerlink" title="路由重分布与路径控制"></a>路由重分布与路径控制</h2><p><strong>一、**</strong>路由重分布概述**</p>
+<p>路由重分布为在同一个互连网络中高效地支持多种路由协议提供了可能，执行路由重分布的路由器被称为边界路由器，因为它们位于两个或多个自治系统的边界上。</p>
+<p>路由重分布时度量标准和管理距离是必须要考虑的，在进行重分布时必须转换协议标准，使得它们兼容。种子度量值（Seed Metric)是在路由生分布时定义的，它是一条通过外部重分布进来的路由的初始度量值。路由协议默认的种子度量值如下表：</p>
+<table>
+<thead>
+<tr>
+<th>路由重分布进和路由协议</th>
+<th>默认种子度量值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RIP</td>
+<td>无限大</td>
+</tr>
+<tr>
+<td>EIGRP</td>
+<td>无限大</td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>BGP为1，其也为20</td>
+</tr>
+<tr>
+<td>IS-IS</td>
+<td>0</td>
+</tr>
+<tr>
+<td>BGP</td>
+<td>IGP的度量值</td>
+</tr>
+</tbody></table>
+<p>1.路由反馈：双向重分布有可能把从一个自治系统学到的路由信息发送回该自治系统。</p>
+<p>2.路由信息的兼容：不同路由协议的度量标准是不同的</p>
+<p>3.收敛时间不一致</p>
+<p><strong>二、**</strong>路径控制概述**</p>
+<p>为了保证网络的高效运行及在路由重分布的时候避免次优路由或者路由环路，有必要对路由更新进行控制，常用的方法有被动接口、默认路由、静态路由、路由映射表、分布列表、前缀列表、偏移列表、Cisco IOS IP服务等级协议（SLA）和策略路由。在进行路由控制时，可能是多种方法进行组合。</p>
+<h3 id="路由映射表（Route-Map）"><a href="#路由映射表（Route-Map）" class="headerlink" title="路由映射表（Route Map）"></a>路由映射表（Route Map）</h3><p>可以做复杂的访问控制列表，主要功能包括路由控制和策略路由等。定义转发规则eg：奇数走一边，偶数走一边</p>
+<p><strong>（1）定义路由映射表的格式如下：</strong></p>
+<p><strong>定义路由映射表：</strong>route-map 名字 [permit | deny] 编号(规则集)</p>
+<p><strong>条件匹配：</strong>macth（常用的匹配条件包括IP地址、接口、度量值、tag、路由类型以及数据包长度等）</p>
+<p>​    如果格式为：match ip address a b c   表示逻辑或，只要有一个条件满足即可</p>
+<p>​    如果格式为：match ip address a </p>
+<p>​                            match ip address b </p>
+<p>​                            match ip address c     表示逻辑与，必须同时满足所有条件</p>
+<p><strong>定义行为：set</strong>    </p>
+<table>
+<thead>
+<tr>
+<th><strong>Set**</strong>行为**</th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>set ip next  hop</td>
+<td>设定数据包的下一跳地址</td>
+</tr>
+<tr>
+<td>set interface</td>
+<td>设定数据包出接口</td>
+</tr>
+<tr>
+<td>set ip default  next hop</td>
+<td>设置默认的下一跳地址，用于当路由表里没有达到目的地址路由条目的时候</td>
+</tr>
+<tr>
+<td>set ip tos</td>
+<td>设定IP数据包的TOS值</td>
+</tr>
+<tr>
+<td>set ip  precedence</td>
+<td>设定IP数据包的优先级</td>
+</tr>
+<tr>
+<td>Set metric</td>
+<td>设置路由的度量值</td>
+</tr>
+<tr>
+<td>set tag</td>
+<td>设定路由的标记值</td>
+</tr>
+</tbody></table>
+<p><strong>（2）路由映射表有如下特征</strong></p>
+<p>A.<strong>一个route map末尾默认行为是“deny any”</strong></p>
+<p><strong>如执行策略路由时，没有匹配则正常转发</strong></p>
+<p>  <strong>如路由重分时，没有匹配则被过滤掉</strong></p>
+<p>B.一个route map可以包含多个route map陈述，<strong>从上到下被执行</strong>，如route map陈述中没有math，则匹配所有。</p>
+<p>C.序列号指定了条件执行的顺序，不写默认为10，不会自动递增</p>
+<p>D.route map中不写permit deny默认为permit</p>
+<p>E.在删除route map时，没写编号则删除整个route map</p>
+<p><strong>2、**</strong>策略路由**</p>
+<p>策略路由提供了一种根据网络管理者制定的策略来进行数据包转发的机制。基于策略的路由比传统路由能力更强，使用灵活，它使网络管理者不仅能够根据目的地址，而且能够根据协议类型、报文大小、应用或IP源地址来选择转发路径。策略由路由映射表来定义。</p>
+<h3 id="一、路由映射表与重分实验"><a href="#一、路由映射表与重分实验" class="headerlink" title="一、路由映射表与重分实验"></a>一、路由映射表与重分实验</h3><p><strong>实验目的：</strong></p>
+<p>​      种子度量值的配置</p>
+<p>​       路由重分布参数的含义</p>
+<p>​       静态路由重分布</p>
+<p>​       直连路由重分布</p>
+<p>​       RIP与EIGRP的重分布</p>
+<p>​       EIGRP和OSPF的重分布</p>
+<p>​       重分布路由的查看和调试</p>
+<p><strong>实验步骤：</strong></p>
+<p>1、配置路由协议 </p>
+<p>2、配置路由重分布与路由映射表</p>
+<p>  要求将172.16.0.0  0.0.254.0偶数重分至OSPF类型2，metric值为200</p>
+<p>  要求将172.16.0.1  0.0.254.0奇数重分至OSPF类型1，metric值为100</p>
+<h2 id="策略路由"><a href="#策略路由" class="headerlink" title="策略路由"></a>策略路由</h2><p>策略路由提供了一种根据网络管理者制定的策略来进行数据包转发的机制。基于策略的路由比传统路由能力更强，使用更灵活，它使用网络管理者不仅能够根据目的地址，而且能够根据协议类型、报文大小、应用或IP源地址来选择转发路径。策略由路由映射表来定义。</p>
+<h3 id="实验一、基于源IP地址的策略路由配置"><a href="#实验一、基于源IP地址的策略路由配置" class="headerlink" title="实验一、基于源IP地址的策略路由配置"></a>实验一、基于源IP地址的策略路由配置</h3><p><strong>实验目的：</strong></p>
+<p>1、用route-map定义路由策略。</p>
+<p>2、在接口下应用路由策略。</p>
+<p>3、基于源IP地址的策略路由的配置和调试。</p>
+<p><strong>实验拓朴：</strong></p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576509776381.png" alt="1576509776381"></p>
+<p><strong>实验步骤：</strong></p>
+<p>在路由器R1的f0/0接口应用IP策略路由CCNA，使得从主机PC2来的数据设置一跳地址为：172.16.12.2；从主机PC3来的数据设置下一跳地址为：172.16.21.2，所有其他的数据包正常转发，整个网络运行EIGRP路由协议。</p>
+<p><strong>配置ACL</strong></p>
+<p>R1(config)#access-list 1 permit 172.16.1.2</p>
+<p>R1(config)#access-list 2 permit 172.16.1.3</p>
+<h3 id="配置路由映射表"><a href="#配置路由映射表" class="headerlink" title="配置路由映射表"></a>配置路由映射表</h3><p>R1(config)#route-map CCNA permit 10</p>
+<p>R1(config-route-map)#match ip address 1 匹配为1的list表</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.12.2 下一跳</p>
+<p>R1(config-route-map)#exit</p>
+<p>R1(config)#route-map CCNA permit 20</p>
+<p>R1(config-route-map)#match ip address 2</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.21.2</p>
+<p><strong>应用策略路由</strong></p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip policy route-map CCNA</p>
+<p><strong>实验调试：</strong></p>
+<p>1、查看路由路径：PC2#traceroute 172.16.2.2</p>
+<p>2、在R1上显示调试信息：R1#debug ip policy；PC2：ping 172.16.2.2 </p>
+<p>3、显示在哪些接口上应用了策略路由：R1#sh ip policy</p>
+<h3 id="实验二、基于数据包长度的策略路由配置"><a href="#实验二、基于数据包长度的策略路由配置" class="headerlink" title="实验二、基于数据包长度的策略路由配置"></a>实验二、基于数据包长度的策略路由配置</h3><p><strong>实验目的：</strong></p>
+<p>1、用route-map定义路由策略。</p>
+<p>2、在接口下应用路由策略。</p>
+<p>3、基于数据包长度的策略路由的配置和调试。</p>
+<p><strong>实验拓朴：</strong></p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576509795205.png" alt="1576509795205"></p>
+<p><strong>实验步骤：</strong></p>
+<p>在R1的f0/0接口应用IP策略路由CCNP，使得对大小为“64-100”字节的数据包设置出接口为s1/0;数据包大小“101-100”字节的数据包设置出接口为“f0/1”,所有其他的数据包正常转发，整个网络运行EIGRP路由协议。</p>
+<p><strong>配置路由映射表</strong></p>
+<p>R1(config)#route-map CCNP permit 10</p>
+<p>R1(config-route-map)#match length 64 100</p>
+<p>R1(config-route-map)#set interface s1/0</p>
+<p>R1(config)#route-map CCNP permit 20</p>
+<p>R1(config-route-map)#match length 101 1000</p>
+<p>R1(config-route-map)#set interface f0/1</p>
+<p><strong>应用策略路由</strong></p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip policy route-map CCNP</p>
+<p>R1(config-if)#exit</p>
+<p>R1(config)#ip local policy route-map CCNP</p>
+<p><strong>实验调试：</strong></p>
+<p><strong>1.**</strong>在主机上执行扩展ping命令，在R1上显示调试信息。**</p>
+<p>PC2：ping 172.16.2.2 repeat 1 size 90</p>
+<p>PC2：ping 172.16.2.2 repeat 1 size 300</p>
+<p>PC2：ping 172.16.2.2 repeat 1 size 1200</p>
+<p>2、显示定义的所有路由策略及路由策略匹配的情况</p>
+<p>R1#sh ip route-map CCNP</p>
+<h3 id="实验三、基于应用的策略路由配置"><a href="#实验三、基于应用的策略路由配置" class="headerlink" title="实验三、基于应用的策略路由配置"></a>实验三、基于应用的策略路由配置</h3><p><strong>实验目的：</strong></p>
+<p>1、用route-map定义路由策略。</p>
+<p>2、在接口下应用路由策略。</p>
+<p>3、基于数据包长度的策略路由的配置和调试。</p>
+<p><strong>实验拓朴：</strong></p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510135852.png" alt="1576510135852"></p>
+<p><strong>实验步骤：</strong></p>
+<p>在R1的f0/0接口应用IP策略路由CCIE，使得对HTTP数据包设置一跳地址为：172.16.12.2，并且设置IP数据包优先级为”flash”,为telnet数据包设置下一跳地址为：172.16.21.2，并且设置IP数据包优先级为：critical，所有其他的数据包正常转发，整个路由协议运行EIGRP。</p>
+<p><strong>配置R2的http与telnet访问</strong></p>
+<p> R2(config)#ip http server</p>
+<p>R2(config)#line vty 0 4</p>
+<p>R2(config-line)#no login</p>
+<p>R2(config-line)#privilege level 15</p>
+<p><strong>配置扩展ACL</strong></p>
+<p>R1(config)#ip access-list extended HTTP</p>
+<p>R1(config-ext-nacl)#permit tcp any any eq 80</p>
+<p>R1(config-ext-nacl)#exit</p>
+<p>R1(config)#ip access-list extended TELNET</p>
+<p>R1(config-ext-nacl)#permit tcp any any eq 23</p>
+<p><strong>配置路由映射表</strong></p>
+<p>R1(config)#route-map CCIE permit 10</p>
+<p>R1(config-route-map)#match ip address HTTP</p>
+<p>R1(config-route-map)#set ip precedence flash</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.12.2</p>
+<p>R1(config)#route-map CCIE permit 20</p>
+<p>R1(config-route-map)#match ip address TELNET</p>
+<p>R1(config-route-map)#set ip precedence critical</p>
+<p>R1(config-route-map)#set ip next-hop 172.16.21.2</p>
+<p><strong>应用路由映射表</strong></p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip policy route-map CCIE</p>
+<p>R1(config)#ip local policy route-map CCIE</p>
+<p>四、策略路由实验</p>
+<p>某学校网络拓朴图如右图，拥有电信、联通两条出口线路，内网分为宿舍区和教学区，分别属于lvan10和vlan20。通过策略路由配置实现以下要求：</p>
+<p>1、宿舍区访问互联网使用电信出口，教学区使用联通出口。</p>
+<p>2、任何一条链路故障，能够自动切换。</p>
+<p>3、宿舍区和教学区均使用路由器出口地址PAT。</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510406418.png" alt="1576510406418"></p>
+<p><strong>实验步骤：</strong></p>
+<p>1、配置外部网络协议为rip2</p>
+<p>2、配置内部网络协议为ospf</p>
+<p>3、配置ACL</p>
+<p>4、配置路由策略</p>
+<p>5、配置NAT</p>
+<p><strong>配置一：能实现宿舍区访问互联网使用电信出口，</strong></p>
+<p><strong>教学区使用联通出口。但不能实现自动切换</strong></p>
+<p>R1(config)#access-list 10 permit 192.168.10.0 0.0.0.255</p>
+<p>R1(config)#access-list 20 permit 192.168.20.0 0.0.0.255</p>
+<p>R1(config)#route-map dianxin permit 10</p>
+<p>R1(config-route-map)#match int s2/0</p>
+<p>R1(config)#route-map liantong permit 20</p>
+<p>R1(config-route-map)#match int s2/1</p>
+<p>R1(config)#ip nat inside source route-map dianxin int s2/0 overload</p>
+<p>R1(config)#ip nat inside source route-map liantong int s2/1 overload</p>
+<p>R1(config)#int s2/0</p>
+<p>R1(config-if)#ip nat outside</p>
+<p>R1(config)#int s2/1</p>
+<p>R1(config-if)#ip nat outside</p>
+<p>R1(config)#int f0/0</p>
+<p>R1(config-if)#ip nat inside</p>
+<p>R1(config)#int f1/0</p>
+<p>R1(config-if)#ip nat inside</p>
+<p><strong>配置二：能实现宿舍区访问互联网使用电信出口，</strong></p>
+<p><strong>教学区使用联通出口。并能实现自动切换</strong></p>
+<p>R1(config)#access-list 10 permit 192.168.10.0 0.0.0.255</p>
+<p>R1(config)#access-list 20 permit 192.168.20.0 0.0.0.255</p>
+<p>R1(config)#route-map fenliu permit 10</p>
+<p>R1(config-route-map)#match ip add 10</p>
+<p>R1(config-route-map)#set ip next-hop 50.1.1.2 60.1.1.2</p>
+<p>R1(config)#route-map fenliu permit 20</p>
+<p>R1(config-route-map)#match ip add 20</p>
+<p>R1(config-route-map)#set ip next-hop 60.1.1.2 50.1.1.2</p>
+<p>R1(config)#int e1/0</p>
+<p>R1(config-if)#ip policy route-map fenliu</p>
+<p>R1(config)#int e1/1</p>
+<p>R1(config-if)#ip policy route-map fenliu</p>
+<h2 id="PPP与VPN"><a href="#PPP与VPN" class="headerlink" title="PPP与VPN"></a>PPP与VPN</h2><p>   一、PPP与HDLC</p>
+<p>   广域网链路封装有: HDLC、PPP、Frame-relay等。HDLC:思科私有，思科设备相连时使用。不提供认证。</p>
+<p>   PPP:支持不同设备连接、认证、多链路捆绑、回拨、压缩功能等。</p>
+<p>​              PAP-密码验证协议:利用2次握手的简单方法进行认证。</p>
+<p>​             CHAP-询问握手验证协议:利用三次握手周期地验证源端节点的身份。</p>
+<p>DCE:数据通信设备或者数据电路终端设备,DCE是孔头(俗称母头)   必配置时钟频率</p>
+<p>DTE:数据终端设备,DTE是针头(俗称公头)</p>
+<p>   Cisco的串口线模块wic- 1T, NM-4T, NM-4A/S，两头都是60针，两端分别标有DCE，DTE可以分别插入DB60接口上DCE这一端的设备雪提供时钟频率，DTE不需要，而当连接串口时，必须有一台设备提供时钟频率</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510894940.png" alt="1576510894940"></p>
+<p>   R2# show interfaces s0/3/1查看 端口信息</p>
+<p>   R2( config) # interface Serial0/3/0R2(config-if) #clock rate 128000</p>
+<p>   将端口封装为PPP</p>
+<p>   R1(config) #int s0/3/0 </p>
+<p>   R1(config-if)# encapsulation PPP</p>
+<p>  R2(config) #int s0/3/1 </p>
+<p>  R2(config-if) # encapsulation ppp</p>
+<h3 id="VPN隧道"><a href="#VPN隧道" class="headerlink" title="VPN隧道"></a>VPN隧道</h3><p>​    GRE隧道：不支持加密，支持组播和广播（路由协议）</p>
+<p>​    ISPEK:支持加密，不支持广播和GRE流量</p>
+<h4 id="GRE隧道实验"><a href="#GRE隧道实验" class="headerlink" title="GRE隧道实验"></a>GRE隧道实验</h4><p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510498532.png" alt="1576510498532"></p>
+<p> <img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576511042568.png" alt="1576511042568"></p>
+<h3 id="二、PAP双向认证"><a href="#二、PAP双向认证" class="headerlink" title="二、PAP双向认证"></a>二、PAP双向认证</h3><p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576510894940.png" alt="1576510894940"></p>
+<p>   PAP单向认证（R1做认证方）</p>
+<p>   R 1(config) #username gxa password 123456</p>
+<p>   R1(config) #int s0/3/0</p>
+<p>   R 1(config-if)#ppp authentication pap</p>
+<p>   R2( config) #int s0/3/1</p>
+<p>   R2( config-if)#ppp pap sent- username gxa password 123456</p>
+<p>   PAP单向认证 ( R2做认证方)</p>
+<p>   R2(config) #username xnjd password 123456</p>
+<p>   R2( config-if)#ppp authentication papR 1(config) #int s0/3/0</p>
+<p>   R 1(config-if) #ppp pap sent-username xnjd password 123456</p>
+<h3 id="三、-chap单向认证"><a href="#三、-chap单向认证" class="headerlink" title="三、 chap单向认证"></a>三、 chap单向认证</h3><p>R1为服务器端，R2为客户端</p>
+<p>   R1配置</p>
+<p>   R 1(config) #username jsxjs password adminjsxjs</p>
+<p>  R 1(config)#interface s0/3/0</p>
+<p>   R 1(config-if)# encapsulation ppp</p>
+<p>   R1(config-if)# ppp authentication chap</p>
+<p>   R2配置:</p>
+<p>   R2(config)#interface s0/3/1</p>
+<p>   R2(config-if) # encapsulation ppp</p>
+<p>   R2(config-if)#ppp chap hostname jsxjs</p>
+<p>   R2(config-if) #ppp chap password adminjsxjs</p>
+<p>   CHAP双向认证:（双方的用户名和密码不一样，以示区别双向认证。也可设置一样的）</p>
+<p>  R1配置：</p>
+<p>​    R 1(config)#username jsxjs password adminjsxjs</p>
+<p>   R1(config)#interface s0/3/0</p>
+<p>   R 1(config-if)# encapsulation ppp</p>
+<p>   R1(config-if)#ppp authentication chap</p>
+<p>   R1(config-if)# ppp chap hostname jlzz</p>
+<p>   R 1(config-if)# ppp chap password adminjlzz</p>
+<p>R2配置：</p>
+<p>   R2(config)# username jlzz password adminjlzz</p>
+<p>   R2(config)#interface s0/3/1</p>
+<p>   R2(config-if)# encapsulation ppp</p>
+<p>   R2(config-if) #ppp authentication chap</p>
+<p>   R2(config-if)# ppp chap hostname jsxjs</p>
+<p>在CHAP认证中，可以在双方的用户名为对方设备的hostname并设置密码相同，这样就不需要早端口上使用命令ppp chap hostname 和ppp chap password.</p>
+<p>   R1(config) # username R2 password 123456</p>
+<p>   R 1(config) #int s0/3/0</p>
+<p>   R1(config-if)# encapsulation ppp</p>
+<p>   R 1(config-if)#ppp authentication chap</p>
+<p>   R2(config)#username R1 password 123456</p>
+<p>   R2(config)#int s0/3/1</p>
+<p>   R2(config-if)# encapsulation ppp</p>
+<p>   R2(config-if)#ppp authentication chap</p>
+<h3 id="四、ppp两种认证方式同时开启，"><a href="#四、ppp两种认证方式同时开启，" class="headerlink" title="四、ppp两种认证方式同时开启，"></a>四、ppp两种认证方式同时开启，</h3><p>只要有种认证诵过 ，链路就可以诵 。</p>
+<p>   R 1(config)#int s0/3/0</p>
+<p>   R1(config-if)#ppp authentication pap chap</p>
+<p>   R2(config)#int s0/3/1</p>
+<p>   R2(config-if)#ppp authentication pap chap</p>
+<p>   R 1(config)#int s0/3/0</p>
+<p>   R1(config-if)#ppp authentication chap pap</p>
+<p>   R2(config)#int s0/3/1</p>
+<p>   R2(config-if)#ppp authentication chap pap</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/01/29/PEX远程服务批量装机/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-29</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <a id="more"></a>
+
+
+<p>PXE远程服务器（192.168.1.1）所需准备：</p>
+<ol>
+<li>安装源（系统盘文件）；</li>
+<li>TFTP服务；</li>
+<li>DHCP服务；</li>
+<li>Linux内核；</li>
+<li>能够向客户机裸机发送PXE引导程序；</li>
+<li>启动菜单及无人应答文件等。</li>
+</ol>
+<p>客户端要求：</p>
+<ol>
+<li>客户端的网卡支持PXE协议，且主板支持网络引导（现在多数都支持）；</li>
+<li>设置BIOS允许从Network或LAN启动；</li>
+</ol>
+<p>一、搭建PXE远程安装服务器：</p>
+<p><strong>1、配置YUM仓库，并安装ftp服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mount /dev/cdrom /media</span><br><span class="line">[root@localhost ~]# cd /etc/yum.repos.d/</span><br><span class="line">[root@localhost yum.repos.d]# rm -rf *</span><br><span class="line">[root@localhost yum.repos.d]# vim a.repo</span><br><span class="line"></span><br><span class="line">[yum]</span><br><span class="line">baseurl=file:///media</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[root@localhost yum.repos.d]# yum -y install vsftpd*</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、准备centos7安装源并启动ftp服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost yum.repos.d]# mkdir /var/ftp/centos7</span><br><span class="line">[root@localhost yum.repos.d]# cp -rf /media/* /var/ftp/centos7/</span><br><span class="line">[root@localhost yum.repos.d]# systemctl start vsftpd             #启动ftp服务</span><br><span class="line">[root@localhost yum.repos.d]# systemctl enable vsftpd              #设置为开机自启</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、安装并启动TFTP服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost yum.repos.d]# yum -y install tftp-server</span><br><span class="line">[root@localhost yum.repos.d]# vim /etc/xinetd.d/tftp             #编辑TFTP配置文件</span><br><span class="line"></span><br><span class="line">                                     ...............................</span><br><span class="line">service tftp</span><br><span class="line">&#123;</span><br><span class="line">        socket_type             = dgram</span><br><span class="line">        protocol                = udp</span><br><span class="line">        wait                    = yes</span><br><span class="line">        user                    = root</span><br><span class="line">        server                  = /usr/sbin/in.tftpd</span><br><span class="line">        server_args             = -s /var/lib/tftpboot</span><br><span class="line">        disable                 = no               #将此处默认的yes改为no即可</span><br><span class="line">        per_source              = 11</span><br><span class="line">        cps                     = 100 2</span><br><span class="line">        flags                   = IPv4</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@localhost yum.repos.d]# systemctl start tftp                #启动TFTP服务</span><br><span class="line">[root@localhost yum.repos.d]# systemctl enable tftp</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、准备Linux内核、初始化镜像文件（在系统盘中）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd /media/images/pxeboot/</span><br><span class="line">[root@localhost pxeboot]# cp vmlinuz initrd.img /var/lib/tftpboot/</span><br></pre></td></tr></table></figure>
+
+<p><strong>5、准备PXE引导程序：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# yum -y install syslinux    #安装引导程序</span><br><span class="line">[root@localhost pxeboot]# cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/</span><br></pre></td></tr></table></figure>
+
+<p><strong>6、配置启动菜单（典型的和无人值守安装的启动菜单根据实际需求二选一配置即可）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# mkdir /var/lib/tftpboot/pxelinux.cfg</span><br></pre></td></tr></table></figure>
+
+<p><strong>①、典型的启动菜单，无法实现无人值守安装：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# vim /var/lib/tftpboot/pxelinux.cfg/default            </span><br><span class="line"></span><br><span class="line">default auto</span><br><span class="line">prompt 1</span><br><span class="line">label auto</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append initrd=initrd.img method=ftp://192.168.1.1/centos7</span><br><span class="line">label linux text</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append text initrd=initrd.img method=ftp://192.168.1.1/centos7</span><br><span class="line">label linux rescue</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append rescue initrd=initrd.img method=ftp://192.168.1.1/centos7</span><br></pre></td></tr></table></figure>
+
+<p><strong>②、无人值守安装的启动菜单：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# vim /var/lib/tftpboot/pxelinux.cfg/default </span><br><span class="line"></span><br><span class="line">default auto</span><br><span class="line">prompt 0</span><br><span class="line">label auto</span><br><span class="line">        kernel vmlinuz</span><br><span class="line">        append initrd=initrd.img method=ftp://192.168.1.1/centos7 ks=ftp://192.168.1.1/ks.cfg</span><br></pre></td></tr></table></figure>
+
+<p>**在上面两种启动菜单，我这里配置的是无人值守安装，若选择典型的启动菜单，那么接下来的操作有很多就是不必要的了，只要安装上DHCP服务器即可部署系统了。</p>
+<p>**</p>
+<p><strong>7、安装并启用DHCP服务器（DHCP服务安装后有一个模板文件，若不熟悉，可以参考： <a href="https://blog.51cto.com/14154700/2353971）：" target="_blank" rel="noopener">https://blog.51cto.com/14154700/2353971）：</a></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# yum -y install dhcp</span><br><span class="line">[root@localhost pxeboot]# vim /etc/dhcp/dhcpd.conf</span><br><span class="line">                              ...........................</span><br><span class="line"></span><br><span class="line">subnet 192.168.1.0 netmask 255.255.255.0 &#123;</span><br><span class="line">  range 192.168.1.1 192.168.1.200;</span><br><span class="line">  option domain-name-servers 8.8.8.8;</span><br><span class="line">  option domain-name &quot;internal.example.org&quot;;</span><br><span class="line">  option routers 192.168.1.254;</span><br><span class="line">  option broadcast-address 192.168.1.255;</span><br><span class="line">  default-lease-time 21600;</span><br><span class="line">  max-lease-time 43200;</span><br><span class="line">  next-server 192.168.1.1;                 #指定TFTP服务器的地址</span><br><span class="line">  filename &quot;pxelinux.0&quot;;                     #指定PXE引导程序的文件名</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@localhost pxeboot]# systemctl start dhcpd</span><br><span class="line">[root@localhost pxeboot]# systemctl enable dhcpd</span><br></pre></td></tr></table></figure>
+
+<p><strong>8、准备安装应答文件：</strong><br>在centos 7 系统中如果安装了system-config-kickstart工具后，可通过图形化向导工具来配置安装应答文件。如果大佬对自动应答文件的配置比较熟悉，也可以直接编辑centos 7 安装后自动创建的应答文件（/root/anaconda-ks.cfg），根据需要适当修改后使用（我还是老老实实的使用图形化吧）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost pxeboot]# yum -y install system-config-kickstart     #安装所需工具</span><br></pre></td></tr></table></figure>
+
+<p><strong>①、打开图形化程序：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/e57bdf38512d27d574cf4282d2706e61.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>②、配置安装应答参数：</strong><br><img src="https://s1.51cto.com/images/blog/201905/31/b6ed20650112b7f4e45796fe814a09cc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>③、由于ftp服务默认允许匿名访问，所以不用指定用户名和密码：</strong><br><img src="https://s1.51cto.com/images/blog/201905/31/97d00bad500c1d4e471650fb7c44c96a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>④、引导装载程序：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/719b2f70cbe1cda7008a82e31c96a1d4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>、分区信息（根据实际需求选择合适的硬盘分区方案）：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/f03e1157f3ff858fc695b3dbd723cf10.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>⑤、网络配置及防火墙：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/03c649f6b2d1d22785bcd1c6608e667d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"><br><img src="https://s1.51cto.com/images/blog/201905/31/c1d668d1ab3db33fd8384cf7f994ef92.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>⑥、安装后脚本：</strong></p>
+<p>若想在系统安装完成后，执行一些操作，可以参考以下（我这里写了一个配置yum仓库的脚本）：<br><img src="https://s1.51cto.com/images/blog/201906/01/79d046458e5f82a051626b74faf47ae3.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>⑦、保存应答文件：</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/201905/31/ba73fbea3fe703813c0b88a637fb9113.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"><img src="https://s1.51cto.com/images/blog/201905/31/5b2562499f025ac514b6258271b217b2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p><strong>保存后的应答文件：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim ks.cfg              #最后生成的应答文件如下</span><br><span class="line">（可直接复制此文件便可省略图形化配置的那些步骤，结合实际需求进行修改后使用即可）：</span><br><span class="line"></span><br><span class="line">#platform=x86, AMD64, 或 Intel EM64T</span><br><span class="line">#version=DEVEL</span><br><span class="line"># Install OS instead of upgrade</span><br><span class="line">install</span><br><span class="line"># Keyboard layouts</span><br><span class="line">keyboard &apos;us&apos;</span><br><span class="line"># Root password</span><br><span class="line">rootpw --iscrypted $1$bauETRq3$WOpze2jeKD9q3qgKK50xj0</span><br><span class="line"># Use network installation</span><br><span class="line">url --url=&quot;ftp://ftp:192.168.1.1/centos7&quot;</span><br><span class="line"># System language</span><br><span class="line">lang zh_CN</span><br><span class="line"># System authorization information</span><br><span class="line">auth  --useshadow  --passalgo=sha512</span><br><span class="line"># Use graphical install</span><br><span class="line">graphical</span><br><span class="line">firstboot --disable</span><br><span class="line"># SELinux configuration</span><br><span class="line">selinux --disabled</span><br><span class="line"></span><br><span class="line"># Firewall configuration</span><br><span class="line">firewall --disabled</span><br><span class="line"># Network information</span><br><span class="line">network  --bootproto=dhcp --device=ens33</span><br><span class="line"># Reboot after installation</span><br><span class="line">reboot</span><br><span class="line"># System timezone</span><br><span class="line">timezone Asia/Shanghai</span><br><span class="line"># System bootloader configuration</span><br><span class="line">bootloader --location=mbr</span><br><span class="line"># Partition clearing information</span><br><span class="line">clearpart --all</span><br><span class="line"># Disk partitioning information</span><br><span class="line">part /boot --fstype=&quot;xfs&quot; --size=500</span><br><span class="line">part /home --fstype=&quot;xfs&quot; --size=4096</span><br><span class="line">part swap --fstype=&quot;swap&quot; --size=2048</span><br><span class="line">part / --fstype=&quot;xfs&quot; --grow --size=1</span><br><span class="line"></span><br><span class="line">%post --interpreter=/bin/bash</span><br><span class="line">cd /etc/yum.repos.d</span><br><span class="line">rm -rf *</span><br><span class="line">echo -e &quot;[base]&quot; &gt; aa.repo</span><br><span class="line">echo -e &quot;baseurl=ftp://192.168.1.1/centos7&quot; &gt;&gt; aa.repo</span><br><span class="line">echo -e &quot;gpgcheck=0&quot; &gt;&gt; aa.repo</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+<p>不过上面的配置文件还差点东西，需要在配置文件末尾继续写入三行，以此来选择最小安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%packages</span><br><span class="line">@^minimal</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+
+<p>写好后，保存退出即可。</p>
+<p>8、将自动应答文件复制到指定目录（在之前的引导菜单指定的“ks=”项的路径）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cp /root/ks.cfg /var/ftp/</span><br></pre></td></tr></table></figure>
+
+<p>10、OK，客户机开机，验证效果（耐心等待完成即可）：<br><img src="https://s1.51cto.com/images/blog/201905/31/f099094833257597f419356a81ed3b41.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="PXE网络装机之centos7（批量自动装机）"></p>
+<p>安装成功</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577968107455.png" alt="1577968107455"></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/01/29/磁盘挂载与卷管理/">
+                LNMP环境搭建
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-29</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <a id="more"></a>
+
+<h1 id="Linux-磁盘与文件系统管理"><a href="#Linux-磁盘与文件系统管理" class="headerlink" title="Linux 磁盘与文件系统管理"></a>Linux 磁盘与文件系统管理</h1><h3 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h3><h4 id="1、磁盘的物理组成："><a href="#1、磁盘的物理组成：" class="headerlink" title="1、磁盘的物理组成："></a>1、磁盘的物理组成：</h4><p> 圆形的磁盘盘(主要记录数据的部分)； </p>
+<p>机械手臂，与在机械手臂上的磁盘读取头(可擦写磁盘盘上的数据)；</p>
+<p>主轴马达，可以转动磁盘盘，让机械手臂的读取头在磁盘盘上读写数据。 </p>
+<p>扇区(Sector)为最小的物理储存单位，每个扇区为 512 bytes；</p>
+<p>将扇区组成一个圆，那就是磁柱(Cylinder)，磁柱是分割槽(partition)的最小单位；</p>
+<p> 第一个扇区最重要，里面有： </p>
+<p>主引导区(Master boot record, MBR)，占有 446 bytes。</p>
+<p> 分区表(partition table)，占有 64 bytes。</p>
+<h4 id="2、各种接口的磁盘在-Linux-中的文件名分别为："><a href="#2、各种接口的磁盘在-Linux-中的文件名分别为：" class="headerlink" title="2、各种接口的磁盘在 Linux 中的文件名分别为："></a>2、各种接口的磁盘在 Linux 中的文件名分别为：</h4><p> /dev/sd[a-p][1-15]：为 SCSI, SATA, USB, Flash 随身碟等接口的磁盘文件名； </p>
+<p>/dev/hd[a-d][1-63]：为 IDE 接口的磁盘文件名；</p>
+<h4 id="3、磁盘的分区："><a href="#3、磁盘的分区：" class="headerlink" title="3、磁盘的分区："></a>3、磁盘的分区：</h4><p>主分区与扩展分区最多可以有四个(硬盘的限制)。</p>
+<p> 扩展分区最多只能有一个(操作系统的限制)。</p>
+<p> 逻辑分区是由扩展分区分割出来的分区；</p>
+<p> 能被格式化用作存储数据的分区是主分区与逻辑分区，扩展分区不能被格式化。</p>
+<p> 逻辑分区的数量根据操作系统而不同，在 Linux 系统中，IDE 硬盘最多有 59 个逻辑分区(5 号到 63 号)， SATA 硬盘则有 11 个逻辑分区(5 号到 15 号)。</p>
+<h4 id="4、“fdisk-–l”命令——查看分区信息"><a href="#4、“fdisk-–l”命令——查看分区信息" class="headerlink" title="4、“fdisk –l”命令——查看分区信息"></a>4、“fdisk –l”命令——查看分区信息</h4><p>Device：分区的设备文件名称。</p>
+<p> Boot：是否是引导分区。是，则带有“*”标识。</p>
+<p> Start：该分区在硬盘中的起始位置（柱面数）。</p>
+<p> End：该分区在硬盘中的结束位置（柱面数）。</p>
+<p> Blocks：分区的大小，以 Blocks（块）为单位，默认的块大小为 1024 字节。</p>
+<p> Id：分区类型的 ID 标记号，对于 EXT4 分区为 83，LVM 分区为 8e。</p>
+<p> System：分区类型。</p>
+<h4 id="5、在虚拟机中添加硬盘"><a href="#5、在虚拟机中添加硬盘" class="headerlink" title="5、在虚拟机中添加硬盘"></a>5、在虚拟机中添加硬盘</h4><h3 id="二、对硬盘进行分区"><a href="#二、对硬盘进行分区" class="headerlink" title="二、对硬盘进行分区"></a>二、对硬盘进行分区</h3><p>1、硬盘分区命令：fdisk</p>
+<p> 举例：fdisk /dev/sdb：对指定的硬盘进行分区。</p>
+<p>2、按 m 键获取帮助信息</p>
+<p>3、创建主分区，大小为 5G</p>
+<p>4、查看创建的主分区信息</p>
+<p>5、创建扩展分区</p>
+<p>6、创建逻辑分区</p>
+<p>7、查看分区信息</p>
+<h3 id="三、格式化分区命令—mkfs"><a href="#三、格式化分区命令—mkfs" class="headerlink" title="三、格式化分区命令—mkfs"></a>三、格式化分区命令—mkfs</h3><p>命令格式：mkfs –t 文件系统类型 分区设备 </p>
+<p>默认使用的是 ext4 文件系统，Linux 也支持 Windows 中的 FAT32 文件系统，在 Linux 中表示为 vfat。<br>举例：将/dev/sdb1 格式化为 ext4 文件系统。</p>
+<p>[root@localhost ~]# mkfs -t ext4 /dev/sdb1</p>
+<p>举例：将/dev/sdb5 格式化为 fat32 文件系统。</p>
+<p>[root@localhost ~]# mkfs -t vfat /dev/sdb5</p>
+<h3 id="四、挂载-卸载文件系统"><a href="#四、挂载-卸载文件系统" class="headerlink" title="四、挂载/卸载文件系统"></a>四、挂载/卸载文件系统</h3><h4 id="1、挂载文件系统"><a href="#1、挂载文件系统" class="headerlink" title="1、挂载文件系统"></a>1、挂载文件系统</h4><p>通 过 之 前 的 操 作 ， 已 经 将 系 统 中 新 增 加 的 第 二 块 硬 盘 分 成 了 4 个 分 区 ： /dev/sdb1,/dev/sdb4,/dev/sdb5,/dev/sdb6,其中/dev/sdb4 作为扩展分区，无法实际使用实际可用的分 区只有三个。但这个三个分区也无法直接被使用，要想使用这些分区，还必须经过最后一步操作—挂载。 挂载是 Linux 系统与 windows 系统在存储设备操作方式上的一个非常重要的区别。 </p>
+<p>（1） 了解什么是挂载 挂载就是指定系统中的一个目录作为挂载点，用户通过访问这个目录来实现对硬盘分区的数据存取操 作。例如把/dev/sdb5 挂载到/tmp/目录，当用户在/tmp/目录下执行数据存取操作时，Linux 系统就知道要 到/dev/sdb5 上执行相关的操作。</p>
+<p>（2）mount 命令——挂载文件系统 挂载由 mount 命令来完成，可以灵活的挂载各种类型的文件系统。</p>
+<p> 命令格式：mount [选项] [设备名] [挂载点]</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-t fstype</td>
+<td>指定要挂载的文件系统的类型，如果不清楚，可以使用-t auto 让系统 自己选择最合适的文件系统类型挂载。</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>以只读的方式挂载文件系统</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>以读写的方式挂载文件系统，默认选项</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>设置挂载属性</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>挂载/etc/fstab 文件中记录的设备</td>
+</tr>
+</tbody></table>
+<p>●文件系统类型通常可以省略（由系统自动识别） </p>
+<p>●文件系统对应分区的设备文件名</p>
+<p>●挂载点为用户指定用于挂载的目录 </p>
+<p>挂载点必须是一个已经存在的目录，一般在挂载之前使用 mkdir 命令先创建一个新的目录，如果把现 有的目录当做挂载点，则这个目录最好为空目录</p>
+<p>（3）挂载硬盘分区 </p>
+<p>将“/dev/sdb1”挂载到“/data”目录</p>
+<p>（4）df 命令—查看已挂载的文件系统 </p>
+<p>df 命令主要用来了解系统中已经挂载的各个文件系统的磁盘使用情况。</p>
+<p> 常用选项：</p>
+<p> “-h” ，显示更易读的容量单位；</p>
+<p> “-T” ，显示文件系统的类型。</p>
+<p>(5）挂载光盘 </p>
+<p>在挂载光盘和 U 盘等外围设备时一般习惯性地将挂载点放在/mnt 目录下。 </p>
+<p>光盘对应的设备文件通常为“/dev/cdrom” ，将光盘挂载到“/mnt/cdrom”目录。</p>
+<p>(6）挂载移动存储设备 Linux 系统将 USB 接口的移动设备视作 SCSI 设备对待，使用“/dev/sdxx”的设备文件名。 练习：查看 U 盘的分区信息，并将它挂载到“/mnt/usb”目录。 </p>
+<p>（7）挂载 ISO 镜像 Linux 将 iso 镜像视为一种特殊的“回环”文件系统，在挂载时需要添加“-o loop”选项。 练习：将 U 盘中事先准备好的 iso 镜像挂载到“/mnt/xp”目录中。</p>
+<h4 id="2、自动挂载（永久挂载）"><a href="#2、自动挂载（永久挂载）" class="headerlink" title="2、自动挂载（永久挂载）"></a>2、自动挂载（永久挂载）</h4><p>通过 mount 命令挂载的文件系统在 Linux 系统关机或重启时都会自动被卸载，这样每次开机后管理员都 需要将它们手工挂载一遍，如果在挂载的文件系统里存放了一些开机要自动运行的程序数据，就可能导致 程序出现错误。在 Linux 系统中可以通过修改/etc/fstab（File System Table）文件来完成文件系统的自动挂载，即表示系统启动后自动将硬盘各分区挂载到文件系统中，用户可以直接使用这些分区中的内容。</p>
+<p>（1）/etc/fstab 文件内容<br>第 1 字段：需要挂载的设备文件名。</p>
+<p> 第 2 字段：挂载点，必须是一个目录，而且必须用绝对路径。 对于交换分区，这个字段定义为 swap。</p>
+<p> 第 3 字段：文件系统的类型。如果是 ext4 文件系统，则写成 ext4；如果是 FAT32 文件系统， 则写成 vfat；如果是光盘，可以写成 auto，由系统自动检测。</p>
+<p> 第 4 字段：挂载选项。一般都是采用“defaults” 。</p>
+<p> 第 5 字段：文件系统是否需要 dump 备份，1 表示需要，0 表示忽略。 </p>
+<p>第 6 字段：在系统启动时是否检查这个文件系统以及检查的顺序，0 表示不检查，1 表示优 先检查，2 表示其次检查。</p>
+<p>（2）修改/etc/fstab 文件，实现自动挂载</p>
+<p> 举例 1：将/dev/sdb1 永久挂载到/data 目录：</p>
+<p> /dev/sdb1 /data ext4 defaults 0 0  </p>
+<p>举例 2：将光盘永久挂载到/mnt/cdrom 目录：</p>
+<p> /dev/cdrom /mnt/cdrom auto defaults 0 0 设置完成后，可以执行“<strong>mount –a</strong>”命令，自动挂载文件中所有的文件系统。 </p>
+<p>3、umount——卸载文件系统 </p>
+<p>文件系统可以被挂载，不用时可以被卸载。卸载文件系统的命令是 umount，这个命令可以把文件系统 从 Linux 系统中的挂载点上分离，将原来建立的文件系统和挂载点的连接断掉。</p>
+<p> 命令格式：<strong>umount [设备名或者挂载点]</strong> </p>
+<p>在卸载一个文件系统的时候，需要指定要卸载的文件系统的挂载点或者设备名。</p>
+<p>例如： #umount /dev/sdb1 //指定设备名卸载 </p>
+<p>​            #umount /mnt/sdb1 //指定挂载点卸载</p>
+<p>如果卸载文件系统提示： “busy 状态，不可卸载时”，<strong>使用 fuser 命令查看正在使用该文件系统的用户信息。</strong></p>
+<p> 命令格式：fuser [options] 文件系统名或者文件名</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>显示所有在命令行中指定的文件系统信息。默认情况下，至少被一个进程访问的 文件才会被显示</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>杀死访问文件的进程</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>在杀死使用文件的用户进程之前，提示确认</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示使用文件系统的进程的所有者信息</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>按进程查看命令 ps 的显示模式，显示文件的使用者信息，包括 PID、 USER、 COMMAND 等。</td>
+</tr>
+</tbody></table>
+<p>【举例 1】查看哪个进程打开了当前目录下的 cdrom 文件夹。 [root@localhost~]# fuser /mnt/cdrom</p>
+<p> /mnt/cdrom: 71992c </p>
+<p><strong>杀死进程的方法：</strong> </p>
+<p>（1）#kill -9 71992 （2）#fuser -km /mnt/cdrom</p>
+<h2 id="一、LVM-的概念"><a href="#一、LVM-的概念" class="headerlink" title="一、LVM 的概念"></a>一、LVM 的概念</h2><p><strong>LVM</strong> <strong>卷管理</strong></p>
+<p>LVM 可以实现对磁盘的动态管理，在磁盘不用重新分区的情况下动态调整文件系统的大小，利用 LVM 管理的文件系统可以跨越磁盘。“/boot”分区用于存放系统引导文件，不能应用 LVM 机制。</p>
+<p><img src="C:%5CUsers%5CASUS%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1576858839502.png" alt="1576858839502"></p>
+<p>物理卷 PV，经过处理后的磁盘分区。</p>
+<p>卷组 VG，由一个或多个物理卷组成，类似于非 LVM 系统中的物理磁盘。</p>
+<p>逻辑卷 LV，在逻辑卷之上可以创建文件系统，类似于非 LVM 系统中的磁盘分区。</p>
+<p>物理块 PE，物理卷的组成部分，PE 的大小默认为 4MB，大小可调，一个卷组中最多能包括 65534 个PE。</p>
+<h2 id="二、LVM-的管理命令："><a href="#二、LVM-的管理命令：" class="headerlink" title="二、LVM 的管理命令："></a>二、LVM 的管理命令：</h2><table>
+<thead>
+<tr>
+<th><strong>功能</strong></th>
+<th><strong>物理卷管理</strong></th>
+<th><strong>卷组管理</strong></th>
+<th><strong>逻辑卷管理</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>scan 扫描</td>
+<td><strong>pv</strong>scan</td>
+<td><strong>vg</strong>scan</td>
+<td><strong>lv</strong>scan</td>
+</tr>
+<tr>
+<td>Create 建立</td>
+<td>pvcreate</td>
+<td>vgcreate</td>
+<td>lvcreate</td>
+</tr>
+<tr>
+<td>Display 显示</td>
+<td>pvdisplay</td>
+<td>vgdisplay</td>
+<td>lvdisplay</td>
+</tr>
+<tr>
+<td>Remove 删除</td>
+<td>pvremove</td>
+<td>vgremove</td>
+<td>lvremove</td>
+</tr>
+<tr>
+<td>Reduce 缩减</td>
+<td></td>
+<td>vgreduce</td>
+<td>lvreduce</td>
+</tr>
+<tr>
+<td>Extend 扩展</td>
+<td></td>
+<td>vgextend</td>
+<td>lvextend</td>
+</tr>
+</tbody></table>
+<p><strong>三、准备实验环境</strong></p>
+<p>​     在虚拟机中额外添加 2 块硬盘（整个虚拟机共有 3 块硬盘）</p>
+<p>​     为虚拟机创建快照</p>
+<p><strong>1、创建磁盘分区</strong></p>
+<p>创建物理分区： /dev/sdb1 和 /dev/sdb5,并修改分区标记为 8e。</p>
+<h2 id="2、创建物理卷-PV"><a href="#2、创建物理卷-PV" class="headerlink" title="2、创建物理卷 PV"></a>2、创建物理卷 PV</h2><p>然后创建物理卷 PV，用到的命令是pvcreate （相当于图形操作中的初始化磁盘）</p>
+<p> pvcreate /dev/sdb1 /dev/sdb5   可以不同区合为一个物理卷</p>
+<h2 id="3、创建卷组-VG"><a href="#3、创建卷组-VG" class="headerlink" title="3、创建卷组 VG"></a>3、<strong>创建卷组 VG</strong></h2><p>接下来创建卷组 VG ,用到的命令是 vgcreate</p>
+<p>使用物理卷/dev/sdb1 和 /dev/sdb5 创建名为 wgroup 的卷组</p>
+<p>vgcreate wgroup /dev/sdb1 /dev/sdb5</p>
+<p>创建完后可以用 vgdisplay 命令查看卷组的信息</p>
+<h2 id="4、创建逻辑卷"><a href="#4、创建逻辑卷" class="headerlink" title="4、创建逻辑卷"></a>4、创建逻辑卷</h2><p>从卷中创建逻辑卷，用到的命令是 lvcreate 格式如下：</p>
+<p>lvcreate -L 容量大小 -n 逻辑卷名 卷组名</p>
+<p>例：从 wgroup 卷组中创建名为 ftp 的容量为 19G 的逻辑卷</p>
+<p>lvcreate -L 19G -n ftp wgroup</p>
+<h2 id="5、创建并挂载文件系统"><a href="#5、创建并挂载文件系统" class="headerlink" title="5、创建并挂载文件系统"></a>5、创建并挂载文件系统</h2><p>逻辑卷相当于一个磁盘分区，要使用它首先要将其格式化</p>
+<p><strong>mkfs -t ext4  /dev/wgroup/ftp</strong></p>
+<p>然后创建挂载目录点，将逻辑卷挂载mkdir /var/ftp</p>
+<p>挂载：mount /dev/wgroup/ftp /mnt/ftp 修改/etc/fstab 文件，实现永久挂载vim /etc/fstab</p>
+<h2 id="6、扩展逻辑空间"><a href="#6、扩展逻辑空间" class="headerlink" title="6、扩展逻辑空间"></a>6、扩展逻辑空间</h2><p>最后将第三块硬盘/dev/sdc 加入到逻辑卷中。</p>
+<p>先将硬盘分成一个分区/dev/sdc1,并将分区标记修改为 8e 然后将分区转换为物理卷：</p>
+<p>pvcreate /dev/sdc1</p>
+<p>将物理卷/dev/sdc1 添加到卷组wgroup 中：</p>
+<p>vgextend wgroup /dev/sdc1 扩</p>
+<p>展逻辑卷的空间：</p>
+<p>lvextend -L +10G /dev/wgroup/ftp</p>
+<p>执行 resize2fs 命令重设文件系统的大小：resize2fs /dev/wgroup/ftp</p>
+<p>再次查看文件系统/var/ftp 的空间大小，可以看到已经变成了 29GB： </p>
+<p>df -HT</p>
+<h2 id="磁盘的分区与挂载："><a href="#磁盘的分区与挂载：" class="headerlink" title="磁盘的分区与挂载："></a>磁盘的分区与挂载：</h2><p>1.磁盘(硬盘）在Linux系统中的表示方法<br>  IDE硬盘：hda1 hda2  hdb1 hdc1 ….<br>  SATA硬盘/SCSI/USB接口的移动盘：sda1 sda2 sdb1</p>
+<p>2.硬盘分区： 主分区    最多只能分4个，是可以直接使用，主要用于系统盘。编号为1-4<br>            扩展分区  不能直接使用，必须有主分区后才能将所有剩余空间分为扩展分区，可以建立逻辑分区。1-4，除主分区外。<br>            逻辑分区   可以直接使用，编号从5开始，不能做为系统引导盘。</p>
+<p>3.磁盘分区的格式：windows 系统中的格式有 fat fat 16  fat32   分区大小也会受到限制、文件的大小会受到限制，安全性能不高。<br>                                       NTFS   支持大容量分区，支持NTFS权限设置，安全性能较高<br>                 Linux系统中的常用格式有 ext2 ext3 ext4</p>
+<p>4.挂载</p>
+<p>5.磁盘分区<br>    步骤一：向Linux服务器添加一块硬盘，并重启系统。<br>    步骤二：使用命令查看系统当中的硬盘及其分区信息<br>            ls /dev/sd*   查看/dev目录下的硬盘文件<br>            fdisk -l   查看硬盘分区的信息<br>    步骤三：对磁盘进行分区<br>            fdisk 磁盘文件名<br>             fdisk /dev/sdb   对sdb这块硬盘进行分区<br>    步骤四：格式化磁盘分区<br>            mkfs -t 分区格式（ext4） 分区名称<br>            mkfs -t ext4  /dev/sdb1<br>    步骤五：挂载分区<br>           mount -t 分区格式 设备名称  空目录名称<br>           mount -t ext4 /dev/sdb1 /mnt/sdb1<br>           mount -t ext4 -o rw /dev/sdb1 /mnt/sdb1<br>           检查是否挂载成功：mount<br>           取消挂载：umount 挂载目录的名称 （不能在挂载目录下进行）<br>           查看已挂载分区的信息：df -hT /mnt/sdb1<br>           使用mount命令挂载的文件系统，只是临时的，如果系统重启则需要重新挂载。<br>   步骤六：可以使用/etc/fstab文件对文件系统进行永久挂载。<br>   步骤七：挂载光盘（光盘的设备文件名为：/dev/sr0,文件系统的类型为：iso9660)<br>           mount -t iso9660 /dev/sr0 /mnt/cdrom<br>   步骤八：挂载U盘</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/01/27/LNMP环境搭建/">
                 LNMP环境搭建
             </a>
@@ -193,6 +1018,105 @@
 <p>​           fastcgi_param  SCRIPT_FILENAME$document_root$fastcgi_script_name;</p>
 <p>​           include        fastcgi_params;</p>
 <p>   }</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/01/27/web服务/">
+                Web服务
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-27</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <a id="more"></a>
+
+<h1 id="web服务器单个网站"><a href="#web服务器单个网站" class="headerlink" title="web服务器单个网站"></a>web服务器单个网站</h1><h3 id="一、发布网站"><a href="#一、发布网站" class="headerlink" title="一、发布网站"></a>一、发布网站</h3><h4 id="1、安装Apache服务"><a href="#1、安装Apache服务" class="headerlink" title="1、安装Apache服务"></a>1、安装Apache服务</h4><p> # yum install -y httpd </p>
+<p>#systemctl start httpd.service</p>
+<p><strong>/etc/httpd/conf：该目录存放Apache服务器的配置文件</strong></p>
+<p><strong>/var/www/html：该目录是Apache服务器的默认站点根目录</strong></p>
+<p>/etc/httpd/logs:Apache服务器的日志文件目录</p>
+<h4 id="2、测试Apache是否安装成功"><a href="#2、测试Apache是否安装成功" class="headerlink" title="2、测试Apache是否安装成功"></a><strong>2、测试Apache是否安装成功</strong></h4><p> 在浏览器的地址栏输入：localhost进行测试</p>
+<h4 id="3、移动到目录var-www-html-下"><a href="#3、移动到目录var-www-html-下" class="headerlink" title="3、移动到目录var/www/html/下"></a>3、移动到目录var/www/html/下</h4><p>将公司网站exam复制到/var/www/html/目录下，并修改配置文件：</p>
+<p>  Vim  /etc/httpd/conf/httpd.conf</p>
+<p>​    修改：DocumentRoot “/var/www/html/“为</p>
+<p>​               DocumentRoot “/var/www/html/exam”</p>
+<p> <strong>【修改完配置文件后必须要重启服务：systemctl restart httpd】</strong></p>
+<h3 id="二、发布个性化网站"><a href="#二、发布个性化网站" class="headerlink" title="二、发布个性化网站"></a><strong>二、发布个性化网站</strong></h3><p>  项目考核信息网站部署完成后，考虑到站点是内部网站，为了保证安全，将首页改为exam.html，并使用8080端口访问。</p>
+<p><strong>改首页名字：</strong></p>
+<p>#mv   /var/www/html/exam/index.html   /var/www/html/exam/exam.html</p>
+<h4 id="修改配置文件："><a href="#修改配置文件：" class="headerlink" title="修改配置文件："></a><strong>修改配置文件：</strong></h4><p>Vim /etc/httpd/conf/httpd.conf </p>
+<p>​                                 Listen 8080</p>
+<p>​                                 DirectoryIndex exam.html index.html</p>
+<p><strong>重启服务：</strong></p>
+<p>systemctl restart httpd</p>
+<p><strong>访问测试：</strong>192.168.75.128:8080</p>
+<h2 id="Web服务器虚拟主机"><a href="#Web服务器虚拟主机" class="headerlink" title="Web服务器虚拟主机"></a>Web服务器虚拟主机</h2><p>管理员需要通过基于域名或IP地址的虚拟主机方式布署多个网站。</p>
+<p><strong>项目实施：</strong></p>
+<h3 id="1、基于域名的虚拟主机"><a href="#1、基于域名的虚拟主机" class="headerlink" title="1、基于域名的虚拟主机"></a><strong>1、基于域名的虚拟主机</strong></h3><p><strong>（1）域名注册，在/etc/hosts中追加两行：</strong></p>
+<p>192.168.75.128 exam.excesoft.com </p>
+<p>192.168.75.128 attendance.excesoft.com</p>
+<p>域名测试：nslookup</p>
+<p><strong>（2）将两个网站放到/var/www目录下</strong></p>
+<p><strong>（3）修改主配置文件：vim /etc/httpd/conf/httpd.conf</strong></p>
+<p>​                                         Listen 80</p>
+<p>​                                         DirectoryIndex index.html</p>
+<p><strong>在末尾增加</strong>：Include conf/<strong>vhost</strong>/*.conf </p>
+<p><strong>（4）在/etc/httpd/conf 目录下新建vhost目录，并在下面新建exam.conf与attendance.conf两个</strong></p>
+<p><strong>域名配置文件，并作如下编辑。</strong></p>
+<p><strong>#vim exam.conf</strong></p>
+<p>&lt;VirtualHost 192.168.75.128&gt;</p>
+<p>ServerName exam.excesoft.com    域名</p>
+<p>DocumentRoot /var/www/exam/    站点</p>
+<p>&lt;Directory “/var/www/exam/”&gt;</p>
+<p>Options Indexes FollowSymLinks  //显示网页文件列表</p>
+<p>AllowOverride NOne        //忽略.htaccess 文件</p>
+<p>Require all granted       //允许所有</p>
+
+
+
+
+
+
+<p>#vim attendance.conf</p>
+<p>&lt;VirtualHost 192.168.75.128&gt;</p>
+<p>ServerName attendance.excesoft.com</p>
+<p>DocumentRoot /var/www/attendance/</p>
+<p>&lt;Directory “/var/www/attendance/”&gt;</p>
+<p>Options Indexes FollowSymLinks  //显示网页文件列表</p>
+<p>AllowOverride NOne        //忽略.htaccess 文件</p>
+<p>Require all granted       //允许所有</p>
+
+
+
+
+
+
+<p><strong>(5)</strong>   <strong>使用httpd -t检查虚拟主机的配置是否正确</strong></p>
+<p><strong>(6)</strong>   <strong>重启Apache服务并进行测试</strong></p>
+<h3 id="2、基于IP地址的虚拟主机"><a href="#2、基于IP地址的虚拟主机" class="headerlink" title="2、基于IP地址的虚拟主机"></a><strong>2、基于IP地址的虚拟主机</strong></h3><p><strong>（1）设置多个IP地址</strong></p>
+<p><strong>（2）域名注册</strong></p>
+<p><strong>（3）修改主配置文件：vim /etc/httpd/conf/httpd.conf</strong></p>
+<p>Listen 80</p>
+<p>DirectoryIndex index.html</p>
+<p>在末尾增加：Include conf/vhost/*.conf</p>
+<p><strong>（4）为每个主机新建配置文件并定义一个容器</strong></p>
+<p><strong>（5）重启Apache服务器并进行测试</strong></p>
 
         </div>
     
@@ -309,105 +1233,6 @@
 <h3 id="实验三、-EIGRP-路由汇总"><a href="#实验三、-EIGRP-路由汇总" class="headerlink" title="实验三、 EIGRP 路由汇总"></a>实验三、 EIGRP 路由汇总</h3><p>ip summary-address eigrp 100 172.16.0.0 255.255.0.0</p>
 <p>配置被动接口：passive-interface Loo</p>
 <p>passive-interface不接收不发送，passive是只接收不发送</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/01/27/web服务/">
-                Web服务
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-01-27</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <a id="more"></a>
-
-<h1 id="web服务器单个网站"><a href="#web服务器单个网站" class="headerlink" title="web服务器单个网站"></a>web服务器单个网站</h1><h3 id="一、发布网站"><a href="#一、发布网站" class="headerlink" title="一、发布网站"></a>一、发布网站</h3><h4 id="1、安装Apache服务"><a href="#1、安装Apache服务" class="headerlink" title="1、安装Apache服务"></a>1、安装Apache服务</h4><p> # yum install -y httpd </p>
-<p>#systemctl start httpd.service</p>
-<p><strong>/etc/httpd/conf：该目录存放Apache服务器的配置文件</strong></p>
-<p><strong>/var/www/html：该目录是Apache服务器的默认站点根目录</strong></p>
-<p>/etc/httpd/logs:Apache服务器的日志文件目录</p>
-<h4 id="2、测试Apache是否安装成功"><a href="#2、测试Apache是否安装成功" class="headerlink" title="2、测试Apache是否安装成功"></a><strong>2、测试Apache是否安装成功</strong></h4><p> 在浏览器的地址栏输入：localhost进行测试</p>
-<h4 id="3、移动到目录var-www-html-下"><a href="#3、移动到目录var-www-html-下" class="headerlink" title="3、移动到目录var/www/html/下"></a>3、移动到目录var/www/html/下</h4><p>将公司网站exam复制到/var/www/html/目录下，并修改配置文件：</p>
-<p>  Vim  /etc/httpd/conf/httpd.conf</p>
-<p>​    修改：DocumentRoot “/var/www/html/“为</p>
-<p>​               DocumentRoot “/var/www/html/exam”</p>
-<p> <strong>【修改完配置文件后必须要重启服务：systemctl restart httpd】</strong></p>
-<h3 id="二、发布个性化网站"><a href="#二、发布个性化网站" class="headerlink" title="二、发布个性化网站"></a><strong>二、发布个性化网站</strong></h3><p>  项目考核信息网站部署完成后，考虑到站点是内部网站，为了保证安全，将首页改为exam.html，并使用8080端口访问。</p>
-<p><strong>改首页名字：</strong></p>
-<p>#mv   /var/www/html/exam/index.html   /var/www/html/exam/exam.html</p>
-<h4 id="修改配置文件："><a href="#修改配置文件：" class="headerlink" title="修改配置文件："></a><strong>修改配置文件：</strong></h4><p>Vim /etc/httpd/conf/httpd.conf </p>
-<p>​                                 Listen 8080</p>
-<p>​                                 DirectoryIndex exam.html index.html</p>
-<p><strong>重启服务：</strong></p>
-<p>systemctl restart httpd</p>
-<p><strong>访问测试：</strong>192.168.75.128:8080</p>
-<h2 id="Web服务器虚拟主机"><a href="#Web服务器虚拟主机" class="headerlink" title="Web服务器虚拟主机"></a>Web服务器虚拟主机</h2><p>管理员需要通过基于域名或IP地址的虚拟主机方式布署多个网站。</p>
-<p><strong>项目实施：</strong></p>
-<h3 id="1、基于域名的虚拟主机"><a href="#1、基于域名的虚拟主机" class="headerlink" title="1、基于域名的虚拟主机"></a><strong>1、基于域名的虚拟主机</strong></h3><p><strong>（1）域名注册，在/etc/hosts中追加两行：</strong></p>
-<p>192.168.75.128 exam.excesoft.com </p>
-<p>192.168.75.128 attendance.excesoft.com</p>
-<p>域名测试：nslookup</p>
-<p><strong>（2）将两个网站放到/var/www目录下</strong></p>
-<p><strong>（3）修改主配置文件：vim /etc/httpd/conf/httpd.conf</strong></p>
-<p>​                                         Listen 80</p>
-<p>​                                         DirectoryIndex index.html</p>
-<p><strong>在末尾增加</strong>：Include conf/<strong>vhost</strong>/*.conf </p>
-<p><strong>（4）在/etc/httpd/conf 目录下新建vhost目录，并在下面新建exam.conf与attendance.conf两个</strong></p>
-<p><strong>域名配置文件，并作如下编辑。</strong></p>
-<p><strong>#vim exam.conf</strong></p>
-<p>&lt;VirtualHost 192.168.75.128&gt;</p>
-<p>ServerName exam.excesoft.com    域名</p>
-<p>DocumentRoot /var/www/exam/    站点</p>
-<p>&lt;Directory “/var/www/exam/”&gt;</p>
-<p>Options Indexes FollowSymLinks  //显示网页文件列表</p>
-<p>AllowOverride NOne        //忽略.htaccess 文件</p>
-<p>Require all granted       //允许所有</p>
-
-
-
-
-
-
-<p>#vim attendance.conf</p>
-<p>&lt;VirtualHost 192.168.75.128&gt;</p>
-<p>ServerName attendance.excesoft.com</p>
-<p>DocumentRoot /var/www/attendance/</p>
-<p>&lt;Directory “/var/www/attendance/”&gt;</p>
-<p>Options Indexes FollowSymLinks  //显示网页文件列表</p>
-<p>AllowOverride NOne        //忽略.htaccess 文件</p>
-<p>Require all granted       //允许所有</p>
-
-
-
-
-
-
-<p><strong>(5)</strong>   <strong>使用httpd -t检查虚拟主机的配置是否正确</strong></p>
-<p><strong>(6)</strong>   <strong>重启Apache服务并进行测试</strong></p>
-<h3 id="2、基于IP地址的虚拟主机"><a href="#2、基于IP地址的虚拟主机" class="headerlink" title="2、基于IP地址的虚拟主机"></a><strong>2、基于IP地址的虚拟主机</strong></h3><p><strong>（1）设置多个IP地址</strong></p>
-<p><strong>（2）域名注册</strong></p>
-<p><strong>（3）修改主配置文件：vim /etc/httpd/conf/httpd.conf</strong></p>
-<p>Listen 80</p>
-<p>DirectoryIndex index.html</p>
-<p>在末尾增加：Include conf/vhost/*.conf</p>
-<p><strong>（4）为每个主机新建配置文件并定义一个容器</strong></p>
-<p><strong>（5）重启Apache服务器并进行测试</strong></p>
 
         </div>
     
@@ -885,38 +1710,24 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2019/09/07/CVE-2019-0708/">
-                漏洞复现
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-09-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
-        </div>
-        <a href="/2019/09/07/CVE-2019-0708/" class="read-more">Read More</a>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
 
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -941,19 +1752,19 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/27/LNMP环境搭建/">LNMP环境搭建</a>
+                <a class="footer-post" href="/2020/01/30/STP生成树协议/">LNMP环境搭建</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2020/01/27/EIGRP/">高级距离矢量路由协议 EIGRP</a>
+                <a class="footer-post" href="/2020/01/30/路由重分与路径控制与VPNPPP/">LNMP环境搭建</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2020/01/27/web服务/">Web服务</a>
+                <a class="footer-post" href="/2020/01/29/PEX远程服务批量装机/">LNMP环境搭建</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2020/01/24/数据库基本操作/">数据库基本操作</a>
+                <a class="footer-post" href="/2020/01/29/磁盘挂载与卷管理/">LNMP环境搭建</a>
             </li>
             
         </ul>
